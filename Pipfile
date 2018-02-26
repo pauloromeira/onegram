@@ -7,10 +7,15 @@ name = "pypi"
 
 [packages]
 
+requests = "*"
+sessionlib = "*"
+python-decouple = "*"
 
 
 [dev-packages]
 
+ipdb = "*"
+ipython = "*"
 
 
 [requires]
