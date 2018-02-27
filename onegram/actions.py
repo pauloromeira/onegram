@@ -20,3 +20,15 @@ def follow(session, username=None):
 
     logger.debug(response.text)
     return response
+
+@sessionaware
+def unfollow(session, username=None):
+    username = username or session.username
+
+    user = user_info(session, username)
+    url = URLS['unfollow'](user_id=user['id'])
+
+    response = session.action(url)
+
+    logger.debug(response.text)
+    return response
