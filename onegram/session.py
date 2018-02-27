@@ -33,7 +33,7 @@ class Insta(Session):
         self.requests.headers.update(DEFAULT_HEADERS)
 
         user_agent = self.settings.get('USER_AGENT')
-        if not user_agent:
+        if user_agent is None:
             user_agent = UserAgent().random
         self.requests.headers.update({'User-Agent': user_agent})
 
