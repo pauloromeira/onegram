@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 
 from onegram import Insta
+from onegram.queries import user
 
 
 with Insta():
-    pass
+    me = user()
+    other = user('other')
