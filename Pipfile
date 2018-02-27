@@ -11,6 +11,7 @@ requests = "*"
 sessionlib = "*"
 python-decouple = "*"
 fake-useragent = "*"
+jmespath = "*"
 
 
 [dev-packages]
