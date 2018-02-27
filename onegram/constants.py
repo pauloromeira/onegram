@@ -39,4 +39,5 @@ URLS = {
 # TODO [romeira]: get from Consumer.js {27/02/18 19:52}
 QUERY_HASHES = {
     'followers': '37479f2b8209594dde7facb0d904896a',
+    'following': '58712303d941c6855d4e888c5f0cd22f',
 }
