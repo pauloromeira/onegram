@@ -28,5 +28,7 @@ COOKIES = {
 URLS = {
     'start': 'https://www.instagram.com/',
     'login': 'https://www.instagram.com/accounts/login/ajax/',
-    'user': 'https://www.instagram.com/{}/'.format,
+    'user_info': 'https://www.instagram.com/{username}/'.format,
+    'follow': ('https://www.instagram.com/web/'
+               'friendships/{user_id}/follow/').format,
 }
