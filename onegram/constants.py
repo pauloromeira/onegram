@@ -35,3 +35,8 @@ URLS = {
                  'friendships/{user_id}/unfollow/').format,
     'graphql': 'https://www.instagram.com/graphql/query/',
 }
+
+# TODO [romeira]: get from Consumer.js {27/02/18 19:52}
+QUERY_HASHES = {
+    'followers': '37479f2b8209594dde7facb0d904896a',
+}

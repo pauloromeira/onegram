@@ -3,7 +3,7 @@ import logging
 
 from sessionlib import sessionaware
 
-from .constants import URLS
+from .constants import URLS, QUERY_HASHES
 from .utils import jsearch
 
 logger = logging.getLogger(__name__)
@@ -27,22 +27,17 @@ def followers(session, username=None):
     user = user_info(session, username)
     url = URLS['graphql']
 
-    has_next_page = True
-
     variables = {
         'id': user['id'],
         'first': 20,
     }
-
-    # TODO [romeira]: get query_hash from Consumer.js {27/02/18 17:55}
     params = {
-        'query_hash': '37479f2b8209594dde7facb0d904896a',
+        'query_hash': QUERY_HASHES['followers'],
         'variables': json.dumps(variables),
     }
 
     response = session.query(url, params=params)
     data = jsearch('data.user.edge_followed_by', response)
-
     yield from jsearch('edges[].node', data)
 
     page_info = data['page_info']
