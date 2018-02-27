@@ -4,6 +4,7 @@ import logging
 from sessionlib import sessionaware
 
 from .constants import URLS
+from .utils import jsearch
 
 logger = logging.getLogger(__name__)
 
@@ -17,4 +18,4 @@ def user_info(session, username=None):
     response = session.query(url, params=params)
 
     logger.debug(response.text)
-    return json.loads(response.text)['user']
+    return jsearch('user', response)
