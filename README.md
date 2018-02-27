@@ -1,6 +1,6 @@
 # onegram
 
-A simplistic api-like instagram bot.
+A simplistic api-like instagram bot powered by [requests](https://github.com/requests/requests).
 
 #### Example:
 ```py
