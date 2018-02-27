@@ -17,3 +17,8 @@ LOG_SETTINGS = {
     'format': '%(levelname)s:%(name)s:%(funcName)s:%(message)s',
     'level': logging.DEBUG if DEBUG else logging.INFO,
 }
+
+QUERY_CHUNKS = {
+    'head': 20,
+    'tail': 10,
+}

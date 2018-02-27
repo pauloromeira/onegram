@@ -28,9 +28,11 @@ def followers(session, username=None):
     user = user_info(session, username)
     url = URLS['graphql']
 
+    chunks = session.settings['QUERY_CHUNKS']
+
     variables = {
         'id': user['id'],
-        'first': 20,
+        'first': chunks['head'],
     }
     params = {
         'query_hash': QUERY_HASHES['followers'],
@@ -43,7 +45,7 @@ def followers(session, username=None):
 
     page_info = data['page_info']
     while page_info['has_next_page']:
-        variables['first'] = 10
+        variables['first'] = chunks['tail']
         variables['after'] = page_info['end_cursor']
         params['variables'] = json.dumps(variables)
 
@@ -60,9 +62,11 @@ def following(session, username=None):
     user = user_info(session, username)
     url = URLS['graphql']
 
+    chunks = session.settings['QUERY_CHUNKS']
+
     variables = {
         'id': user['id'],
-        'first': 20,
+        'first': chunks['head'],
     }
     params = {
         'query_hash': QUERY_HASHES['following'],
@@ -75,7 +79,7 @@ def following(session, username=None):
 
     page_info = data['page_info']
     while page_info['has_next_page']:
-        variables['first'] = 10
+        variables['first'] = chunks['tail']
         variables['after'] = page_info['end_cursor']
         params['variables'] = json.dumps(variables)
 
