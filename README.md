@@ -5,11 +5,11 @@ A simplistic api-like instagram bot.
 #### Example:
 ```py
 from onegram import Insta
-from onegram.actions import followers, follow
+from onegram import follow, followers
 
 
 with Insta(username='user', password='pswd'):
-    user_followers = followers()
+    user_followers = list(followers())
     print(user_followers)
 
     follow('<me>') # Follow me :)
