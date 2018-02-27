@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 
+from itertools import islice
+
 from onegram import Insta
-from onegram.queries import user_info
+from onegram.queries import user_info, followers
 from onegram.actions import follow, unfollow
 
 
 with Insta():
-    follow('other')
-    unfollow('other')
-    # me = user_info()
-    # other = user_info('other')
+    some_followers = list(islice(followers(), 30))

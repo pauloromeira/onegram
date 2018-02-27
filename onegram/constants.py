@@ -33,4 +33,5 @@ URLS = {
                'friendships/{user_id}/follow/').format,
     'unfollow': ('https://www.instagram.com/web/'
                  'friendships/{user_id}/unfollow/').format,
+    'graphql': 'https://www.instagram.com/graphql/query/',
 }
