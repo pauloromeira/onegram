@@ -1,0 +1,19 @@
+* Actions:
+  - Follow
+  - Unfollow
+  - Like
+  - Unlike
+  - Comment
+  - Uncomment
+  - ...
+* Queries:
+  - User Info (followers/ing count, etc)
+  - Followers
+  - Following
+  - User Posts
+  - Feed Posts
+  - Explore Posts
+  - Post Info
+  - Post Likes
+  - Post Comments
+  - ...
