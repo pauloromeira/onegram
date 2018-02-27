@@ -10,6 +10,7 @@ name = "pypi"
 requests = "*"
 sessionlib = "*"
 python-decouple = "*"
+fake-useragent = "*"
 
 
 [dev-packages]

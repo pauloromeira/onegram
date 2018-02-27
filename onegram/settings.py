@@ -6,12 +6,10 @@ from decouple import config
 USERNAME = config('USERNAME', default=None)
 PASSWORD = config('PASSWORD', default=None)
 
-USER_AGENT = ('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/'
-              '537.36 (KHTML, like Gecko) Chrome/64.0.3282.167 Safari/537.36'
+# USER_AGENT = 'fake-useragent'
 
 DEFAULT_HEADERS = {
     'Connection': 'keep-alive',
-    'User-Agent': USER_AGENT,
     'Accept': '*/*',
     'Accept-Encoding': 'gzip, deflate, br',
     'Accept-Language': 'en-US',
