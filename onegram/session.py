@@ -32,17 +32,19 @@ class Insta(Session):
         self.requests = yield requests.Session()
         self.requests.headers.update(DEFAULT_HEADERS)
 
+        verify_ssl = self.settings.get('VERIFY_SSL', True)
+        self.requests.verify = verify_ssl
+
         user_agent = self.settings.get('USER_AGENT')
         if user_agent is None:
-            user_agent = UserAgent().random
+            user_agent = UserAgent(verify_ssl=verify_ssl).random
+
         self.requests.headers.update({'User-Agent': user_agent})
 
         self._login()
 
 
     def action(self, *a, **kw):
-        kw.setdefault('verify', not self.settings.get('SSL_INSECURE', False))
-
         headers = ACTION_HEADERS
         headers['X-CSRFToken'] = self.requests.cookies['csrftoken']
         if 'headers' in kw:
@@ -54,8 +56,6 @@ class Insta(Session):
 
 
     def query(self, *a, **kw):
-        kw.setdefault('verify', not self.settings.get('SSL_INSECURE', False))
-
         headers = QUERY_HEADERS
         if 'headers' in kw:
             headers = headers.copy()
@@ -66,8 +66,7 @@ class Insta(Session):
 
 
     def _login(self):
-        verify = not self.settings.get('SSL_INSECURE', False)
-        response = self.requests.get(URLS['start'], verify=verify)
+        response = self.requests.get(URLS['start'])
 
         self.requests.cookies.update(COOKIES)
 
