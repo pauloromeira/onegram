@@ -78,6 +78,8 @@ class Insta(Session):
 
         response = self.action(URLS['login'], data=payload)
 
+        logger.debug(response.text)
+
 
     def __str__(self):
         return f'({self.username})'

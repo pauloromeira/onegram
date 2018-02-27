@@ -12,5 +12,5 @@ SSL_INSECURE = True
 
 LOG_SETTINGS = {
     'format': '%(levelname)s:%(name)s:%(funcName)s:%(message)s',
-    'level': logging.INFO,
+    'level': logging.DEBUG,
 }
