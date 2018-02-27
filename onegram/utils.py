@@ -1,5 +1,5 @@
 import time
-import .settings as settings_module
+from . import settings as settings_module
 from random import uniform
 
 
