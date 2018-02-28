@@ -49,9 +49,28 @@ def unlike(session, post):
 
 
 @sessionaware
-def comment(session, post, commentary):
+def comment(session, post, comment_text):
     post_id = post['id'] if isinstance(post, dict) else post
 
     url = URLS['comment'](post_id=post_id)
-    payload = {'comment_text': commentary}
-    return session.action(url, data=payload)
+    payload = {'comment_text': comment_text}
+
+    data = session.action(url, data=payload)
+    data['post_id'] = post_id
+    return data
+
+
+@sessionaware
+def uncomment(session, commentary, post=None):
+    post_id = post['id'] if isinstance(post, dict) else post
+    commentary_id = (commentary['id'] if 
+                     isinstance(commentary, dict) else commentary)
+
+    if post_id is None:
+        try:
+            post_id = commentary['post_id']
+        except (TypeError, KeyError):
+            raise ValueError('Post id is missing')
+
+    url = URLS['uncomment'](post_id=post_id, commentary_id=commentary_id)
+    return session.action(url)
