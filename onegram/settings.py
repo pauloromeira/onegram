@@ -19,6 +19,6 @@ LOG_SETTINGS = {
 }
 
 QUERY_CHUNKS = {
-    'head': 20,
-    'tail': 10,
+    'follow_head': 20,
+    'follow_tail': 10,
 }

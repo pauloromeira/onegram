@@ -32,7 +32,7 @@ def followers(session, username=None):
 
     variables = {
         'id': user['id'],
-        'first': chunks['head'],
+        'first': chunks['follow_head'],
     }
     params = {
         'query_hash': QUERY_HASHES['followers'],
@@ -45,7 +45,7 @@ def followers(session, username=None):
 
     page_info = data['page_info']
     while page_info['has_next_page']:
-        variables['first'] = chunks['tail']
+        variables['first'] = chunks['follow_tail']
         variables['after'] = page_info['end_cursor']
         params['variables'] = json.dumps(variables)
 
@@ -66,7 +66,7 @@ def following(session, username=None):
 
     variables = {
         'id': user['id'],
-        'first': chunks['head'],
+        'first': chunks['follow_head'],
     }
     params = {
         'query_hash': QUERY_HASHES['following'],
@@ -79,7 +79,7 @@ def following(session, username=None):
 
     page_info = data['page_info']
     while page_info['has_next_page']:
-        variables['first'] = chunks['tail']
+        variables['first'] = chunks['follow_tail']
         variables['after'] = page_info['end_cursor']
         params['variables'] = json.dumps(variables)
 
