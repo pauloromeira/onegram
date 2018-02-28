@@ -21,4 +21,5 @@ LOG_SETTINGS = {
 QUERY_CHUNKS = {
     'follow_head': 20,
     'follow_tail': 10,
+    'posts': 12,
 }

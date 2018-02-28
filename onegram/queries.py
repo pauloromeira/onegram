@@ -18,7 +18,8 @@ def user_info(session, username=None):
     response = session.query(url, params=params)
 
     logger.debug(response.text)
-    return jsearch('user', response)
+    return jsearch('graphql.user', response)
+
 
 # TODO [romeira]: Refactor followers/following (almost the same) {27/02/18 20:27}
 @sessionaware
@@ -55,6 +56,7 @@ def followers(session, username=None):
 
         page_info = data['page_info']
 
+
 @sessionaware
 def following(session, username=None):
     username = username or session.username
@@ -89,3 +91,37 @@ def following(session, username=None):
 
         page_info = data['page_info']
 
+
+@sessionaware
+def posts(session, username=None):
+    username = username or session.username
+
+    user = user_info(session, username)
+    url = URLS['graphql']
+
+    data = user['edge_owner_to_timeline_media']
+    yield from jsearch('edges[].node', data)
+
+    page_info = data['page_info']
+    if not page_info['has_next_page']:
+        return
+
+    chunks = session.settings['QUERY_CHUNKS']
+
+    variables = {
+        'id': user['id'],
+        'first': chunks['posts'],
+    }
+    params = {
+        'query_hash': QUERY_HASHES['posts'],
+    }
+
+    while page_info['has_next_page']:
+        variables['after'] = page_info['end_cursor']
+        params['variables'] = json.dumps(variables)
+
+        response = session.query(url, params=params)
+        data = jsearch('data.user.edge_owner_to_timeline_media', response)
+        yield from jsearch('edges[].node', data)
+
+        page_info = data['page_info']

@@ -40,4 +40,5 @@ URLS = {
 QUERY_HASHES = {
     'followers': '37479f2b8209594dde7facb0d904896a',
     'following': '58712303d941c6855d4e888c5f0cd22f',
+    'posts': '472f257a40c653c64c666ce877d59d2b',
 }
