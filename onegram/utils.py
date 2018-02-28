@@ -1,4 +1,5 @@
 import json
+import logging
 import time
 import jmespath
 
@@ -6,6 +7,8 @@ from random import uniform
 from requests import Response
 
 from . import settings as settings_module
+
+logger = logging.getLogger(__name__)
 
 
 def load_settings(custom_settings={}):
@@ -29,4 +32,7 @@ def jsearch(pattern, content):
     return jmespath.search(pattern, dct)
 
 def sleep(t, var=.5):
-    time.sleep(uniform((1-var)*t, (1+var)*t))
+    if t:
+        sleep_time = uniform((1-var)*t, (1+var)*t) 
+        logger.info(f'{sleep_time:.{2}f} seconds')
+        time.sleep(sleep_time)

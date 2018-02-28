@@ -13,8 +13,8 @@ DEBUG = config('INSTA_DEBUG', default=False, cast=bool)
 
 VERIFY_SSL = DEBUG is False
 
-ACTION_DELAY = 1
-QUERY_DELAY = 0
+ACTION_DELAY = 4
+QUERY_DELAY = 2
 
 LOG_SETTINGS = {
     'format': '%(levelname)s:%(name)s:%(funcName)s:%(message)s',
