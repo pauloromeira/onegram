@@ -31,24 +31,24 @@ class Insta(Session):
 
 
     def enter_contexts(self):
-        self.requests = yield requests.Session()
-        self.requests.headers.update(DEFAULT_HEADERS)
+        self._requests = yield requests.Session()
+        self._requests.headers.update(DEFAULT_HEADERS)
 
         verify_ssl = self.settings.get('VERIFY_SSL', True)
-        self.requests.verify = verify_ssl
+        self._requests.verify = verify_ssl
 
         user_agent = self.settings.get('USER_AGENT')
         if user_agent is None:
             user_agent = UserAgent(verify_ssl=verify_ssl).random
 
-        self.requests.headers.update({'User-Agent': user_agent})
+        self._requests.headers.update({'User-Agent': user_agent})
 
         self._login()
 
 
     def action(self, *a, **kw):
         headers = ACTION_HEADERS
-        headers['X-CSRFToken'] = self.requests.cookies['csrftoken']
+        headers['X-CSRFToken'] = self._requests.cookies['csrftoken']
         if 'headers' in kw:
             headers = headers.copy()
             headers.update(kw['headers'])
@@ -56,7 +56,7 @@ class Insta(Session):
 
         # TODO [romeira]: calculate from the last time a request was made  {28/02/18 17:40}
         sleep(self.settings.get('ACTION_DELAY', 0))
-        response = self.requests.post(*a, **kw)
+        response = self._requests.post(*a, **kw)
         return json.loads(response.text)
 
 
@@ -68,14 +68,14 @@ class Insta(Session):
         kw['headers'] = headers
 
         sleep(self.settings.get('QUERY_DELAY', 0))
-        response = self.requests.get(*a, **kw)
+        response = self._requests.get(*a, **kw)
         return json.loads(response.text)
 
 
     def _login(self):
-        response = self.requests.get(URLS['start'])
+        response = self._requests.get(URLS['start'])
 
-        self.requests.cookies.update(COOKIES)
+        self._requests.cookies.update(COOKIES)
 
         payload = {
             'username': self.settings['USERNAME'],
