@@ -1,3 +1,4 @@
+import json
 import logging
 
 import requests
@@ -52,7 +53,8 @@ class Insta(Session):
             headers.update(kw['headers'])
         kw['headers'] = headers
 
-        return self.requests.post(*a, **kw)
+        response = self.requests.post(*a, **kw)
+        return json.loads(response.text)
 
 
     def query(self, *a, **kw):
@@ -62,7 +64,8 @@ class Insta(Session):
             headers.update(kw['headers'])
         kw['headers'] = headers
 
-        return self.requests.get(*a, **kw)
+        response = self.requests.get(*a, **kw)
+        return json.loads(response.text)
 
 
     def _login(self):
@@ -76,8 +79,6 @@ class Insta(Session):
         }
 
         response = self.action(URLS['login'], data=payload)
-
-        logger.debug(response.text)
 
 
     def __str__(self):

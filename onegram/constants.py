@@ -36,6 +36,7 @@ URLS = {
     'graphql': 'https://www.instagram.com/graphql/query/',
     'like': 'https://www.instagram.com/web/likes/{post_id}/like/'.format,
     'unlike': 'https://www.instagram.com/web/likes/{post_id}/unlike/'.format,
+    'comment': 'https://www.instagram.com/web/comments/{post_id}/add/'.format,
 }
 
 # TODO [romeira]: get from Consumer.js {27/02/18 19:52}

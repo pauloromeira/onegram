@@ -46,3 +46,12 @@ def unlike(session, post):
 
     url = URLS['unlike'](post_id=post_id)
     return session.action(url)
+
+
+@sessionaware
+def comment(session, post, commentary):
+    post_id = post['id'] if isinstance(post, dict) else post
+
+    url = URLS['comment'](post_id=post_id)
+    payload = {'comment_text': commentary}
+    return session.action(url, data=payload)

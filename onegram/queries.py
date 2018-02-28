@@ -17,7 +17,6 @@ def user_info(session, username=None):
     params = {'__a': '1'}
     response = session.query(url, params=params)
 
-    logger.debug(response.text)
     return jsearch('graphql.user', response)
 
 
