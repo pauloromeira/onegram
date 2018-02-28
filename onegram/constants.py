@@ -39,6 +39,8 @@ URLS = {
     'comment': 'https://www.instagram.com/web/comments/{post_id}/add/'.format,
     'uncomment': ('https://www.instagram.com/web/comments/'
                   '{post_id}/delete/{commentary_id}/'.format),
+    'save': 'https://www.instagram.com/web/save/{post_id}/save/'.format,
+    'unsave': 'https://www.instagram.com/web/save/{post_id}/unsave/'.format,
 }
 
 # TODO [romeira]: get from Consumer.js {27/02/18 19:52}

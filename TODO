@@ -5,7 +5,8 @@
   [X] Unlike
   [X] Comment
   [X] Uncomment
-  [ ] Save
+  [X] Save
+  [X] Unsave
   - ...
 * Queries:
   [X] User Info (followers/ing count, etc)

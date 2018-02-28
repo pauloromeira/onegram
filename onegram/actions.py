@@ -40,6 +40,7 @@ def like(session, post):
     url = URLS['like'](post_id=post_id)
     return session.action(url)
 
+
 @sessionaware
 def unlike(session, post):
     post_id = post['id'] if isinstance(post, dict) else post
@@ -73,4 +74,20 @@ def uncomment(session, commentary, post=None):
             raise ValueError('Post id is missing')
 
     url = URLS['uncomment'](post_id=post_id, commentary_id=commentary_id)
+    return session.action(url)
+
+
+@sessionaware
+def save(session, post):
+    post_id = post['id'] if isinstance(post, dict) else post
+
+    url = URLS['save'](post_id=post_id)
+    return session.action(url)
+
+
+@sessionaware
+def unsave(session, post):
+    post_id = post['id'] if isinstance(post, dict) else post
+
+    url = URLS['unsave'](post_id=post_id)
     return session.action(url)
