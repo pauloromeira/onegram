@@ -34,6 +34,7 @@ URLS = {
     'unfollow': ('https://www.instagram.com/web/'
                  'friendships/{user_id}/unfollow/').format,
     'graphql': 'https://www.instagram.com/graphql/query/',
+    'like': 'https://www.instagram.com/web/likes/{post_id}/like/'.format,
 }
 
 # TODO [romeira]: get from Consumer.js {27/02/18 19:52}

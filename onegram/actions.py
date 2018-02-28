@@ -10,25 +10,37 @@ logger = logging.getLogger(__name__)
 
 
 @sessionaware
-def follow(session, username=None):
-    username = username or session.username
+def follow(session, user=None):
+    user = user or session.username
 
-    user = user_info(session, username)
-    url = URLS['follow'](user_id=user['id'])
+    if isinstance(user, dict):
+        user_id = user['id']
+    else:
+        user_id = user_info(session, user)['id']
 
-    response = session.action(url)
+    url = URLS['follow'](user_id=user_id)
 
-    logger.debug(response.text)
-    return response
+    return session.action(url)
+
 
 @sessionaware
-def unfollow(session, username=None):
-    username = username or session.username
+def unfollow(session, user=None):
+    user = user or session.username
 
-    user = user_info(session, username)
-    url = URLS['unfollow'](user_id=user['id'])
+    if isinstance(user, dict):
+        user_id = user['id']
+    else:
+        user_id = user_info(session, user)['id']
 
-    response = session.action(url)
+    url = URLS['unfollow'](user_id=user_id)
 
-    logger.debug(response.text)
-    return response
+    return session.action(url)
+
+
+@sessionaware
+def like(session, post):
+    post_id = post['id'] if isinstance(post, dict) else post
+
+    url = URLS['like'](post_id=post_id)
+
+    return session.action(url)
