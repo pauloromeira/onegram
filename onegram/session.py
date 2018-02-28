@@ -8,6 +8,7 @@ from fake_useragent import UserAgent
 from .utils import load_settings
 from .constants import DEFAULT_HEADERS, QUERY_HEADERS, ACTION_HEADERS
 from .constants import URLS, COOKIES
+from .utils import sleep
 
 logger = logging.getLogger(__name__)
 
@@ -53,6 +54,8 @@ class Insta(Session):
             headers.update(kw['headers'])
         kw['headers'] = headers
 
+        # TODO [romeira]: calculate from the last time a request was made  {28/02/18 17:40}
+        sleep(self.settings.get('ACTION_DELAY', 0))
         response = self.requests.post(*a, **kw)
         return json.loads(response.text)
 
@@ -64,6 +67,7 @@ class Insta(Session):
             headers.update(kw['headers'])
         kw['headers'] = headers
 
+        sleep(self.settings.get('QUERY_DELAY', 0))
         response = self.requests.get(*a, **kw)
         return json.loads(response.text)
 

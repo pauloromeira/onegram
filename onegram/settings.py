@@ -8,10 +8,13 @@ PASSWORD = config('INSTA_PASSWORD', default=None)
 
 DEBUG = config('INSTA_DEBUG', default=False, cast=bool)
 
-VERIFY_SSL = DEBUG is False
-
 # Leave it commented to get a random User-Agent
 # USER_AGENT = ''
+
+VERIFY_SSL = DEBUG is False
+
+ACTION_DELAY = 1
+QUERY_DELAY = 0
 
 LOG_SETTINGS = {
     'format': '%(levelname)s:%(name)s:%(funcName)s:%(message)s',
