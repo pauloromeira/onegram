@@ -4,6 +4,7 @@ import logging
 import requests
 from sessionlib import Session
 from fake_useragent import UserAgent
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 from .utils import load_settings
 from .constants import DEFAULT_HEADERS, QUERY_HEADERS, ACTION_HEADERS
@@ -36,6 +37,8 @@ class Insta(Session):
 
         verify_ssl = self.settings.get('VERIFY_SSL', True)
         self._requests.verify = verify_ssl
+        if not verify_ssl:
+            requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
         user_agent = self.settings.get('USER_AGENT')
         if user_agent is None:
