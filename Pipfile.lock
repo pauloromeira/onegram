@@ -78,10 +78,10 @@
         },
         "sessionlib": {
             "hashes": [
-                "sha256:e7418329a9c5d07966a2fba068ad9f751c1271d06ee4f057f20736606b20cc54",
-                "sha256:464032c2da7819e4ae1d7c1f9d4505ec772048d62f2ff8a6b5f5661d86b4f153"
+                "sha256:71e58dda27777df897c85d2a65a4f85a15c430b76551c29dfc40ca4644f80239",
+                "sha256:863a2427c3bc5b796f4dfe90604af465842b2fe6b58dda3534bac3c221e9bf93"
             ],
-            "version": "==0.1.6"
+            "version": "==0.1.7"
         },
         "urllib3": {
             "hashes": [
