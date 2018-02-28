@@ -43,4 +43,9 @@ QUERY_HASHES = {
     'followers': '37479f2b8209594dde7facb0d904896a',
     'following': '58712303d941c6855d4e888c5f0cd22f',
     'posts': '472f257a40c653c64c666ce877d59d2b',
+
+    # TODO [romeira]: Implement {27/02/18 23:26}
+    'feed': '885c6a457b80f0e329bbc9389cf21f0b',
+    'explore': 'df0dcc250c2b18d9fd27c5581ef33c7c',
+    'suggested_users': '58fef9d690135e575980c97d9abe776a',
 }

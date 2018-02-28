@@ -21,6 +21,7 @@ def user_info(session, username=None):
     return jsearch('graphql.user', response)
 
 
+# TODO [romeira]: username -> user (can be a dict) {27/02/18 23:14}
 # TODO [romeira]: Refactor followers/following (almost the same) {27/02/18 20:27}
 @sessionaware
 def followers(session, username=None):
@@ -92,6 +93,7 @@ def following(session, username=None):
         page_info = data['page_info']
 
 
+# TODO [romeira]: username -> user (can be a dict) {27/02/18 23:14}
 @sessionaware
 def posts(session, username=None):
     username = username or session.username
