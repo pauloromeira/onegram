@@ -25,15 +25,18 @@ COOKIES = {
     'ig_or': 'landscape-primary',
 }
 
+_graphql = 'https://www.instagram.com/graphql/query/'
 URLS = {
     'start': 'https://www.instagram.com/',
     'login': 'https://www.instagram.com/accounts/login/ajax/',
     'user_info': 'https://www.instagram.com/{username}/'.format,
+    'followers': _graphql,
+    'following': _graphql,
+    'posts': _graphql,
     'follow': ('https://www.instagram.com/web/'
                'friendships/{user_id}/follow/').format,
     'unfollow': ('https://www.instagram.com/web/'
                  'friendships/{user_id}/unfollow/').format,
-    'graphql': 'https://www.instagram.com/graphql/query/',
     'like': 'https://www.instagram.com/web/likes/{post_id}/like/'.format,
     'unlike': 'https://www.instagram.com/web/likes/{post_id}/unlike/'.format,
     'comment': 'https://www.instagram.com/web/comments/{post_id}/add/'.format,
@@ -48,9 +51,12 @@ QUERY_HASHES = {
     'followers': '37479f2b8209594dde7facb0d904896a',
     'following': '58712303d941c6855d4e888c5f0cd22f',
     'posts': '472f257a40c653c64c666ce877d59d2b',
+}
 
-    # TODO [romeira]: Implement {27/02/18 23:26}
-    'feed': '885c6a457b80f0e329bbc9389cf21f0b',
-    'explore': 'df0dcc250c2b18d9fd27c5581ef33c7c',
-    'suggested_users': '58fef9d690135e575980c97d9abe776a',
+JSPATHS = {
+    '_nodes': 'edges[].node',
+    'posts': 'data.user.edge_owner_to_timeline_media',
+    'following': 'data.user.edge_follow',
+    'followers': 'data.user.edge_followed_by',
+    'user_info': 'graphql.user',
 }

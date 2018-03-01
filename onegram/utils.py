@@ -17,7 +17,7 @@ def load_settings(custom_settings={}):
     settings.update(custom_settings)
     return settings
 
-def jsearch(pattern, content):
+def jsearch(jspath, content):
     if isinstance(content, dict):
         dct = content
     else:
@@ -29,7 +29,7 @@ def jsearch(pattern, content):
             raise TypeError()
         dct = json.loads(text)
 
-    return jmespath.search(pattern, dct)
+    return jmespath.search(jspath, dct)
 
 def sleep(t, var=.5):
     if t:
