@@ -14,7 +14,7 @@ from .utils import sleep
 logger = logging.getLogger(__name__)
 
 
-class Insta(Session):
+class Login(Session):
 
     def __init__(self, username=None, password=None, custom_settings={}):
         if username:
@@ -94,7 +94,7 @@ class Insta(Session):
 
 
 def login(username=None, password=None):
-    insta = Insta(username, password)
+    insta = Login(username, password)
     return insta.open()
 
 

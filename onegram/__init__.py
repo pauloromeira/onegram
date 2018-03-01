@@ -1,4 +1,4 @@
-from .session import Insta
+from .session import Login
 from .session import login, logout
 
 from .actions import follow, unfollow
