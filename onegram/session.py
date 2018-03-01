@@ -93,8 +93,9 @@ class Login(Session):
 
 
 
-def login(username=None, password=None):
-    insta = Login(username, password)
+
+def login(*args, **kwargs):
+    insta = Login(*args, **kwargs)
     return insta.open()
 
 
