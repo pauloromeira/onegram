@@ -23,31 +23,38 @@ def user_info(session, username=None):
 # TODO [romeira]: username -> user (can be a dict) {27/02/18 23:14}
 # TODO [romeira]: Refactor followers/following (almost the same) {27/02/18 20:27}
 @sessionaware
-def followers(session, username=None):
-    username = username or session.username
+def followers(session, user=None):
+    user = user or session.username
+    if isinstance(user, dict):
+        user_id = user['id']
+    else:
+        user_id = user_info(session, user)['id']
 
-    user = user_info(session, username)
-    variables = {'id': user['id']}
+    variables = {'id': user_id}
 
     yield from _iterate(session, 'followers', variables)
 
 
 @sessionaware
-def following(session, username=None):
-    username = username or session.username
+def following(session, user=None):
+    user = user or session.username
+    if isinstance(user, dict):
+        user_id = user['id']
+    else:
+        user_id = user_info(session, user)['id']
 
-    user = user_info(session, username)
-    variables = {'id': user['id']}
+    variables = {'id': user_id}
 
     yield from _iterate(session, 'following', variables)
 
 
 # TODO [romeira]: username -> user (can be a dict) {27/02/18 23:14}
 @sessionaware
-def posts(session, username=None):
-    username = username or session.username
+def posts(session, user=None):
+    user = user or session.username
+    if not isinstance(user, dict):
+        user = user_info(session, user)
 
-    user = user_info(session, username)
     data = user['edge_owner_to_timeline_media']
     variables = {'id': user['id']}
 
