@@ -3,7 +3,7 @@ import logging
 
 from sessionlib import sessionaware
 
-from .constants import URLS, QUERY_HASHES, JSPATH
+from .constants import URLS, QUERY_HASHES, JSPATHS
 from .utils import jsearch
 
 logger = logging.getLogger(__name__)
@@ -17,7 +17,7 @@ def user_info(session, username=None):
     params = {'__a': '1'}
     response = session.query(url, params=params)
 
-    return jsearch(JSPATH['user_info'], response)
+    return jsearch(JSPATHS['user_info'], response)
 
 
 # TODO [romeira]: username -> user (can be a dict) {27/02/18 23:14}
@@ -54,7 +54,12 @@ def posts(session, username=None):
     yield from _iterate(session, 'posts', variables, data)
 
 
-def _iterate(session, query, variables, data=None):
+@sessionaware
+def explore(session):
+    yield from _iterate(session, 'explore')
+
+
+def _iterate(session, query, variables={}, data=None):
     url = URLS[query]
     chunks = session.settings['QUERY_CHUNKS']
     chunks_head = chunks.get(query + '_head') or chunks.get(query)
@@ -62,14 +67,14 @@ def _iterate(session, query, variables, data=None):
 
     variables['first'] = chunks_head
     params = {'query_hash': QUERY_HASHES[query]}
-    jspath = JSPATH[query]
+    jspath = JSPATHS[query]
 
     if not data:
         params['variables'] = json.dumps(variables)
         response = session.query(url, params=params)
         data = jsearch(jspath, response)
 
-    yield from jsearch(JSPATH['_nodes'], data)
+    yield from jsearch(JSPATHS['_nodes'], data)
     page_info = data['page_info']
 
     if not page_info['has_next_page']:
@@ -82,7 +87,7 @@ def _iterate(session, query, variables, data=None):
 
         response = session.query(url, params=params)
         data = jsearch(jspath, response)
-        yield from jsearch(JSPATH['_nodes'], data)
+        yield from jsearch(JSPATHS['_nodes'], data)
 
         page_info = data['page_info']
 

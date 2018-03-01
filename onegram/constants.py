@@ -33,6 +33,7 @@ URLS = {
     'followers': _graphql,
     'following': _graphql,
     'posts': _graphql,
+    'explore': _graphql,
     'follow': ('https://www.instagram.com/web/'
                'friendships/{user_id}/follow/').format,
     'unfollow': ('https://www.instagram.com/web/'
@@ -51,6 +52,7 @@ QUERY_HASHES = {
     'followers': '37479f2b8209594dde7facb0d904896a',
     'following': '58712303d941c6855d4e888c5f0cd22f',
     'posts': '472f257a40c653c64c666ce877d59d2b',
+    'explore': 'df0dcc250c2b18d9fd27c5581ef33c7c',
 }
 
 JSPATHS = {
@@ -59,4 +61,5 @@ JSPATHS = {
     'following': 'data.user.edge_follow',
     'followers': 'data.user.edge_followed_by',
     'user_info': 'graphql.user',
+    'explore': 'data.user.edge_web_discover_media',
 }

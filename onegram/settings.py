@@ -27,4 +27,5 @@ QUERY_CHUNKS = {
     'followers_head': 20,
     'followers': 10,
     'posts': 12,
+    'explore': 24,
 }
