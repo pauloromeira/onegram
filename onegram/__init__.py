@@ -1,4 +1,5 @@
 from .session import Insta
+from .session import login, logout
 
 from .actions import follow, unfollow
 from .actions import like, unlike

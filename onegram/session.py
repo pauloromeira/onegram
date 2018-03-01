@@ -2,7 +2,7 @@ import json
 import logging
 
 import requests
-from sessionlib import Session
+from sessionlib import Session, sessionaware
 from fake_useragent import UserAgent
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
@@ -90,3 +90,17 @@ class Insta(Session):
 
     def __str__(self):
         return f'({self.username})'
+
+
+
+def login(username=None, password=None):
+    insta = Insta(username, password)
+    return insta.open()
+
+
+@sessionaware
+def logout(session):
+    try:
+        session.close()
+    except:
+        pass
