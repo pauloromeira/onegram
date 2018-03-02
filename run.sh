@@ -1,1 +1,1 @@
-pipenv run ipython -i example.py
+pipenv run ipython -i examples.py
