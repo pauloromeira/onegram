@@ -45,6 +45,7 @@ URLS = {
                   '{post_id}/delete/{commentary_id}/'.format),
     'save': 'https://www.instagram.com/web/save/{post_id}/save/'.format,
     'unsave': 'https://www.instagram.com/web/save/{post_id}/unsave/'.format,
+    'post_info': 'https://www.instagram.com/p/{shortcode}/'.format,
 }
 
 # TODO [romeira]: get from Consumer.js {27/02/18 19:52}
@@ -62,4 +63,5 @@ JSPATHS = {
     'followers': 'data.user.edge_followed_by',
     'user_info': 'graphql.user',
     'explore': 'data.user.edge_web_discover_media',
+    'post_info': 'graphql.shortcode_media',
 }

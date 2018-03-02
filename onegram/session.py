@@ -49,6 +49,7 @@ class Login(Session):
         self._login()
 
 
+    # TODO [romeira]: handle 'wait few minutes' - jd/tenacity {01/03/18 21:13}
     def action(self, *a, **kw):
         headers = ACTION_HEADERS
         headers['X-CSRFToken'] = self._requests.cookies['csrftoken']

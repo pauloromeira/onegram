@@ -20,6 +20,18 @@ def user_info(session, username=None):
     return jsearch(JSPATHS['user_info'], response)
 
 
+@sessionaware
+def post_info(session, post=None):
+    shortcode = post['shortcode'] if isinstance(post, dict) else shortcode
+
+    url = URLS['post_info'](shortcode=shortcode)
+
+    params = {'__a': '1'}
+    response = session.query(url, params=params)
+
+    return jsearch(JSPATHS['post_info'], response)
+
+
 # TODO [romeira]: username -> user (can be a dict) {27/02/18 23:14}
 # TODO [romeira]: Refactor followers/following (almost the same) {27/02/18 20:27}
 @sessionaware
