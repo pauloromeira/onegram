@@ -31,6 +31,7 @@ URLS = {
     'start': 'https://www.instagram.com/',
     'login': 'https://www.instagram.com/accounts/login/ajax/',
     'user_info': 'https://www.instagram.com/{username}/'.format,
+    'post_info': 'https://www.instagram.com/p/{shortcode}/'.format,
     'follow': ('https://www.instagram.com/web/'
                'friendships/{user_id}/follow/').format,
     'unfollow': ('https://www.instagram.com/web/'
@@ -42,7 +43,6 @@ URLS = {
                   '{post_id}/delete/{commentary_id}/'.format),
     'save': 'https://www.instagram.com/web/save/{post_id}/save/'.format,
     'unsave': 'https://www.instagram.com/web/save/{post_id}/unsave/'.format,
-    'post_info': 'https://www.instagram.com/p/{shortcode}/'.format,
 }
 
 # TODO [romeira]: get from Consumer.js {27/02/18 19:52}
@@ -51,6 +51,7 @@ QUERY_HASHES = {
     'following': '58712303d941c6855d4e888c5f0cd22f',
     'posts': '472f257a40c653c64c666ce877d59d2b',
     'likes': '1cb6ec562846122743b61e492c85999f',
+    'comments': '33ba35852cb50da46f5b5e889df7d159',
     'explore': 'df0dcc250c2b18d9fd27c5581ef33c7c',
 }
 
@@ -60,7 +61,8 @@ JSPATHS = {
     'following': 'data.user.edge_follow',
     'followers': 'data.user.edge_followed_by',
     'user_info': 'graphql.user',
-    'explore': 'data.user.edge_web_discover_media',
     'post_info': 'graphql.shortcode_media',
     'likes': 'data.shortcode_media.edge_liked_by',
+    'comments': 'data.shortcode_media.edge_media_to_comment',
+    'explore': 'data.user.edge_web_discover_media',
 }

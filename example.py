@@ -6,7 +6,8 @@ from onegram import Login
 
 from onegram.queries import user_info, post_info
 from onegram.queries import followers, following
-from onegram.queries import posts, likes, explore
+from onegram.queries import posts, likes, comments
+from onegram.queries import explore
 
 from onegram.actions import follow, unfollow
 from onegram.actions import like, unlike
@@ -15,4 +16,5 @@ from onegram.actions import save, unsave
 
 with Login():
     p = next(posts())
-    l = list(likes(p))
+    for comment in comments(p):
+        print(comment['text'])

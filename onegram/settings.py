@@ -2,6 +2,8 @@ import logging
 
 from decouple import config
 
+from .utils import head_tail, choice_repeat, repeat
+
 
 USERNAME = config('INSTA_USERNAME', default=None)
 PASSWORD = config('INSTA_PASSWORD', default=None)
@@ -22,12 +24,19 @@ LOG_SETTINGS = {
 }
 
 QUERY_CHUNKS = {
-    'following_head': 20,
-    'following_tail': 10,
-    'followers_head': 20,
-    'followers_tail': 10,
-    'posts': 12,
-    'likes_head': 20,
-    'likes_tail': 10,
-    'explore': 24,
+    'following': head_tail(20, 10),
+    'followers': head_tail(20, 10),
+    'posts': repeat(12),
+    'likes': head_tail(20, 10),
+    'comments': choice_repeat(33, 28, 26, 23),
+    'explore': repeat(24),
 }
+
+
+
+
+_default_settings = {k:v for k, v in locals().items() if k.isupper()}
+def load_settings(custom_settings={}):
+    settings = _default_settings.copy()
+    settings.update(custom_settings)
+    return settings

@@ -6,7 +6,7 @@ from sessionlib import Session, sessionaware
 from fake_useragent import UserAgent
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
-from .utils import load_settings
+from .settings import load_settings
 from .constants import DEFAULT_HEADERS, QUERY_HEADERS, ACTION_HEADERS
 from .constants import URLS, COOKIES
 from .utils import sleep

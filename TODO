@@ -15,7 +15,7 @@
   [X] User Posts
   [X] Post Info
   [X] Likes
-  [ ] Comments
+  [X] Comments
   [ ] Feed Posts
   [X] Explore Posts
   [ ] Suggested Users
@@ -25,4 +25,5 @@
 * Tests:
   - ...
 * Other:
+  - Unlogged use (queries)
   - Demo gif

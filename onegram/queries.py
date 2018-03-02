@@ -5,7 +5,6 @@ from sessionlib import sessionaware
 
 from .constants import URLS, GRAPHQL_URL
 from .constants import QUERY_HASHES, JSPATHS
-
 from .utils import jsearch
 
 logger = logging.getLogger(__name__)
@@ -81,17 +80,23 @@ def likes(session, post):
 
 
 @sessionaware
+def comments(session, post):
+    shortcode = post['shortcode'] if isinstance(post, dict) else shortcode
+    variables = {'shortcode': shortcode}
+
+    yield from _iterate(session, 'comments', variables)
+
+
+@sessionaware
 def explore(session):
     yield from _iterate(session, 'explore')
 
 
 
 def _iterate(session, query, variables={}, data=None):
-    chunks = session.settings['QUERY_CHUNKS']
-    chunks_head = chunks.get(query + '_head') or chunks.get(query)
-    chunks_tail = chunks.get(query + '_tail') or chunks.get(query)
+    chunks = session.settings['QUERY_CHUNKS'].get(query)()
 
-    variables['first'] = chunks_head
+    variables['first'] = next(chunks)
     params = {'query_hash': QUERY_HASHES[query]}
     jspath = JSPATHS[query]
 
@@ -106,8 +111,8 @@ def _iterate(session, query, variables={}, data=None):
     if not page_info['has_next_page']:
         return
 
-    variables['first'] = chunks_tail
     while page_info['has_next_page']:
+        variables['first'] = next(chunks)
         variables['after'] = page_info['end_cursor']
         params['variables'] = json.dumps(variables)
 
