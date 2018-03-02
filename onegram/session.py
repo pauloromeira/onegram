@@ -6,8 +6,8 @@ from requests import HTTPError
 from sessionlib import Session, sessionaware
 from fake_useragent import UserAgent
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
-from tenacity import retry, retry_if_exception_type
-from tenacity import wait_exponential, after_log
+from tenacity import retry, retry_if_exception_type, after_log
+from tenacity import wait_chain, wait_fixed
 
 from .settings import load_settings
 from .constants import DEFAULT_HEADERS, QUERY_HEADERS, ACTION_HEADERS
@@ -52,7 +52,7 @@ class Login(Session):
         self._login()
 
 
-    @retry(wait=wait_exponential(multiplier=10, max=180),
+    @retry(wait=wait_chain(wait_fixed(360), wait_fixed(15)),
            retry=retry_if_exception_type(HTTPError),
            after=after_log(logger, logging.INFO))
     def action(self, *a, **kw):
@@ -74,7 +74,7 @@ class Login(Session):
             raise
 
 
-    @retry(wait=wait_exponential(multiplier=10, max=180),
+    @retry(wait=wait_chain(wait_fixed(360), wait_fixed(15)),
            retry=retry_if_exception_type(HTTPError),
            after=after_log(logger, logging.INFO))
     def query(self, *a, **kw):
