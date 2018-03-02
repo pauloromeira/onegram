@@ -60,8 +60,13 @@ class Login(Session):
 
         # TODO [romeira]: calculate from the last time a request was made  {28/02/18 17:40}
         sleep(self.settings.get('ACTION_DELAY', 0))
-        response = self._requests.post(*a, **kw)
-        return json.loads(response.text)
+        try:
+            response = self._requests.post(*a, **kw)
+            response.raise_for_status()
+            return json.loads(response.text)
+        except Exception:
+            logger.error(response.text)
+            raise
 
 
     def query(self, *a, **kw):
@@ -72,8 +77,13 @@ class Login(Session):
         kw['headers'] = headers
 
         sleep(self.settings.get('QUERY_DELAY', 0))
-        response = self._requests.get(*a, **kw)
-        return json.loads(response.text)
+        try:
+            response = self._requests.get(*a, **kw)
+            response.raise_for_status()
+            return json.loads(response.text)
+        except Exception:
+            logger.error(response.text)
+            raise
 
 
     def _login(self):
