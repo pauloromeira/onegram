@@ -19,8 +19,7 @@ from onegram import comment, uncomment
 from onegram import save, unsave
 
 
-# Top likers
-def likes_rank(user=None):
+def likers_rank(user=None):
     rank = defaultdict(int)
 
     for post in posts(user):
@@ -30,6 +29,17 @@ def likes_rank(user=None):
 
     return sorted(rank.items(), key=itemgetter(1), reverse=True)
 
+def commenters_rank(user=None):
+    rank = defaultdict(int)
+
+    for post in posts(user):
+        for commentary in comments(post):
+            username = commentary['owner']['username']
+            rank[username] += 1
+
+    return sorted(rank.items(), key=itemgetter(1), reverse=True)
+
 
 with Login():
-    rank = likes_rank()
+    # top_likers = likers_rank()
+    top_commenters = commenters_rank()
