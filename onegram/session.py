@@ -78,15 +78,14 @@ class Login(Session):
 
     def _login(self):
         response = self._requests.get(URLS['start'])
-
         self._requests.cookies.update(COOKIES)
 
         payload = {
             'username': self.settings['USERNAME'],
             'password': self.settings['PASSWORD']
         }
-
-        response = self.action(URLS['login'], data=payload)
+        # TODO [romeira]: Log response {02/03/18 02:03}
+        self.action(URLS['login'], data=payload)
 
 
     def __str__(self):

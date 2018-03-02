@@ -94,7 +94,7 @@ def explore(session):
 
 
 def _iterate(session, query, variables={}, data=None):
-    chunks = session.settings['QUERY_CHUNKS'].get(query)()
+    chunks = session.settings['QUERY_CHUNKS'][query]()
 
     variables['first'] = next(chunks)
     params = {'query_hash': QUERY_HASHES[query]}
