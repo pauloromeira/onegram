@@ -52,7 +52,7 @@ class Login(Session):
         self._login()
 
 
-    @retry(wait=wait_chain(wait_fixed(360), wait_fixed(15)),
+    @retry(wait=wait_chain(wait_fixed(60), wait_fixed(15)),
            retry=retry_if_exception_type(HTTPError),
            after=after_log(logger, logging.INFO))
     def action(self, *a, **kw):
@@ -74,7 +74,7 @@ class Login(Session):
             raise
 
 
-    @retry(wait=wait_chain(wait_fixed(360), wait_fixed(15)),
+    @retry(wait=wait_chain(wait_fixed(60), wait_fixed(15)),
            retry=retry_if_exception_type(HTTPError),
            after=after_log(logger, logging.INFO))
     def query(self, *a, **kw):
