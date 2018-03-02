@@ -3,7 +3,9 @@ import logging
 
 from sessionlib import sessionaware
 
-from .constants import URLS, QUERY_HASHES, JSPATHS
+from .constants import URLS, GRAPHQL_URL
+from .constants import QUERY_HASHES, JSPATHS
+
 from .utils import jsearch
 
 logger = logging.getLogger(__name__)
@@ -32,8 +34,6 @@ def post_info(session, post=None):
     return jsearch(JSPATHS['post_info'], response)
 
 
-# TODO [romeira]: username -> user (can be a dict) {27/02/18 23:14}
-# TODO [romeira]: Refactor followers/following (almost the same) {27/02/18 20:27}
 @sessionaware
 def followers(session, user=None):
     user = user or session.username
@@ -60,7 +60,6 @@ def following(session, user=None):
     yield from _iterate(session, 'following', variables)
 
 
-# TODO [romeira]: username -> user (can be a dict) {27/02/18 23:14}
 @sessionaware
 def posts(session, user=None):
     user = user or session.username
@@ -74,15 +73,23 @@ def posts(session, user=None):
 
 
 @sessionaware
+def likes(session, post):
+    shortcode = post['shortcode'] if isinstance(post, dict) else shortcode
+    variables =  {'shortcode': shortcode}
+
+    yield from _iterate(session, 'likes', variables)
+
+
+@sessionaware
 def explore(session):
     yield from _iterate(session, 'explore')
 
 
+
 def _iterate(session, query, variables={}, data=None):
-    url = URLS[query]
     chunks = session.settings['QUERY_CHUNKS']
     chunks_head = chunks.get(query + '_head') or chunks.get(query)
-    chunks_tail = chunks.get(query)
+    chunks_tail = chunks.get(query + '_tail') or chunks.get(query)
 
     variables['first'] = chunks_head
     params = {'query_hash': QUERY_HASHES[query]}
@@ -90,7 +97,7 @@ def _iterate(session, query, variables={}, data=None):
 
     if not data:
         params['variables'] = json.dumps(variables)
-        response = session.query(url, params=params)
+        response = session.query(GRAPHQL_URL, params=params)
         data = jsearch(jspath, response)
 
     yield from jsearch(JSPATHS['_nodes'], data)
@@ -104,7 +111,7 @@ def _iterate(session, query, variables={}, data=None):
         variables['after'] = page_info['end_cursor']
         params['variables'] = json.dumps(variables)
 
-        response = session.query(url, params=params)
+        response = session.query(GRAPHQL_URL, params=params)
         data = jsearch(jspath, response)
         yield from jsearch(JSPATHS['_nodes'], data)
 
