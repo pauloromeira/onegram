@@ -16,14 +16,18 @@
   [X] Post Info
   [X] Likes
   [X] Comments
-  [ ] Feed Posts
+  [ ] Feed Posts (https://www.instagram.com/?__a=1)
+  [ ] Activity (https://www.instagram.com/accounts/activity/?__a=1)
   [X] Explore Posts
-  [ ] Suggested Users
-  [ ] Saved Posts
-  [ ] Tag Posts
+  [ ] Suggested Users (https://www.instagram.com/explore/people/ | e3c04bbb35d86a16cf0e7881c5057737)
+  [ ] Saved Posts (https://www.instagram.com/<me>/saved/?__a=1)
+  [ ] Tag Posts (https://www.instagram.com/explore/tags/recife/?__a=1)
+  [ ] Explore Locations (https://www.instagram.com/explore/locations/?__a=1)
+  [ ] Profiles (https://www.instagram.com/directory/profiles/)
   - ...
 * Tests:
   - ...
 * Other:
   - Unlogged use (queries)
   - Demo gif
+  - ...
