@@ -28,7 +28,7 @@ QUERY_CHUNKS = {
     'followers': head_tail(20, 10),
     'posts': repeat(12),
     'likes': head_tail(20, 10),
-    'comments': choice_repeat(33, 28, 26, 23),
+    'comments': choice_repeat(range(20, 40)),
     'explore': repeat(24),
 }
 
