@@ -94,7 +94,6 @@ class Login(Session):
 
 
 
-
 def login(*args, **kwargs):
     insta = Login(*args, **kwargs)
     return insta.open()

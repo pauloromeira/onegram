@@ -2,7 +2,7 @@ import logging
 
 from decouple import config
 
-from .utils import head_tail, choice_repeat, repeat
+from .utils import head_tail, choices, repeat
 
 
 USERNAME = config('INSTA_USERNAME', default=None)
@@ -28,10 +28,9 @@ QUERY_CHUNKS = {
     'followers': head_tail(20, 10),
     'posts': repeat(12),
     'likes': head_tail(20, 10),
-    'comments': choice_repeat(range(20, 40)),
+    'comments': choices(range(20, 40)),
     'explore': repeat(24),
 }
-
 
 
 

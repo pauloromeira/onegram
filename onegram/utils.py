@@ -39,11 +39,11 @@ def sleep(t, var=.5):
 def repeat(*a, **kw):
     return partial(iter_repeat, *a, **kw)
     
-def choice_repeat(seq):
-    def _choice_repeat():
+def choices(seq):
+    def _choices():
         while True:
             yield choice(seq)
-    return _choice_repeat
+    return _choices
 
 def head_tail(head, tail):
     return partial(chain, [head], iter_repeat(tail))
