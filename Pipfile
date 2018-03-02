@@ -12,6 +12,7 @@ sessionlib = "*"
 python-decouple = "*"
 fake-useragent = "*"
 jmespath = "*"
+tenacity = "*"
 
 
 [dev-packages]

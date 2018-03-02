@@ -2,9 +2,12 @@ import json
 import logging
 
 import requests
+from requests import HTTPError
 from sessionlib import Session, sessionaware
 from fake_useragent import UserAgent
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
+from tenacity import retry, retry_if_exception_type
+from tenacity import wait_exponential, after_log
 
 from .settings import load_settings
 from .constants import DEFAULT_HEADERS, QUERY_HEADERS, ACTION_HEADERS
@@ -49,7 +52,9 @@ class Login(Session):
         self._login()
 
 
-    # TODO [romeira]: handle 'wait few minutes' - jd/tenacity {01/03/18 21:13}
+    @retry(wait=wait_exponential(multiplier=10, max=180),
+           retry=retry_if_exception_type(HTTPError),
+           after=after_log(logger, logging.INFO))
     def action(self, *a, **kw):
         headers = ACTION_HEADERS
         headers['X-CSRFToken'] = self._requests.cookies['csrftoken']
@@ -69,6 +74,9 @@ class Login(Session):
             raise
 
 
+    @retry(wait=wait_exponential(multiplier=10, max=180),
+           retry=retry_if_exception_type(HTTPError),
+           after=after_log(logger, logging.INFO))
     def query(self, *a, **kw):
         headers = QUERY_HEADERS
         if 'headers' in kw:
