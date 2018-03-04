@@ -62,13 +62,14 @@ def following(session, user=None):
 @sessionaware
 def posts(session, user=None):
     user = user or session.username
-    if not isinstance(user, dict):
-        user = user_info(session, user)
+    if isinstance(user, dict):
+        user_id = user['id']
+    else:
+        user_id = user_info(session, user)['id']
 
-    data = user['edge_owner_to_timeline_media']
-    variables = {'id': user['id']}
+    variables = {'id': user_id}
 
-    yield from _iterate(session, 'posts', variables, data)
+    yield from _iterate(session, 'posts', variables)
 
 
 @sessionaware
@@ -93,23 +94,19 @@ def explore(session):
 
 
 
-def _iterate(session, query, variables={}, data=None):
+def _iterate(session, query, variables={}):
     chunks = session.settings['QUERY_CHUNKS'][query]()
+    jspath = JSPATHS[query]
+    params = {'query_hash': QUERY_HASHES[query]}
 
     variables['first'] = next(chunks)
-    params = {'query_hash': QUERY_HASHES[query]}
-    jspath = JSPATHS[query]
+    params['variables'] = json.dumps(variables)
 
-    if not data:
-        params['variables'] = json.dumps(variables)
-        response = session.query(GRAPHQL_URL, params=params)
-        data = jsearch(jspath, response)
-
+    response = session.query(GRAPHQL_URL, params=params)
+    data = jsearch(jspath, response)
     yield from jsearch(JSPATHS['_nodes'], data)
-    page_info = data['page_info']
 
-    if not page_info['has_next_page']:
-        return
+    page_info = data['page_info']
 
     while page_info['has_next_page']:
         variables['first'] = next(chunks)
