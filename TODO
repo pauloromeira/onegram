@@ -29,7 +29,7 @@
   - ...
 * Other:
   [ ] Algorithms (with session awareness)
-  [ ] Ask user/password if not defined
+  [X] Ask user/password if not defined
   [ ] Create session if not exists
   [ ] Retry login until success
   [ ] Clear cookies + login again if session expired

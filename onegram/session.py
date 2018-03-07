@@ -4,6 +4,7 @@ import requests
 import urllib3
 
 from fake_useragent import UserAgent
+from getpass import getpass
 from requests import HTTPError
 from sessionlib import Session, sessionaware
 from tenacity import retry, retry_if_exception_type, after_log
@@ -97,8 +98,8 @@ class Login(Session):
 
     def _login(self):
         payload = {
-            'username': self.settings['USERNAME'],
-            'password': self.settings['PASSWORD']
+            'username': self.settings.get('USERNAME') or input('Username: '),
+            'password': self.settings.get('PASSWORD') or getpass()
         }
         no_proxy = self.settings.get('DISABLE_LOGIN_PROXY', False)
         self.action(URLS['login'], data=payload, no_proxy=no_proxy)
