@@ -4,25 +4,30 @@ A simplistic api-like instagram bot powered by [requests](https://github.com/req
 
 #### Example:
 ```py
+from onegram import follow
+
+follow('<me>') # Follow me :)
+```
+
+#### Explicit login:
+```py
 from onegram import Login
-from onegram import follow, followers
+from onegram import posts
 
-
-with Login(username='user', password='pswd'):
-    my_followers = list(followers())
-    print(my_followers)
-
-    follow('<me>') # Follow me :)
+with Login(username='user', password='pass'):
+  my_posts = list(posts())
+  other_posts = list(posts('other'))
 ```
 
 #### Also possible:
 ```py
 from onegram import login, logout
-from onegram import posts
+from onegram import posts, likes
 
-login(username='user', password='pswd')
+login()
 
-my_posts = list(posts())
+first_post = next(posts())
+post_likes = list(likes(first_post))
 
 logout()
 ```

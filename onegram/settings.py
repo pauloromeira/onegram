@@ -36,6 +36,7 @@ QUERY_CHUNKS = {
 
 
 
+# TODO [romeira]: move to utils {07/03/18 01:10}
 _default_settings = {k:v for k, v in locals().items() if k.isupper()}
 def load_settings(custom_settings={}):
     settings = _default_settings.copy()
