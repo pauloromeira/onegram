@@ -4,9 +4,11 @@ import requests
 import urllib3
 
 from fake_useragent import UserAgent
+from functools import partial
 from getpass import getpass
 from requests import HTTPError
-from sessionlib import Session, sessionaware
+from sessionlib import Session
+from sessionlib import sessionaware as _sessionaware
 from tenacity import retry, retry_if_exception_type, after_log
 from tenacity import wait_chain, wait_fixed
 from urllib3.exceptions import InsecureRequestWarning
@@ -21,6 +23,10 @@ logger = logging.getLogger(__name__)
 
 
 class Login(Session):
+
+    @classmethod
+    def current(cls):
+        return Session.current() or login()
 
     def __init__(self, username=None, password=None, custom_settings={}):
         if username:
@@ -110,13 +116,15 @@ class Login(Session):
         return f'({self.username})'
 
 
+sessionaware = partial(_sessionaware, cls=Login)
+
 
 def login(*args, **kwargs):
     insta = Login(*args, **kwargs)
     return insta.open()
 
 
-@sessionaware
+@_sessionaware
 def logout(session):
     try:
         session.close()

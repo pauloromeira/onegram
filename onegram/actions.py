@@ -1,9 +1,8 @@
 import json
 import logging
 
-from sessionlib import sessionaware
-
 from .queries import user_info
+from .session import sessionaware
 from .constants import URLS
 
 logger = logging.getLogger(__name__)

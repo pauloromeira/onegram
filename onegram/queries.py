@@ -1,11 +1,10 @@
 import json
 import logging
 
-from sessionlib import sessionaware
-
-from .constants import URLS, GRAPHQL_URL
-from .constants import QUERY_HASHES, JSPATHS
+from .session import sessionaware
 from .utils import jsearch
+from .constants import QUERY_HASHES, JSPATHS
+from .constants import URLS, GRAPHQL_URL
 
 logger = logging.getLogger(__name__)
 

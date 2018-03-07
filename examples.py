@@ -40,6 +40,4 @@ def commenters_rank(user=None):
     return sorted(rank.items(), key=itemgetter(1), reverse=True)
 
 
-with Login():
-    # top_likers = likers_rank()
-    top_commenters = commenters_rank()
+info = user_info()
