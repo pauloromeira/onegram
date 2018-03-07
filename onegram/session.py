@@ -68,10 +68,15 @@ class Login(Session):
 
     def action(self, url, *a, **kw):
         sleep(self.settings.get('ACTION_DELAY', 0))
+        headers = kw.setdefault('headers', ACTION_HEADERS)
+        headers['X-CSRFToken'] = self._requests.cookies['csrftoken']
+
         return self.request('POST', url, *a, **kw)
 
     def query(self, url, *a, **kw):
         sleep(self.settings.get('QUERY_DELAY', 0))
+        kw.setdefault('headers', QUERY_HEADERS)
+
         return self.request('GET', url, *a, **kw)
 
 
@@ -81,17 +86,6 @@ class Login(Session):
     def request(self, method, url, *a, **kw):
         if kw.pop('no_proxy', False):
             kw['proxies'] = {'no_proxy': parse_url(url).host}
-
-        if method == 'POST':
-            headers = ACTION_HEADERS
-            headers['X-CSRFToken'] = self._requests.cookies['csrftoken']
-        else:
-            headers = QUERY_HEADERS
-
-        if 'headers' in kw:
-            kw['headers'].update(headers)
-        else:
-            kw['headers'] = headers
 
         try:
             response = self._requests.request(method, url, *a, **kw)
