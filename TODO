@@ -35,6 +35,7 @@
   [ ] Clear cookies + login again if session expired
   [ ] Block until "now < last_request_timestamp + (action/query) delay"
   [ ] Logs
+  [ ] Exceptions
   [ ] Unlogged use (queries)
   [ ] Demo gif (README.md)
   - ...
