@@ -28,14 +28,14 @@
 * Tests:
   - ...
 * Other:
-  [ ] Algorithms (with session awareness)
   [X] Ask user/password if not defined
   [X] Create session if not exists
+  [ ] Rate limits
   [ ] Retry login until success
   [ ] Clear cookies + login again if session expired
-  [ ] Block until "now < last_request_timestamp + (action/query) delay"
-  [ ] Logs
   [ ] Exceptions
+  [ ] Logs
+  [ ] Algorithms (with session awareness)
   [ ] Unlogged use (queries)
   [ ] Demo gif (README.md)
   - ...
