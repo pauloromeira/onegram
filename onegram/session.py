@@ -97,8 +97,9 @@ class Login(Session):
 
 
     def _login(self):
+        self.username = self.username or input('Username: ')
         payload = {
-            'username': self.settings.get('USERNAME') or input('Username: '),
+            'username': self.username,
             'password': self.settings.get('PASSWORD') or getpass()
         }
         no_proxy = self.settings.get('DISABLE_LOGIN_PROXY', False)
