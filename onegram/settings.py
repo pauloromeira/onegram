@@ -17,8 +17,8 @@ VERIFY_SSL = config('VERIFY_SSL', default=True, cast=bool)
 
 DISABLE_LOGIN_PROXY = True
 
-ACTION_DELAY = 7
-QUERY_DELAY = 5
+ACTION_DELAY = 0
+QUERY_DELAY = 0
 
 LOG_SETTINGS = {
     'format': '%(levelname)s:%(name)s:%(funcName)s:%(message)s',

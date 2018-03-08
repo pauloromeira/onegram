@@ -3,8 +3,9 @@ import logging
 import requests
 import urllib3
 
+from types import GeneratorType
+from functools import wraps
 from fake_useragent import UserAgent
-from functools import partial
 from getpass import getpass
 from requests import HTTPError
 from sessionlib import Session
@@ -41,7 +42,7 @@ class Login(Session):
             logging.basicConfig(**log_settings)
 
         self.username = self.settings.get('USERNAME')
-
+        self._current_function = []
 
     def enter_contexts(self):
         self._requests = yield requests.Session()
@@ -86,7 +87,6 @@ class Login(Session):
     def request(self, method, url, *a, **kw):
         if kw.pop('no_proxy', False):
             kw['proxies'] = {'no_proxy': parse_url(url).host}
-
         try:
             response = self._requests.request(method, url, *a, **kw)
             response.raise_for_status()
@@ -110,7 +110,33 @@ class Login(Session):
         return f'({self.username})'
 
 
-sessionaware = partial(_sessionaware, cls=Login)
+# TODO [romeira]: Move to sessionlib? - TEST {08/03/18 01:09}
+def sessionaware(fn):
+    def _handle_generator(session, fn, response):
+        session._current_function.append(fn)
+        try:
+            for item in response:
+                session._current_function.pop()
+                yield item
+                session._current_function.append(fn)
+        finally:
+            session._current_function.pop()
+
+    @wraps(fn)
+    def wrapped(*a, **kw):
+        session = a[0]
+        session._current_function.append(fn)
+        try:
+            response = fn(*a, **kw)
+        finally:
+            session._current_function.pop()
+
+        if isinstance(response, GeneratorType):
+            return _handle_generator(session, fn, response)
+        else:
+            return response
+
+    return _sessionaware(cls=Login)(wrapped)
 
 
 def login(*args, **kwargs):
