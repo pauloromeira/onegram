@@ -22,7 +22,7 @@ def user_info(session, username=None):
 
 @sessionaware
 def post_info(session, post=None):
-    shortcode = post['shortcode'] if isinstance(post, dict) else shortcode
+    shortcode = post['shortcode'] if isinstance(post, dict) else post
 
     url = URLS['post_info'](shortcode=shortcode)
 
@@ -73,7 +73,7 @@ def posts(session, user=None):
 
 @sessionaware
 def likes(session, post):
-    shortcode = post['shortcode'] if isinstance(post, dict) else shortcode
+    shortcode = post['shortcode'] if isinstance(post, dict) else post
     variables =  {'shortcode': shortcode}
 
     yield from _iterate(session, 'likes', variables)
@@ -81,7 +81,7 @@ def likes(session, post):
 
 @sessionaware
 def comments(session, post):
-    shortcode = post['shortcode'] if isinstance(post, dict) else shortcode
+    shortcode = post['shortcode'] if isinstance(post, dict) else post
     variables = {'shortcode': shortcode}
 
     yield from _iterate(session, 'comments', variables)
