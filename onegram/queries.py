@@ -88,12 +88,16 @@ def comments(session, post):
 
 
 @sessionaware
+def feed(session):
+    yield from _iterate(session, chunk_key='fetch_media_item_count',
+                                 cursor_key='fetch_media_item_cursor')
+
+@sessionaware
 def explore(session):
     yield from _iterate(session)
 
 
-
-def _iterate(session, variables={}):
+def _iterate(session, variables={}, chunk_key='first', cursor_key='after'):
     # TODO [romeira]: make it prettier {09/03/18 00:03}
     query = session.current_function.__name__
 
@@ -101,7 +105,7 @@ def _iterate(session, variables={}):
     jspath = JSPATHS[query]
     params = {'query_hash': QUERY_HASHES[query]}
 
-    variables['first'] = next(chunks)
+    variables[chunk_key] = next(chunks)
     params['variables'] = json.dumps(variables)
 
     response = session.query(GRAPHQL_URL, params=params)
@@ -111,8 +115,8 @@ def _iterate(session, variables={}):
     page_info = data['page_info']
 
     while page_info['has_next_page']:
-        variables['first'] = next(chunks)
-        variables['after'] = page_info['end_cursor']
+        variables[chunk_key] = next(chunks)
+        variables[cursor_key] = page_info['end_cursor']
         params['variables'] = json.dumps(variables)
 
         response = session.query(GRAPHQL_URL, params=params)

@@ -9,7 +9,7 @@ from onegram import Login
 # Queries
 from onegram import user_info, post_info
 from onegram import followers, following
-from onegram import posts, likes, comments
+from onegram import posts, likes, comments, feed
 from onegram import explore
 
 # Actions
@@ -40,4 +40,8 @@ def commenters_rank(user=None):
     return sorted(rank.items(), key=itemgetter(1), reverse=True)
 
 
-info = user_info()
+
+feeds_count = 100
+feeds = list(islice(feed(), feeds_count))
+unique_feeds = len(set(p['display_url'] for p in feeds))
+print(f'{unique_feeds}/{feeds_count}')
