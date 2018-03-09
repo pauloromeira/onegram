@@ -3,8 +3,6 @@ import logging
 import requests
 import urllib3
 
-from types import GeneratorType
-from functools import wraps
 from fake_useragent import UserAgent
 from getpass import getpass
 from requests import HTTPError
@@ -110,33 +108,7 @@ class Login(Session):
         return f'({self.username})'
 
 
-# TODO [romeira]: Move to sessionlib? - TEST {08/03/18 01:09}
-def sessionaware(fn):
-    def _handle_generator(session, fn, response):
-        session._current_function.append(fn)
-        try:
-            for item in response:
-                session._current_function.pop()
-                yield item
-                session._current_function.append(fn)
-        finally:
-            session._current_function.pop()
-
-    @wraps(fn)
-    def wrapped(*a, **kw):
-        session = a[0]
-        session._current_function.append(fn)
-        try:
-            response = fn(*a, **kw)
-        finally:
-            session._current_function.pop()
-
-        if isinstance(response, GeneratorType):
-            return _handle_generator(session, fn, response)
-        else:
-            return response
-
-    return _sessionaware(cls=Login)(wrapped)
+sessionaware = _sessionaware(cls=Login)
 
 
 def login(*args, **kwargs):
