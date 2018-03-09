@@ -42,7 +42,7 @@ def followers(session, user=None):
 
     variables = {'id': user_id}
 
-    yield from _iterate(session, 'followers', variables)
+    yield from _iterate(session, variables)
 
 
 @sessionaware
@@ -55,7 +55,7 @@ def following(session, user=None):
 
     variables = {'id': user_id}
 
-    yield from _iterate(session, 'following', variables)
+    yield from _iterate(session, variables)
 
 
 @sessionaware
@@ -68,7 +68,7 @@ def posts(session, user=None):
 
     variables = {'id': user_id}
 
-    yield from _iterate(session, 'posts', variables)
+    yield from _iterate(session, variables)
 
 
 @sessionaware
@@ -76,7 +76,7 @@ def likes(session, post):
     shortcode = post['shortcode'] if isinstance(post, dict) else post
     variables =  {'shortcode': shortcode}
 
-    yield from _iterate(session, 'likes', variables)
+    yield from _iterate(session, variables)
 
 
 @sessionaware
@@ -84,16 +84,19 @@ def comments(session, post):
     shortcode = post['shortcode'] if isinstance(post, dict) else post
     variables = {'shortcode': shortcode}
 
-    yield from _iterate(session, 'comments', variables)
+    yield from _iterate(session, variables)
 
 
 @sessionaware
 def explore(session):
-    yield from _iterate(session, 'explore')
+    yield from _iterate(session)
 
 
 
-def _iterate(session, query, variables={}):
+def _iterate(session, variables={}):
+    # TODO [romeira]: make it prettier {09/03/18 00:03}
+    query = session.current_function.__name__
+
     chunks = session.settings['QUERY_CHUNKS'][query]()
     jspath = JSPATHS[query]
     params = {'query_hash': QUERY_HASHES[query]}

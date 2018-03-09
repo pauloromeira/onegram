@@ -38,4 +38,5 @@
   [ ] Algorithms (with session awareness)
   [ ] Unlogged use (queries)
   [ ] Demo gif (README.md)
+  [ ] Post actions: translate shortcode -> id (post_ifo)
   - ...

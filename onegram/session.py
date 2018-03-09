@@ -93,7 +93,7 @@ class Login(Session):
            after=after_log(logger, logging.INFO))
     def request(self, method, url, *a, **kw):
         if self.current_function:
-            logger.info(self.current_function_key)
+            logger.info(f'{self} {self.current_function_key}')
 
         if kw.pop('no_proxy', False):
             kw['proxies'] = {'no_proxy': parse_url(url).host}
