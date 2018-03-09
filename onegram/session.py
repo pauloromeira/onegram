@@ -27,6 +27,15 @@ class Login(Session):
     def current(cls):
         return Session.current() or login()
 
+    @property
+    def current_function_key(self):
+        if not self.current_function:
+            return None
+        mod_key = self.current_function.__module__.split('.', 1)[-1]
+        fn_key = self.current_function.__name__
+        return f'{mod_key}.{fn_key}'
+
+
     def __init__(self, username=None, password=None, custom_settings={}):
         if username:
             custom_settings['USERNAME'] = username
@@ -83,6 +92,9 @@ class Login(Session):
            retry=retry_if_exception_type(HTTPError),
            after=after_log(logger, logging.INFO))
     def request(self, method, url, *a, **kw):
+        if self.current_function:
+            logger.info(self.current_function_key)
+
         if kw.pop('no_proxy', False):
             kw['proxies'] = {'no_proxy': parse_url(url).host}
         try:
