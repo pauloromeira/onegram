@@ -33,12 +33,3 @@ QUERY_CHUNKS = {
     'comments': choices(range(20, 40)),
     'explore': repeat(24),
 }
-
-
-
-# TODO [romeira]: move to utils {07/03/18 01:10}
-_default_settings = {k:v for k, v in locals().items() if k.isupper()}
-def load_settings(custom_settings={}):
-    settings = _default_settings.copy()
-    settings.update(custom_settings)
-    return settings

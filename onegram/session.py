@@ -13,7 +13,7 @@ from tenacity import wait_chain, wait_fixed
 from urllib3.exceptions import InsecureRequestWarning
 from urllib3.util import parse_url
 
-from .settings import load_settings
+from . import settings as settings_module
 from .constants import DEFAULT_HEADERS, QUERY_HEADERS, ACTION_HEADERS
 from .constants import URLS, COOKIES
 from .utils import sleep
@@ -33,7 +33,7 @@ class Login(Session):
         if password:
             custom_settings['PASSWORD'] = password
 
-        self.settings = load_settings(custom_settings)
+        self.settings = _load_settings(custom_settings)
 
         log_settings = self.settings.get('LOG_SETTINGS')
         if log_settings:
@@ -122,3 +122,10 @@ def logout(session):
         session.close()
     except:
         pass
+
+
+def _load_settings(custom_settings={}):
+    settings = {k:getattr(settings_module, k)
+                for k in dir(settings_module) if k.isupper()}
+    settings.update(custom_settings)
+    return settings
