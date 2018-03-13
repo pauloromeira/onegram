@@ -17,8 +17,11 @@ VERIFY_SSL = config('VERIFY_SSL', default=True, cast=bool)
 
 DISABLE_LOGIN_PROXY = True
 
-ACTION_DELAY = 0
-QUERY_DELAY = 0
+# Limits requests per second
+RATE_LIMITS = {
+    'queries': [(2, 10)],
+    'posts': [(30, 60), (100, 200)],
+}
 
 LOG_SETTINGS = {
     'format': '%(levelname)s:%(name)s:%(funcName)s:%(message)s',

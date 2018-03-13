@@ -16,7 +16,7 @@ from urllib3.util import parse_url
 from . import settings as settings_module
 from .constants import DEFAULT_HEADERS, QUERY_HEADERS, ACTION_HEADERS
 from .constants import URLS, COOKIES
-from .utils import sleep
+from .utils import RateLimiter
 
 logger = logging.getLogger(__name__)
 
@@ -28,12 +28,14 @@ class Login(Session):
         return Session.current() or login()
 
     @property
-    def current_function_key(self):
-        if not self.current_function:
-            return None
-        mod_key = self.current_function.__module__.split('.', 1)[-1]
-        fn_key = self.current_function.__name__
-        return f'{mod_key}.{fn_key}'
+    def current_module_name(self):
+        return (self.current_function.__module__.split('.', 1)[-1]
+                if self.current_function else None)
+
+    @property
+    def current_function_name(self):
+        return (self.current_function.__name__
+                if self.current_function else None)
 
 
     def __init__(self, username=None, password=None, custom_settings={}):
@@ -48,8 +50,11 @@ class Login(Session):
         if log_settings:
             logging.basicConfig(**log_settings)
 
+        self.rate_limiter = RateLimiter(self)
+
         self.username = self.settings.get('USERNAME')
         self._current_function = []
+
 
     def enter_contexts(self):
         self._requests = yield requests.Session()
@@ -75,14 +80,12 @@ class Login(Session):
 
 
     def action(self, url, *a, **kw):
-        sleep(self.settings.get('ACTION_DELAY', 0))
         headers = kw.setdefault('headers', ACTION_HEADERS)
         headers['X-CSRFToken'] = self._requests.cookies['csrftoken']
 
         return self.request('POST', url, *a, **kw)
 
     def query(self, url, *a, **kw):
-        sleep(self.settings.get('QUERY_DELAY', 0))
         kw.setdefault('headers', QUERY_HEADERS)
 
         return self.request('GET', url, *a, **kw)
@@ -93,17 +96,20 @@ class Login(Session):
            after=after_log(logger, logging.INFO))
     def request(self, method, url, *a, **kw):
         if self.current_function:
-            logger.info(f'{self} {self.current_function_key}')
+            logger.info(f'{self} {self.current_module_name}.'
+                        f'{self.current_function_name}')
 
         if kw.pop('no_proxy', False):
             kw['proxies'] = {'no_proxy': parse_url(url).host}
-        try:
-            response = self._requests.request(method, url, *a, **kw)
-            response.raise_for_status()
-            return json.loads(response.text)
-        except Exception:
-            logger.error(response.text)
-            raise
+
+        with self.rate_limiter:
+            try:
+                response = self._requests.request(method, url, *a, **kw)
+                response.raise_for_status()
+                return json.loads(response.text)
+            except Exception:
+                logger.error(response.text)
+                raise
 
 
     def _login(self):
