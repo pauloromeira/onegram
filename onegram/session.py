@@ -37,6 +37,10 @@ class Login(Session):
         return (self.current_function.__name__
                 if self.current_function else None)
 
+    @property
+    def cookies(self):
+        return self._requests.cookies
+
 
     def __init__(self, username=None, password=None, custom_settings={}):
         if username:
@@ -76,7 +80,7 @@ class Login(Session):
 
     def action(self, url, *a, **kw):
         headers = kw.setdefault('headers', ACTION_HEADERS)
-        headers['X-CSRFToken'] = self._requests.cookies['csrftoken']
+        headers['X-CSRFToken'] = self.cookies['csrftoken']
 
         return self.request('POST', url, *a, **kw)
 
@@ -109,7 +113,7 @@ class Login(Session):
         start_url, login_url = URLS['start'], URLS['login']
 
         self._requests.get(start_url)
-        self._requests.cookies.update(COOKIES)
+        self.cookies.update(COOKIES)
 
         kw = {}
         self.username = self.username or input('Username: ')
@@ -123,10 +127,11 @@ class Login(Session):
             kw['proxies'] = {'no_proxy': parse_url(login_url).host}
 
         headers = ACTION_HEADERS
-        headers['X-CSRFToken'] = self._requests.cookies['csrftoken']
+        headers['X-CSRFToken'] = self.cookies['csrftoken']
         kw['headers'] = headers
 
         self._requests.post(login_url, **kw)
+        self.user_id = self.cookies.get('ds_user_id')
 
 
     def __str__(self):
