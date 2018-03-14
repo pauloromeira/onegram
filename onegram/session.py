@@ -50,10 +50,9 @@ class Login(Session):
         if log_settings:
             logging.basicConfig(**log_settings)
 
-        self.rate_limiter = RateLimiter(self)
-
         self.username = self.settings.get('USERNAME')
-        self._current_function = []
+
+        self.rate_limiter = RateLimiter(self)
 
 
     def enter_contexts(self):
