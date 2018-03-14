@@ -52,8 +52,6 @@ class Login(Session):
 
         self.username = self.settings.get('USERNAME')
 
-        self.rate_limiter = RateLimiter(self)
-
 
     def enter_contexts(self):
         self._requests = yield requests.Session()
@@ -71,11 +69,9 @@ class Login(Session):
             user_agent = UserAgent(verify_ssl=verify_ssl).random
         self._requests.headers.update({'User-Agent': user_agent})
 
-        # Init cookies
-        self._requests.get(URLS['start'])
-        self._requests.cookies.update(COOKIES)
-
         self._login()
+
+        self.rate_limiter = RateLimiter(self)
 
 
     def action(self, url, *a, **kw):
@@ -94,12 +90,10 @@ class Login(Session):
            retry=retry_if_exception_type(HTTPError),
            after=after_log(logger, logging.INFO))
     def request(self, method, url, *a, **kw):
+
         if self.current_function:
             logger.info(f'{self} {self.current_module_name}.'
                         f'{self.current_function_name}')
-
-        if kw.pop('no_proxy', False):
-            kw['proxies'] = {'no_proxy': parse_url(url).host}
 
         with self.rate_limiter:
             try:
@@ -112,13 +106,27 @@ class Login(Session):
 
 
     def _login(self):
+        start_url, login_url = URLS['start'], URLS['login']
+
+        self._requests.get(start_url)
+        self._requests.cookies.update(COOKIES)
+
+        kw = {}
         self.username = self.username or input('Username: ')
-        payload = {
+        kw['data'] = {
             'username': self.username,
             'password': self.settings.get('PASSWORD') or getpass()
         }
+
         no_proxy = self.settings.get('DISABLE_LOGIN_PROXY', False)
-        self.action(URLS['login'], data=payload, no_proxy=no_proxy)
+        if no_proxy:
+            kw['proxies'] = {'no_proxy': parse_url(login_url).host}
+
+        headers = ACTION_HEADERS
+        headers['X-CSRFToken'] = self._requests.cookies['csrftoken']
+        kw['headers'] = headers
+
+        self._requests.post(login_url, **kw)
 
 
     def __str__(self):
