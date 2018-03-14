@@ -41,7 +41,4 @@ def commenters_rank(user=None):
 
 
 
-feeds_count = 100
-feeds = list(islice(feed(), feeds_count))
-unique_feeds = len(set(p['display_url'] for p in feeds))
-print(f'{unique_feeds}/{feeds_count}')
+list(islice(posts(), 30))

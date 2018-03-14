@@ -16,7 +16,7 @@ from urllib3.util import parse_url
 from . import settings as settings_module
 from .constants import DEFAULT_HEADERS, QUERY_HEADERS, ACTION_HEADERS
 from .constants import URLS, COOKIES
-from .utils import RateLimiter
+from .utils.ratelimit import RateLimiter
 
 logger = logging.getLogger(__name__)
 

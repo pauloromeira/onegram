@@ -1,8 +1,11 @@
 import logging
 
+from pathlib import Path
 from decouple import config
 
 from .utils import head_tail, choices, repeat
+
+BASE_DIR = Path(__file__).parent
 
 
 USERNAME = config('INSTA_USERNAME', default=None)
@@ -22,6 +25,8 @@ RATE_LIMITS = {
     'queries': [(2, 10)],
     'posts': [(30, 60), (100, 200)],
 }
+RATE_CACHE_ENABLED = True
+RATE_CACHE_DIR = BASE_DIR / '.onegram/rate'
 
 LOG_SETTINGS = {
     'format': '%(levelname)s:%(name)s:%(funcName)s:%(message)s',

@@ -1,52 +1,18 @@
 import json
-import logging
-import jmespath
 
-from itertools import chain
-from itertools import repeat as iter_repeat
-from functools import partial
-from collections import deque
+from collections import deque, defaultdict
+from json import JSONEncoder, JSONDecoder
 from time import monotonic as now
 from time import sleep
-
-from random import uniform
-from random import choice
-from requests import Response
-
-logger = logging.getLogger(__name__)
-
-
-def jsearch(jspath, content):
-    if isinstance(content, dict):
-        dct = content
-    else:
-        if isinstance(content, Response):
-            text = content.text
-        elif isinstance(content, str):
-            text = content
-        else:
-            raise TypeError()
-        dct = json.loads(text)
-
-    return jmespath.search(jspath, dct)
-
-
-def repeat(*a, **kw):
-    return partial(iter_repeat, *a, **kw)
-    
-def choices(seq):
-    def _choices():
-        while True:
-            yield choice(seq)
-    return _choices
-
-def head_tail(head, tail):
-    return partial(chain, [head], iter_repeat(tail))
+from pathlib import Path
 
 
 class RateLimiter:
     def __init__(self, session):
         self.session = session
+        self.cache_enabled = session.settings.get('RATE_CACHE_ENABLED', False)
+        self.cache_dir = session.settings.get('RATE_CACHE_DIR', Path('.cache'))
+
         rate_limits = session.settings.get('RATE_LIMITS', {})
         self.rates = {}
         for key, limits in rate_limits.items():
@@ -71,6 +37,14 @@ class RateLimiter:
             if key in self.rates:
                 self.rates[key].done(end)
 
+        if self.cache_enabled:
+            self.dump()
+
+    def dump(self):
+        path = self.cache_dir / f'{self.session.username}'
+        path.parent.mkdir(parents=True, exist_ok=True)
+        open(path, 'w').write(json.dumps(self, cls=_RateLimiterJSONEncoder))
+
 
 class _RateController:
     def __init__(self, limits):
@@ -84,3 +58,13 @@ class _RateController:
     def done(self, end):
         for queue, _ in self.windows:
             queue.append(end)
+
+
+class _RateLimiterJSONEncoder(JSONEncoder):
+    def default(self, o):
+        rates = defaultdict(dict)
+        for key, controller in o.rates.items():
+            for queue, secs in controller.windows:
+                if queue:
+                    rates[key][f'{queue.maxlen}/{secs}'] = list(queue)
+        return rates
