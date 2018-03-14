@@ -18,13 +18,14 @@ DEBUG = config('INSTA_DEBUG', default=False, cast=bool)
 
 VERIFY_SSL = config('VERIFY_SSL', default=True, cast=bool)
 
-DISABLE_LOGIN_PROXY = True
+DISABLE_LOGIN_PROXY = False
 
 # Limits requests per second
 RATE_LIMITS = {
     'queries': [(2, 10)],
     'posts': [(30, 60), (100, 200)],
 }
+
 RATE_CACHE_ENABLED = True
 RATE_CACHE_DIR = BASE_DIR / '.onegram/rate'
 

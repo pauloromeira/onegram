@@ -30,13 +30,17 @@
 * Other:
   [X] Ask user/password if not defined
   [X] Create session if not exists
-  [ ] Rate limits
+  [X] Rate limits
+  [ ] Infer rate limis
+  [ ] Auto rate limis
   [ ] Retry login until success
   [ ] Clear cookies + login again if session expired
   [ ] Exceptions
   [ ] Logs
   [ ] Algorithms (with session awareness)
-  [ ] Unlogged use (queries)
+  [ ] Unlogged use (queries: posts, comments, post_info, user_info...)
+  [ ] Try unlogged first
   [ ] Demo gif (README.md)
   [ ] Post actions: translate shortcode -> id (post_ifo)
+  [ ] Get logged user_id from cookies: `ds_user_id` at login
   - ...
