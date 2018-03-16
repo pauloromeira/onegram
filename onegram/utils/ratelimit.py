@@ -11,15 +11,16 @@ class RateLimiter:
         self.session = session
 
         rate_limits = session.settings.get('RATE_LIMITS', {})
-        self.rates = {}
-        for key, limits in rate_limits.items():
-            self.rates[key] = _RateController(limits)
-
         self.cache_enabled = session.settings.get('RATE_CACHE_ENABLED', False)
-        if self.cache_enabled:
-            cache_dir = session.settings.get('RATE_CACHE_DIR', Path('.cache'))
-            self.cache_path = cache_dir / f'{self.session.username}'
-            self.load()
+        self.rates = {}
+        if rate_limits:
+            for key, limits in rate_limits.items():
+                self.rates[key] = _RateController(limits)
+
+            if self.cache_enabled:
+                cache_dir = session.settings.get('RATE_CACHE_DIR', Path('.cache'))
+                self.cache_path = cache_dir / f'{self.session.username}'
+                self.load()
 
 
     def __enter__(self):

@@ -12,7 +12,10 @@ def responses():
 
 @pytest.fixture
 def session(responses):
-    settings = {'USER_AGENT': 'user-agent'}
+    settings = {
+        'USER_AGENT': 'user-agent',
+        'RATE_LIMITS': [],
+    }
     login_responses(responses)
     sess = login(custom_settings=settings)
     yield sess
