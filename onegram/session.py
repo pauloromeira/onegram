@@ -112,8 +112,10 @@ class Login(Session):
     def _login(self):
         start_url, login_url = URLS['start'], URLS['login']
 
-        self._requests.get(start_url)
+        response = self._requests.get(start_url)
+        # TODO [romeira]: needed only for tests - requests-mock issue {16/03/18 00:40}
         self.cookies.update(DEFAULT_COOKIES)
+        self.cookies.update(response.cookies)
 
         kw = {}
         self.username = self.username or input('Username: ')
@@ -130,7 +132,9 @@ class Login(Session):
         headers['X-CSRFToken'] = self.cookies['csrftoken']
         kw['headers'] = headers
 
-        self._requests.post(login_url, **kw)
+        response = self._requests.post(login_url, **kw)
+        # TODO [romeira]: needed only for tests - requests-mock issue {16/03/18 00:40}
+        self.cookies.update(response.cookies)
         self.user_id = self.cookies.get('ds_user_id')
 
 

@@ -1,71 +1,126 @@
-import logging
+import json
 
 from .session import sessionaware
 from .utils import jsearch
-from ._utils import shortcode, user_id, iter_query
-from .constants import JSPATHS, URLS
-
-logger = logging.getLogger(__name__)
+from .constants import URLS, GRAPHQL_URL
+from .constants import QUERY_HASHES, JSPATHS
 
 
 @sessionaware
 def user_info(session, username=None):
-    username = username or session.username
-
-    url = URLS['user_info'](username=username)
-    params = {'__a': '1'}
-    response = session.query(url, params=params)
-
-    return jsearch(JSPATHS['user_info'], response)
+    return _info(session, username=username)
 
 
 @sessionaware
 def post_info(session, post=None):
-    url = URLS['post_info'](shortcode=shortcode(post))
-    params = {'__a': '1'}
-    response = session.query(url, params=params)
-
-    return jsearch(JSPATHS['post_info'], response)
+    return _info(session, shortcode=_shortcode(post))
 
 
 @sessionaware
 def followers(session, user=None):
-    variables = {'id': user_id(session, user)}
-    yield from iter_query(session, variables)
+    yield from _iter_user(session, user)
 
 
 @sessionaware
 def following(session, user=None):
-    variables = {'id': user_id(session, user)}
-    yield from iter_query(session, variables)
+    yield from _iter_user(session, user)
 
 
 @sessionaware
 def posts(session, user=None):
-    variables = {'id': user_id(session, user)}
-    yield from iter_query(session, variables)
+    yield from _iter_user(session, user)
 
 
 @sessionaware
 def likes(session, post):
-    variables =  {'shortcode': shortcode(post)}
-    yield from iter_query(session, variables)
+    yield from _iter_post(session, post)
 
 
 @sessionaware
 def comments(session, post):
-    variables = {'shortcode': shortcode(post)}
-
-    yield from iter_query(session, variables)
+    yield from _iter_post(session, post)
 
 
 @sessionaware
 def feed(session):
-    yield from iter_query(session, chunk_key='fetch_media_item_count',
-                                 cursor_key='fetch_media_item_cursor')
-
+    yield from _iter_query(session, chunk_key='fetch_media_item_count',
+                                   cursor_key='fetch_media_item_cursor')
 
 @sessionaware
 def explore(session):
-    yield from iter_query(session)
+    yield from _iter_query(session)
+
+
+#######################################################################
+#                               HELPERS                               #
+#######################################################################
+
+def _user_id(session, user):
+    if user is None:
+        user_id = getattr(session, 'user_id', None)
+        if user_id:
+            return user_id
+        else:
+            user = session.username
+    if isinstance(user, dict):
+        return user.get('user_id', user['id'])
+    else:
+        return user_info(session, user)['id']
+
+
+def _post_id(post):
+    if isinstance(post, dict):
+        return post.get('post_id', post['id'])
+    else:
+        return post
+
+
+def _shortcode(post):
+    return post['shortcode'] if isinstance(post, dict) else post
+
+
+def _info(session, **kw):
+    query = session.current_function_name
+    url = URLS[query](**kw)
+    params = {'__a': '1'}
+    response = session.query(url, params=params)
+    return jsearch(JSPATHS[query], response)
+
+
+def _iter_user(session, user, *a, **kw):
+    variables = {'id': _user_id(session, user)}
+    yield from _iter_query(session, variables, *a, **kw)
+
+
+def _iter_post(session, post, *a, **kw):
+    variables =  {'shortcode': shortcode(post)}
+    yield from _iter_query(session, variables, *a, **kw)
+
+
+def _iter_query(session, variables={}, chunk_key='first', cursor_key='after'):
+    query = session.current_function_name
+
+    chunks = session.settings['QUERY_CHUNKS'][query]()
+    jspath = JSPATHS[query]
+    params = {'query_hash': QUERY_HASHES[query]}
+
+    variables[chunk_key] = next(chunks)
+    params['variables'] = json.dumps(variables)
+
+    response = session.query(GRAPHQL_URL, params=params)
+    data = jsearch(jspath, response)
+    yield from jsearch(JSPATHS['_nodes'], data)
+
+    page_info = data['page_info']
+
+    while page_info['has_next_page']:
+        variables[chunk_key] = next(chunks)
+        variables[cursor_key] = page_info['end_cursor']
+        params['variables'] = json.dumps(variables)
+
+        response = session.query(GRAPHQL_URL, params=params)
+        data = jsearch(jspath, response)
+        yield from jsearch(JSPATHS['_nodes'], data)
+
+        page_info = data['page_info']
 

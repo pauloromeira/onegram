@@ -22,8 +22,8 @@ DISABLE_LOGIN_PROXY = False
 
 # Limits requests per second
 RATE_LIMITS = {
-    'queries': [(2, 10)],
-    'posts': [(30, 60), (100, 200)],
+    'queries': [(1, 1)],
+    'actions': [(1, 1)],
 }
 
 RATE_CACHE_ENABLED = True

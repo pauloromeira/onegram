@@ -9,7 +9,7 @@ def login_responses(responses):
         'status': 'ok',
         'user': True
     }
-    responses.post(URLS['login'], 
+    responses.post(URLS['login'],
                    cookies={'ds_user_id': hash_id('username')},
                    json=data)
 

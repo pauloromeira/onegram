@@ -18,7 +18,7 @@ ACTION_HEADERS = {
     'X-Requested-With': 'XMLHttpRequest'
 }
 
-COOKIES = {
+DEFAULT_COOKIES = {
     'ig_vw': '1440',
     'ig_pr': '2',
     'ig_vh': '800',
@@ -40,7 +40,7 @@ URLS = {
     'unlike': 'https://www.instagram.com/web/likes/{post_id}/unlike/'.format,
     'comment': 'https://www.instagram.com/web/comments/{post_id}/add/'.format,
     'uncomment': ('https://www.instagram.com/web/comments/'
-                  '{post_id}/delete/{commentary_id}/'.format),
+                  '{post_id}/delete/{comment_id}/'.format),
     'save': 'https://www.instagram.com/web/save/{post_id}/save/'.format,
     'unsave': 'https://www.instagram.com/web/save/{post_id}/unsave/'.format,
 }
