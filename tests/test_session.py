@@ -9,7 +9,7 @@ def test_session_attrs(session):
     assert session.user_id == hash_id(session.username)
 
 
-def test_login_request(responses, session):
+def test_login_request(session, responses):
     request = responses.last_request
     assert request.text == 'username=username&password=password'
     assert request.headers['X-CSRFToken'] == 'token'
