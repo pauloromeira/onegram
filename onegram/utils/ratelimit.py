@@ -81,7 +81,6 @@ def _json_encoder(manager):
             encoded[key] = list(queue)
     return encoded
 
-
 def _json_decoder(manager, encoded):
     for key, queue in encoded.items():
         if key in manager.rates:

@@ -26,7 +26,6 @@ def jsearch(jspath, content):
 
     return jmespath.search(jspath, dct)
 
-
 def repeat(*a, **kw):
     return partial(iter_repeat, *a, **kw)
     

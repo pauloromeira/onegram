@@ -10,41 +10,34 @@ from .constants import QUERY_HASHES, JSPATHS
 def user_info(session, username=None):
     return _info(session, username=username)
 
-
 @sessionaware
 def post_info(session, post=None):
     return _info(session, shortcode=_shortcode(post))
-
 
 @sessionaware
 def followers(session, user=None):
     yield from _iter_user(session, user)
 
-
 @sessionaware
 def following(session, user=None):
     yield from _iter_user(session, user)
-
 
 @sessionaware
 def posts(session, user=None):
     yield from _iter_user(session, user)
 
-
 @sessionaware
 def likes(session, post):
     yield from _iter_post(session, post)
-
 
 @sessionaware
 def comments(session, post):
     yield from _iter_post(session, post)
 
-
 @sessionaware
 def feed(session):
     yield from _iter_query(session, chunk_key='fetch_media_item_count',
-                                   cursor_key='fetch_media_item_cursor')
+                                    cursor_key='fetch_media_item_cursor')
 
 @sessionaware
 def explore(session):
@@ -67,13 +60,11 @@ def _user_id(session, user):
     else:
         return user_info(session, user)['id']
 
-
 def _post_id(post):
     if isinstance(post, dict):
         return post.get('post_id', post['id'])
     else:
         return post
-
 
 def _shortcode(post):
     return post['shortcode'] if isinstance(post, dict) else post
@@ -86,16 +77,13 @@ def _info(session, **kw):
     response = session.query(url, params=params)
     return jsearch(JSPATHS[query], response)
 
-
 def _iter_user(session, user, *a, **kw):
     variables = {'id': _user_id(session, user)}
     yield from _iter_query(session, variables, *a, **kw)
 
-
 def _iter_post(session, post, *a, **kw):
     variables =  {'shortcode': shortcode(post)}
     yield from _iter_query(session, variables, *a, **kw)
-
 
 def _iter_query(session, variables={}, chunk_key='first', cursor_key='after'):
     query = session.current_function_name
