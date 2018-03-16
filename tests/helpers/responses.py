@@ -24,3 +24,10 @@ def follow_responses(responses, username):
         'status': 'ok'
     }
     responses.post(URLS['follow'](user_id=user_id), json=data)
+
+def unfollow_responses(responses, username):
+    user_id = hash_id(username)
+    data = {
+        'status': 'ok'
+    }
+    responses.post(URLS['unfollow'](user_id=user_id), json=data)
