@@ -10,7 +10,7 @@ class RateLimiter:
     def __init__(self, session):
         self.session = session
 
-        rate_limits = session.settings.get('RATE_LIMITS', {})
+        rate_limits = session.settings.get('RATE_LIMITS')
         self.cache_enabled = session.settings.get('RATE_CACHE_ENABLED', False)
         self.rates = {}
         if rate_limits:

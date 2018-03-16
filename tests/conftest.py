@@ -14,7 +14,7 @@ def responses():
 def session(responses):
     settings = {
         'USER_AGENT': 'user-agent',
-        'RATE_LIMITS': [],
+        'RATE_LIMITS': None,
     }
     login_responses(responses)
     sess = login(custom_settings=settings)
