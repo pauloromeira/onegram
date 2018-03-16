@@ -26,6 +26,13 @@
   [ ] Profiles (https://www.instagram.com/directory/profiles/)
   - ...
 * Tests:
+  [X] Login
+  - Actions
+    [X] Follow
+    [X] Unfollow
+  - Queries:
+    [ ] User Info
+  [ ] Coverage
   - ...
 * Other:
   [X] Ask user/password if not defined
