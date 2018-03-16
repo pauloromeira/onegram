@@ -1,3 +1,4 @@
+from onegram.session import Login
 from onegram.constants import DEFAULT_COOKIES
 
 
@@ -13,3 +14,7 @@ def test_login_request(responses, session):
     request = responses.last_request
     assert request.text == 'username=username&password=password'
     assert request.headers['X-CSRFToken'] == 'token'
+
+
+def test_current_session(session):
+    assert session == Login.current()
