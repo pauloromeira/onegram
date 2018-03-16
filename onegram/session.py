@@ -112,8 +112,9 @@ class Login(Session):
     def _login(self):
         start_url, login_url = URLS['start'], URLS['login']
 
-        self._requests.get(start_url)
+        response = self._requests.get(start_url)
         self.cookies.update(COOKIES)
+        self.cookies.update(response.cookies)
 
         kw = {}
         self.username = self.username or input('Username: ')

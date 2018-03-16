@@ -7,11 +7,11 @@ name = "pypi"
 
 [packages]
 
-requests = "*"
-sessionlib = "*"
-python-decouple = "*"
 fake-useragent = "*"
 jmespath = "*"
+python-decouple = "*"
+requests = "*"
+sessionlib = "*"
 tenacity = "*"
 
 
@@ -19,6 +19,9 @@ tenacity = "*"
 
 ipdb = "*"
 ipython = "*"
+pytest = "*"
+pytest-env = "*"
+requests-mock = "*"
 
 
 [requires]
