@@ -30,6 +30,12 @@
   - Actions
     [X] Follow
     [X] Unfollow
+    [ ] Like
+    [ ] Unlike
+    [ ] Comment
+    [ ] Uncomment
+    [ ] Save
+    [ ] Unsave
   - Queries:
     [ ] User Info
   [ ] Coverage

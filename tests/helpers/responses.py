@@ -3,19 +3,21 @@ from . import hash_id
 
 
 def login_responses(responses):
-    responses.get(URLS['start'], cookies={'csrftoken': 'token'})
+    resps = []
+    resps.append(responses.get(URLS['start'], cookies={'csrftoken': 'token'}))
     data = {
         'authenticated': True,
         'status': 'ok',
         'user': True
     }
-    responses.post(URLS['login'],
-                   cookies={'ds_user_id': hash_id('username')},
-                   json=data)
+    resps.append(responses.post(URLS['login'],
+                                cookies={'ds_user_id': hash_id('username')},
+                                json=data))
+    return resps
 
 def user_info_responses(responses, username):
     data = {'graphql': {'user': {'id': hash_id(username)} }}
-    responses.get(URLS['user_info'](username=username), json=data)
+    return [responses.get(URLS['user_info'](username=username), json=data)]
 
 def follow_responses(responses, username):
     user_id = hash_id(username)
@@ -23,11 +25,11 @@ def follow_responses(responses, username):
         'result': 'following',
         'status': 'ok'
     }
-    responses.post(URLS['follow'](user_id=user_id), json=data)
+    return [responses.post(URLS['follow'](user_id=user_id), json=data)]
 
 def unfollow_responses(responses, username):
     user_id = hash_id(username)
     data = {
         'status': 'ok'
     }
-    responses.post(URLS['unfollow'](user_id=user_id), json=data)
+    return [responses.post(URLS['unfollow'](user_id=user_id), json=data)]

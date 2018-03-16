@@ -16,9 +16,8 @@ def session(responses):
         'USER_AGENT': 'user-agent',
         'RATE_LIMITS': None,
     }
-    login_responses(responses)
+    resps = login_responses(responses)
     sess = login(custom_settings=settings)
+    assert all(r.called_once for r in resps)
     yield sess
     logout()
-
-
