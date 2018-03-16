@@ -1,13 +1,12 @@
 from onegram.session import Login
-from onegram.constants import DEFAULT_COOKIES
+
+from helpers import hash_id
 
 
 def test_session_attrs(session):
-    cookies = {'csrftoken': 'token'}
-    cookies.update(DEFAULT_COOKIES)
-    assert cookies == session.cookies
+    assert session.cookies['csrftoken'] == 'token'
     assert session.username == 'username'
-    assert session.user_id == '1'
+    assert session.user_id == hash_id(session.username)
 
 
 def test_login_request(responses, session):

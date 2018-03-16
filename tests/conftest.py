@@ -2,7 +2,7 @@ import pytest
 import requests_mock
 
 from onegram import login, logout
-from onegram.constants import URLS
+from helpers.responses import login_responses
 
 
 @pytest.fixture
@@ -12,15 +12,10 @@ def responses():
 
 @pytest.fixture
 def session(responses):
-    custom_settings = {'USER_AGENT': 'user-agent'}
-    cookies = {'csrftoken': 'token'}
-    responses.get(URLS['start'], cookies=cookies)
-    responses.post(URLS['login'])
-
-    sess = login(custom_settings=custom_settings)
-    sess.user_id = '1'
+    settings = {'USER_AGENT': 'user-agent'}
+    login_responses(responses)
+    sess = login(custom_settings=settings)
     yield sess
-
     logout()
 
 

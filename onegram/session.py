@@ -15,7 +15,7 @@ from urllib3.util import parse_url
 
 from . import settings as settings_module
 from .constants import DEFAULT_HEADERS, QUERY_HEADERS, ACTION_HEADERS
-from .constants import URLS, COOKIES
+from .constants import URLS, DEFAULT_COOKIES
 from .utils.ratelimit import RateLimiter
 
 logger = logging.getLogger(__name__)
@@ -112,9 +112,8 @@ class Login(Session):
     def _login(self):
         start_url, login_url = URLS['start'], URLS['login']
 
-        response = self._requests.get(start_url)
-        self.cookies.update(COOKIES)
-        self.cookies.update(response.cookies)
+        self._requests.get(start_url)
+        self.cookies.update(DEFAULT_COOKIES)
 
         kw = {}
         self.username = self.username or input('Username: ')
