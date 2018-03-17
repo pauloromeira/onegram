@@ -47,6 +47,10 @@ clean-test: ## remove test and coverage artifacts
 	@rm -f .coverage
 	@rm -fr htmlcov/
 
+init:
+	pip install pipenv
+	pipenv install --dev
+
 test: ## run tests quickly with the default Python
 	pipenv run python -m pytest
 
