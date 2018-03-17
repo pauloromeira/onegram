@@ -78,31 +78,20 @@ logout()
 ```
 
 ## Cheatsheet
-The set of functions are divided into queries and actions. For some queries,
-user is an optional argument, with default set to the logged user.
+The set of functions are divided into queries and actions. For some queries
+the user is optional, with default set to the logged user.
 
-|Query|Argument(s)|
-|-|-|
-|`user_info`|`[user]`|
-|`followers`|`[user]`|
-|`following`|`[user]`|
-|`posts`|`[user]`|
-|`post_info`|`post`|
-|`likes`|`post`|
-|`comments`|`post`|
-|`feed`||
-|`explore`||
-
-|Action|Argument(s)|
-|-|-|
-|`follow`|`user`|
-|`unfollow`|`user`|
-|`like`|`post`|
-|`unlike`|`post`|
-|`comment`|`post, comment`|
-|`uncomment`|`post, comment`|
-|`save`|`post`|
-|`unsave`|`post`|
+|Query|Argument(s)||Action|Argument(s)|
+|-|-|-|-|-|
+|`user_info`|`[user]`||`follow`|`user`|
+|`followers`|`[user]`||`unfollow`|`user`|
+|`following`|`[user]`||`like`|`post`|
+|`posts`|`[user]`||`unlike`|`post`|
+|`post_info`|`post`||`comment`|`comment[, post]`|
+|`likes`|`post`||`uncomment`|`comment[, post]`|
+|`comments`|`post`||`save`|`post`|
+|`feed`|||`unsave`|`post`|
+|`explore`|||||
 
 ## Tips
   * Create a `.env` file with your credentials at project root directory,

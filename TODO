@@ -17,8 +17,8 @@
   [X] Likes
   [X] Comments
   [X] Feed Posts (https://www.instagram.com/?__a=1)
-  [ ] Activity (https://www.instagram.com/accounts/activity/?__a=1)
   [X] Explore Posts
+  [ ] Activity (https://www.instagram.com/accounts/activity/?__a=1)
   [ ] Suggested Users (https://www.instagram.com/explore/people/ | e3c04bbb35d86a16cf0e7881c5057737)
   [ ] Saved Posts (https://www.instagram.com/<me>/saved/?__a=1)
   [ ] Tag Posts (https://www.instagram.com/explore/tags/recife/?__a=1)
@@ -44,6 +44,7 @@
   [X] Ask user/password if not defined
   [X] Create session if not exists
   [X] Rate limits
+  [X] Get logged user_id from cookies: `ds_user_id` at login
   [ ] Infer rate limis
   [ ] Auto rate limis
   [ ] Retry login until success
@@ -55,5 +56,4 @@
   [ ] Try unlogged first
   [ ] Demo gif (README.md)
   [ ] Post actions: translate shortcode -> id (post_ifo)
-  [ ] Get logged user_id from cookies: `ds_user_id` at login
   - ...
