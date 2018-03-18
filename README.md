@@ -39,13 +39,12 @@ for post in posts('<me>'):
 
 #### Who likes you most? :open_mouth:
 ```py
+from collections import defaultdict
+from operator import itemgetter
+
 from onegram import posts, likes
 
-from collections import defaultdict
-from operator import intemgetter
-
 rank = defaultdict(int)
-
 for post in posts():
     for like in likes(post):
         username = like['username']

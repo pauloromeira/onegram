@@ -82,7 +82,7 @@ def _iter_user(session, user, *a, **kw):
     yield from _iter_query(session, variables, *a, **kw)
 
 def _iter_post(session, post, *a, **kw):
-    variables =  {'shortcode': shortcode(post)}
+    variables =  {'shortcode': _shortcode(post)}
     yield from _iter_query(session, variables, *a, **kw)
 
 def _iter_query(session, variables={}, chunk_key='first', cursor_key='after'):
