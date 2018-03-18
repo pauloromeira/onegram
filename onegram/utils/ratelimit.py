@@ -1,7 +1,7 @@
 import json
 
 from collections import deque
-from time import monotonic as now
+from time import time as now
 from time import sleep
 from pathlib import Path
 

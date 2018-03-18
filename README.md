@@ -10,13 +10,13 @@ A simplistic api-like instagram **bot** powered by [requests](https://github.com
 ## Installing and running
 1. Clone this repo: `git clone https://github.com/pauloromeira/onegram.git`
 2. Make sure you have python 3.6 installed on your machine
-2. Install pipenv and dependencies:
+3. Install pipenv and dependencies:
     ```sh
     pip install pipenv
     cd onegram
     pipenv install
     ```
-3. Write your script inside the project root directory and run it:
+4. Place your script inside the project root directory and run it:
     ```sh
     pipenv run python script.py
     ```
@@ -47,8 +47,8 @@ from onegram import posts, likes
 
 rank = defaultdict(int)
 for post in posts():
-    for like in likes(post):
-        username = like['username']
+    for like_info in likes(post):
+        username = like_info['username']
         rank[username] += 1
 
 rank = sorted(rank.items(), key=itemgetter(1), reverse=True)
@@ -56,7 +56,7 @@ rank = sorted(rank.items(), key=itemgetter(1), reverse=True)
 print(rank[:10]) # TOP 10!
 ```
 
-#### Explicit login:
+#### Explicit login (optional)
 ```py
 from onegram import Login, posts
 
@@ -65,14 +65,14 @@ with Login(username='user', password='pass'):
   other_posts = list(posts('other'))
 ```
 
-##### Also possible:
+##### Also possible
 ```py
 from onegram import *
 
 login()
 
-first_post = next(posts())
-post_likes = list(likes(first_post))
+last_post = next(posts())
+post_likes = list(likes(last_post))
 
 logout()
 ```
