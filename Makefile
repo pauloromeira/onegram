@@ -29,32 +29,32 @@ help:
 clean: clean-build clean-pyc clean-test ## remove all build, test, coverage and Python artifacts
 
 
-clean-build:
+clean-build: ## remove build artifacts
 	@rm -fr build/
 	@rm -fr dist/
 	@rm -fr .eggs/
 	@find . -name '*.egg-info' -exec rm -fr {} +
 	@find . -name '*.egg' -exec rm -f {} +
 
-clean-pyc:
+clean-pyc: ## remove python file artifacts
 	@find . -name '*.pyc' -exec rm -f {} +
 	@find . -name '*.pyo' -exec rm -f {} +
 	@find . -name '*~' -exec rm -f {} +
 	@find . -name '__pycache__' -exec rm -fr {} +
 
-clean-test:
+clean-test: ## remove test and coverage artifacts
 	@rm -fr .tox/
 	@rm -f .coverage
 	@rm -fr htmlcov/
 
-init:
-	pip install pipenv
-	pipenv install --dev
+init: ## install pipenv and dependencies
+	@pip install pipenv
+	@pipenv install --dev --skip-lock
 
-test:
-	pipenv run python -m pytest
+test: ## run tests with pytest
+	@pipenv run python -m pytest
 
-coverage:
+coverage: ## check code coverage quickly with the default Python
 	@coverage run --source onegram -m pytest
 	@coverage report -m
 	@coverage html
