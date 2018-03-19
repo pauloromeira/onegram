@@ -7,19 +7,13 @@ A simplistic api-like instagram **bot** powered by [requests](https://github.com
 * **Under development**, not stable yet!
 * Rate limits are not configured properly, so be respectful to not get banned!
 
-## Installing and running
-1. Clone this repo: `git clone https://github.com/pauloromeira/onegram.git`
-2. Make sure you have python 3.6 installed on your machine
-3. Install pipenv and dependencies:
-    ```sh
-    pip install pipenv
-    cd onegram
-    pipenv install
-    ```
-4. Place your script inside the project root directory and run it:
-    ```sh
-    pipenv run python script.py
-    ```
+## Installation
+```sh
+pip install onegram
+```
+
+### Dependencies
+Python 3.6
 
 ## Examples
 #### Follow me :wink:
@@ -94,9 +88,8 @@ the user is optional, with default set to the logged user.
 |`explore`|||||
 
 ## Tips
-  * Create a `.env` file with your credentials at project root directory,
-  so you don't have to type it:
+  * Export your credentials so you don't have to type it:
     ```sh
-    INSTA_USERNAME=username
-    INSTA_PASSWORD=password
+    export INSTA_USERNAME=username
+    export INSTA_PASSWORD=password
     ```
