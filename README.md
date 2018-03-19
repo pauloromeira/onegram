@@ -1,5 +1,6 @@
 # onegram
-[![Build Status](https://travis-ci.org/pauloromeira/onegram.svg?branch=master)](https://travis-ci.org/pauloromeira/onegram)
+[![Travis](https://travis-ci.org/pauloromeira/onegram.svg?branch=master)](https://travis-ci.org/pauloromeira/onegram)
+[![Pypi](https://img.shields.io/pypi/v/onegram.svg)](https://pypi.python.org/pypi/onegram)
 
 A simplistic api-like instagram **bot** powered by [requests](https://github.com/requests/requests).
 
