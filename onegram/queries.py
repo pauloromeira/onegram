@@ -56,13 +56,13 @@ def _user_id(session, user):
         else:
             user = session.username
     if isinstance(user, dict):
-        return user.get('user_id', user['id'])
+        return user.get('user_id', user.get('id'))
     else:
         return user_info(session, user)['id']
 
 def _post_id(post):
     if isinstance(post, dict):
-        return post.get('post_id', post['id'])
+        return post.get('post_id', post.get('id'))
     else:
         return post
 
