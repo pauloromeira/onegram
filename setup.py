@@ -13,7 +13,7 @@ requires = [
 
 setup(
     name='onegram',
-    version='1.0.0',
+    version='1.0.1',
     description='A simplistic api-like instagram bot powered by requests',
     url='https://github.com/pauloromeira/onegram',
     author='Paulo Romeira',
@@ -26,5 +26,6 @@ setup(
         'Programming Language :: Python :: 3.6',
     ],
     packages=find_packages(exclude=['tests']),
+    python_requires='>=3.6',
     install_requires=requires
 )
