@@ -52,7 +52,7 @@ def _user_action(session, user, **kw):
     return _action(session, user_id=_user_id(session, user), **kw)
 
 def _post_action(session, post, **kw):
-    return _action(session, post_id=_post_id(session, post), **kw)
+    return _action(session, post_id=_post_id(post), **kw)
 
 def _action(session, payload={}, **kw):
     action = session.current_function_name
