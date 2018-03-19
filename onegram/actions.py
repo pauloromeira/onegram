@@ -24,10 +24,7 @@ def comment(session, commentary, post=None):
     comment_text = (commentary['text'] if 
                     isinstance(commentary, dict) else commentary)
     payload = {'comment_text': comment_text}
-
-    data = _post_action(session, post or commentary, payload=payload)
-    data['post_id'] = post_id
-    return data
+    return _post_action(session, post or commentary, payload=payload)
 
 @sessionaware
 def uncomment(session, commentary, post=None):
@@ -49,10 +46,16 @@ def unsave(session, post):
 #######################################################################
 
 def _user_action(session, user, **kw):
-    return _action(session, user_id=_user_id(session, user), **kw)
+    user_id = _user_id(session, user)
+    data = _action(session, user_id=user_id, **kw)
+    data['user_id'] = user_id
+    return data
 
 def _post_action(session, post, **kw):
-    return _action(session, post_id=_post_id(post), **kw)
+    post_id = _post_id(post)
+    data = _action(session, post_id=post_id, **kw)
+    data['post_id'] = post_id
+    return data
 
 def _action(session, payload={}, **kw):
     action = session.current_function_name
