@@ -56,9 +56,15 @@ def _user_id(session, user):
         else:
             user = session.username
     if isinstance(user, dict):
-        return user.get('user_id', user.get('id'))
-    else:
-        return user_info(session, user)['id']
+        user_id = user.get('user_id', user.get('id'))
+        if user_id:
+            return user_id
+        else:
+            user = user.get('username')
+    if user is None:
+        raise ValueError('Invalid user')
+
+    return user_info(session, user)['id']
 
 def _post_id(post):
     if isinstance(post, dict):
