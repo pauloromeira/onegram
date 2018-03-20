@@ -7,6 +7,9 @@
   [X] Uncomment
   [X] Save
   [X] Unsave
+  Other:
+    [ ] Make post actions accept shortcode and url
+    [ ] Make user actions accept url
   - ...
 * Queries:
   [X] User Info (followers/ing count, etc)
@@ -15,7 +18,9 @@
   [X] User Posts
   [X] Post Info
   [X] Likes
+    - [ ] Add optional (filter by) users argument
   [X] Comments
+    - [ ] Add optional (filter by) users argument
   [X] Feed Posts (https://www.instagram.com/?__a=1)
   [X] Explore Posts
   [ ] Activity (https://www.instagram.com/accounts/activity/?__a=1)
@@ -24,6 +29,12 @@
   [ ] Tag Posts (https://www.instagram.com/explore/tags/recife/?__a=1)
   [ ] Explore Locations (https://www.instagram.com/explore/locations/?__a=1)
   [ ] Profiles (https://www.instagram.com/directory/profiles/)
+  Other:
+    [ ] Intelligent distinguish between id/shortcode/username/url/
+        and different-dicts (e.g. like, comment, post, user, user_info...)
+        "inspect" utils function
+    [ ] Make post queries accept id and url
+    [ ] Make user queries accept url
   - ...
 * Tests:
   [X] Login
