@@ -3,7 +3,7 @@ import logging
 import requests
 import urllib3
 
-from fake_useragent import UserAgent
+from fake_useragent import UserAgent, UserAgentError
 from getpass import getpass
 from requests import HTTPError
 from sessionlib import Session
@@ -70,8 +70,13 @@ class Login(Session):
         self._requests.headers.update(DEFAULT_HEADERS)
         user_agent = self.settings.get('USER_AGENT')
         if user_agent is None:
-            user_agent = UserAgent(verify_ssl=verify_ssl).random
-        self._requests.headers.update({'User-Agent': user_agent})
+            try:
+                user_agent = UserAgent(verify_ssl=verify_ssl).random
+            except UserAgentError:
+                self._requests.headers.pop('User-Agent', None)
+
+        if user_agent is not None:
+            self._requests.headers['User-Agent'] = user_agent
 
         self._login()
 
