@@ -6,7 +6,7 @@ A simplistic api-like instagram **bot** powered by [requests](https://github.com
 
 ### *Warnings!*
 * **Under development**, not stable yet!
-* Rate limits are not configured properly, so be respectful to not get banned!
+* Default rate limits are not configured properly, so [adjust them](#rate-limits) to not get banned!
 
 ## Installation
 ```sh
@@ -87,6 +87,47 @@ the user is optional, with default set to the logged user.
 |`comments`|`post`||`save`|`post`|
 |`feed`|||`unsave`|`post`|
 |`explore`|||||
+
+## Rate Limits
+Settings can be overridden if you use one of the [explicit login](#explicit-login-optional) forms (defaults: `onegram/settings.py`). It's possible to define a fixed `User-Agent`, for example.
+The most userful setting is `RATE_LIMITS`, where you can set rate limits for:
+1. Each query or action
+2. All queries or all actions
+3. All queries and actions
+
+#### Example
+```py
+from onegram import login
+
+minute = 60
+hour = minute * 60
+day = hour * 24
+
+rate_limits = {
+  'queries': [(1, 1)], # One query per second
+  'actions': [(1, 3)], # One action per 3 seconds
+  'like': [
+    (5, minute), # A maximum of 5 likes in a minute
+    (100, day)   # A maximum of 100 likes in a day
+  ],
+  'comment': [(1, 5)], # One comment per 5 seconds
+}
+# You can use '*' to set limits for all queries and actions.
+
+settings = {
+  'RATE_LIMITS': rate_limits,
+  'RATE_CACHE_ENABLED': True, # enabled by default
+  'RATE_CACHE_DIR': '~/.onegram/rate'
+}
+
+login(custom_settings=settings)
+# ...
+```
+
+Notice that you can specify a greedy or patient behaviour, or both. This is possible because you can have different rates for different time intervals.
+
+For example, both `(10, 10)` and `(1,1)` will do 10 requests in 10 seconds, but the first
+one is greedy. It will make 10 requests and wait 10 seconds to continue, wereas the second one will make one request at each second.
 
 ## Tips
   * Export your credentials so you don't have to type it:
