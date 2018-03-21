@@ -4,7 +4,7 @@ from operator import itemgetter
 from itertools import islice
 from collections import defaultdict
 
-from onegram import Login
+from onegram import Login, login, logout
 
 # Queries
 from onegram import user_info, post_info
@@ -41,4 +41,6 @@ def commenters_rank(user=None):
 
 
 
-list(islice(posts(), 30))
+p = next(posts('other'))
+like(p)
+unlike(p)

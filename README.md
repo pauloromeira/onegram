@@ -5,7 +5,7 @@
 A simplistic api-like instagram **bot** powered by [requests](https://github.com/requests/requests).
 
 ### *Warnings!*
-* Make sure you have the last version installed. Things often change!
+* If not working, make sure you have the last version installed. Things often change!
 * Default rate limits are not configured properly, so [adjust them](#rate-limits) to not get banned!
 
 ## Installation
@@ -90,7 +90,7 @@ the user is optional, with default set to the logged user.
 
 ## Rate Limits
 Settings can be overridden if you use one of the [explicit login](#explicit-login-optional) forms (defaults: `onegram/settings.py`). It's possible to define a fixed `User-Agent`, for example.
-The most userful setting is `RATE_LIMITS`, where you can set rate limits for:
+Overall, the most userful setting is `RATE_LIMITS`, where you can set rate limits for:
 1. Each query or action
 2. All queries or all actions
 3. All queries and actions
@@ -126,8 +126,13 @@ login(custom_settings=settings)
 
 Notice that you can specify a greedy or patient behaviour, or both. This is possible because you can have different rates for different time intervals.
 
-For example, both `(10, 10)` and `(1,1)` will do 10 requests in 10 seconds, but the first
-one is greedy. It will make 10 requests and wait 10 seconds to continue, wereas the second one will make one request at each second.
+For example, both `(10, 10)` and `(1, 1)` will do 10 requests in 10 seconds, but the first
+one is greedy. It will make 10 requests and wait 10 seconds to continue, whereas the second one will make one request at each second.
+
+As general rule:
+
+Greedy = `(times, seconds)`  
+Patient = `(1, seconds/times)`
 
 ## Tips
   * Export your credentials so you don't have to type it:
