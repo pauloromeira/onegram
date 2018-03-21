@@ -126,7 +126,8 @@ class Login(Session):
         self.username = self.username or input('Username: ')
         kw['data'] = {
             'username': self.username,
-            'password': self.settings.get('PASSWORD') or getpass()
+            'password': self.settings.get('PASSWORD') or getpass(),
+            'next': '/'
         }
 
         no_proxy = self.settings.get('DISABLE_LOGIN_PROXY', False)

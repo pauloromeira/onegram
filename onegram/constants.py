@@ -22,7 +22,6 @@ DEFAULT_COOKIES = {
     'ig_vw': '1440',
     'ig_pr': '2',
     'ig_vh': '800',
-    'ig_or': 'landscape-primary',
 }
 
 GRAPHQL_URL = 'https://www.instagram.com/graphql/query/'
