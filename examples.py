@@ -41,4 +41,6 @@ def commenters_rank(user=None):
 
 
 
-list(islice(posts(), 30))
+p = next(posts('other'))
+like(p)
+unlike(p)

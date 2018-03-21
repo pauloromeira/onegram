@@ -15,7 +15,7 @@ class RateLimiter:
         self.rates = {}
         if rate_limits:
             for key, limits in rate_limits.items():
-                self.rates[key] = _RateController(limits)
+                self.rates[key] = _RateController(limits, session)
 
             if self.cache_enabled:
                 cache_dir = session.settings.get('RATE_CACHE_DIR', Path('.cache'))
@@ -59,10 +59,19 @@ class RateLimiter:
 
 
 class _RateController:
-    def __init__(self, limits):
+    def __init__(self, limits, session):
         self.windows = [(deque(maxlen=times), secs) for times, secs in limits]
+        self.session = session
 
     def wait(self):
+        max_time = max((q[0] + s for q, s in self.windows
+                        if len(q) == q.maxlen),
+                       default=0)
+        interval = max(max_time - now(), 0)
+        if interval:
+            self.session.log_info(f'waiting {interval}s ...')
+            sleep(interval)
+
         for queue, secs in self.windows:
             if len(queue) == queue.maxlen:
                 sleep(max(queue[0] + secs - now(), 0))

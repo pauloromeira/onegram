@@ -94,15 +94,11 @@ class Login(Session):
 
         return self.request('GET', url, *a, **kw)
 
-
     @retry(wait=wait_chain(wait_fixed(60), wait_fixed(15)),
            retry=retry_if_exception_type(HTTPError),
            after=after_log(logger, logging.INFO))
     def request(self, method, url, *a, **kw):
-
-        if self.current_function:
-            logger.info(f'{self} {self.current_module_name}.'
-                        f'{self.current_function_name}')
+        self.log_info(f'{method} "{url}"')
 
         with self.rate_limiter:
             try:
@@ -141,6 +137,14 @@ class Login(Session):
         # TODO [romeira]: needed only for tests - requests-mock issue {16/03/18 00:40}
         self.cookies.update(response.cookies)
         self.user_id = self.cookies.get('ds_user_id')
+
+
+    def log_info(self, msg):
+        prefix = f'{self} '
+        if self.current_function:
+            prefix += (f'{self.current_module_name}.'
+                       f'{self.current_function_name} ')
+        logger.info(prefix + msg)
 
 
     def __str__(self):
