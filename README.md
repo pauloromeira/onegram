@@ -5,7 +5,7 @@
 A simplistic api-like instagram **bot** powered by [requests](https://github.com/requests/requests).
 
 ### *Warnings!*
-* **Under development**, not stable yet!
+* Make sure you have the last version installed. Things often change!
 * Default rate limits are not configured properly, so [adjust them](#rate-limits) to not get banned!
 
 ## Installation
