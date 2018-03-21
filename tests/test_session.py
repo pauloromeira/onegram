@@ -10,7 +10,7 @@ def test_session_attrs(session):
 
 def test_login_request(session, responses):
     request = responses.last_request
-    assert request.text == 'username=username&password=password'
+    assert request.text == 'username=username&password=password&next=%2F'
     assert request.headers['X-CSRFToken'] == 'token'
 
 def test_current_session(session):
