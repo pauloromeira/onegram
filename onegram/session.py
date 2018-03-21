@@ -17,6 +17,7 @@ from . import settings as settings_module
 from .constants import DEFAULT_HEADERS, QUERY_HEADERS, ACTION_HEADERS
 from .constants import URLS, DEFAULT_COOKIES
 from .utils.ratelimit import RateLimiter
+from .utils.validation import check_auth
 
 logger = logging.getLogger(__name__)
 
@@ -139,6 +140,8 @@ class Login(Session):
         kw['headers'] = headers
 
         response = self._requests.post(login_url, **kw)
+        response.raise_for_status()
+        check_auth(json.loads(response.text))
         # TODO [romeira]: needed only for tests - requests-mock issue {16/03/18 00:40}
         self.cookies.update(response.cookies)
         self.user_id = self.cookies.get('ds_user_id')
