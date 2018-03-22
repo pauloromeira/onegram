@@ -1,4 +1,13 @@
 # TODO [romeira]: Login exceptions {06/03/18 23:07}
+class AuthException(Exception):
+    pass
+
+class AuthFailed(AuthException):
+    pass
+
+class AuthUserError(AuthException):
+    pass
+
 # TODO [romeira]: Query/action exceptions {06/03/18 23:08}
 # TODO [romeira]: Session expired exception {06/03/18 23:08}
 # TODO [romeira]: Private user exception/warning {06/03/18 23:09}

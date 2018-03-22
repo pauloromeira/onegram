@@ -69,7 +69,7 @@ class _RateController:
                        default=0)
         interval = max(max_time - now(), 0)
         if interval:
-            self.session.log_info(f'waiting {interval}s ...')
+            self.session.log_info(f'WAIT {interval:.2}s ...')
             sleep(interval)
 
         for queue, secs in self.windows:

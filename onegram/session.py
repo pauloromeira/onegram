@@ -17,6 +17,7 @@ from . import settings as settings_module
 from .constants import DEFAULT_HEADERS, QUERY_HEADERS, ACTION_HEADERS
 from .constants import URLS, DEFAULT_COOKIES
 from .utils.ratelimit import RateLimiter
+from .utils.validation import check_auth
 
 logger = logging.getLogger(__name__)
 
@@ -86,21 +87,21 @@ class Login(Session):
     def action(self, url, *a, **kw):
         headers = kw.setdefault('headers', ACTION_HEADERS)
         headers['X-CSRFToken'] = self.cookies['csrftoken']
-
         return self.request('POST', url, *a, **kw)
+
 
     def query(self, url, *a, **kw):
         kw.setdefault('headers', QUERY_HEADERS)
-
         return self.request('GET', url, *a, **kw)
+
 
     @retry(wait=wait_chain(wait_fixed(60), wait_fixed(15)),
            retry=retry_if_exception_type(HTTPError),
            after=after_log(logger, logging.INFO))
     def request(self, method, url, *a, **kw):
-        self.log_info(f'{method} "{url}"')
 
         with self.rate_limiter:
+            self.log_info(f'{method} "{url}"')
             try:
                 response = self._requests.request(method, url, *a, **kw)
                 response.raise_for_status()
@@ -122,7 +123,8 @@ class Login(Session):
         self.username = self.username or input('Username: ')
         kw['data'] = {
             'username': self.username,
-            'password': self.settings.get('PASSWORD') or getpass()
+            'password': self.settings.get('PASSWORD') or getpass(),
+            'next': '/'
         }
 
         no_proxy = self.settings.get('DISABLE_LOGIN_PROXY', False)
@@ -134,6 +136,8 @@ class Login(Session):
         kw['headers'] = headers
 
         response = self._requests.post(login_url, **kw)
+        response.raise_for_status()
+        check_auth(json.loads(response.text))
         # TODO [romeira]: needed only for tests - requests-mock issue {16/03/18 00:40}
         self.cookies.update(response.cookies)
         self.user_id = self.cookies.get('ds_user_id')

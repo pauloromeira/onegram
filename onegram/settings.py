@@ -30,7 +30,7 @@ RATE_CACHE_ENABLED = True
 RATE_CACHE_DIR = BASE_DIR / '.onegram/rate'
 
 LOG_SETTINGS = {
-    'format': '%(levelname)s:%(name)s:%(funcName)s:%(message)s',
+    'format': '%(levelname)s:%(name)s:%(message)s',
     'level': logging.DEBUG if DEBUG else logging.INFO,
 }
 
