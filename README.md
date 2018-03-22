@@ -116,8 +116,8 @@ rate_limits = {
 
 settings = {
   'RATE_LIMITS': rate_limits,
-  'RATE_CACHE_ENABLED': True, # enabled by default
-  'RATE_CACHE_DIR': '~/.onegram/rate'
+  'RATE_PERSIST_ENABLED': True, # enabled by default
+  'RATE_PERSIST_DIR': '.onegram/rates' # default directory
 }
 
 login(custom_settings=settings)

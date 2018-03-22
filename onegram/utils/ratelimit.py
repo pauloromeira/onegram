@@ -11,15 +11,18 @@ class RateLimiter:
         self.session = session
 
         rate_limits = session.settings.get('RATE_LIMITS')
-        self.cache_enabled = session.settings.get('RATE_CACHE_ENABLED', False)
+        self.persist_enabled = session.settings.get('RATE_PERSIST_ENABLED',
+                                                    False)
         self.rates = {}
         if rate_limits:
             for key, limits in rate_limits.items():
-                self.rates[key] = _RateController(limits, session)
+                self.rates[key] = _RateController(limits, session, key)
 
-            if self.cache_enabled:
-                cache_dir = session.settings.get('RATE_CACHE_DIR', Path('.cache'))
-                self.cache_path = cache_dir / f'{self.session.username}'
+            if self.persist_enabled:
+                persist_dir = session.settings.get('RATE_PERSIST_DIR',
+                                                   Path('.onegram/rates'))
+                self.persist_path = (Path(persist_dir) /
+                                     f'{self.session.username}')
                 self.load()
 
 
@@ -43,25 +46,26 @@ class RateLimiter:
             if key in self.rates:
                 self.rates[key].done(end)
 
-        if self.cache_enabled:
+        if self.persist_enabled:
             self.dump()
 
 
     def dump(self):
         encoded = _json_encoder(self)
         if encoded:
-            self.cache_path.parent.mkdir(parents=True, exist_ok=True)
-            self.cache_path.write_text(json.dumps(encoded))
+            self.persist_path.parent.mkdir(parents=True, exist_ok=True)
+            self.persist_path.write_text(json.dumps(encoded))
 
     def load(self):
-        if self.cache_path.exists():
-            _json_decoder(self, json.loads(self.cache_path.read_text()))
+        if self.persist_path.exists():
+            _json_decoder(self, json.loads(self.persist_path.read_text()))
 
 
 class _RateController:
-    def __init__(self, limits, session):
+    def __init__(self, limits, session, key):
         self.windows = [(deque(maxlen=times), secs) for times, secs in limits]
         self.session = session
+        self.key = key
 
     def wait(self):
         max_time = max((q[0] + s for q, s in self.windows
@@ -69,7 +73,7 @@ class _RateController:
                        default=0)
         interval = max(max_time - now(), 0)
         if interval:
-            self.session.log_info(f'WAIT {interval:.2}s ...')
+            self.session.log_info(f'WAIT {self.key} {interval:.2}s ...')
             sleep(interval)
 
         for queue, secs in self.windows:

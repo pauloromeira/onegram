@@ -5,8 +5,8 @@ from decouple import config
 
 from .utils import head_tail, choices, repeat
 
-BASE_DIR = Path(__file__).parent
 
+CURRENT_DIR = Path.cwd()
 
 USERNAME = config('INSTA_USERNAME', default=None)
 PASSWORD = config('INSTA_PASSWORD', default=None)
@@ -22,12 +22,12 @@ DISABLE_LOGIN_PROXY = False
 
 # Limits requests per second
 RATE_LIMITS = {
-    'queries': [(1, 1)],
-    'actions': [(1, 1)],
+    '*': [(1, 1)],
+    'actions': [(1, 2)],
 }
 
-RATE_CACHE_ENABLED = True
-RATE_CACHE_DIR = BASE_DIR / '.onegram/rate'
+RATE_PERSIST_ENABLED = True
+RATE_PERSIST_DIR = CURRENT_DIR / '.onegram/rates'
 
 LOG_SETTINGS = {
     'format': '%(levelname)s:%(name)s:%(message)s',
