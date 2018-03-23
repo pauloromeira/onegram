@@ -46,6 +46,7 @@ clean-test: ## remove test and coverage artifacts
 	@rm -fr .tox/
 	@rm -f .coverage
 	@rm -fr htmlcov/
+	@rm -fr .pytest_cache/
 
 init: ## install pipenv and dependencies
 	@pip install pipenv

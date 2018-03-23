@@ -22,7 +22,7 @@ class RateLimiter:
                 persist_dir = session.settings.get('RATE_PERSIST_DIR',
                                                    Path('.onegram/rates'))
                 self.persist_path = (Path(persist_dir) /
-                                     f'{self.session.username}')
+                                     f'{self.session.username}.json')
                 self.load()
 
 

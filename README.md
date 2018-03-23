@@ -5,8 +5,10 @@
 A simplistic api-like instagram **bot** powered by [requests](https://github.com/requests/requests).
 
 ### *Warnings!*
-* If not working, make sure you have the last version installed. Things often change!
+* If not working, make sure you have the latest version installed. Things often change!
 * Default rate limits are not configured properly, so [adjust them](#rate-limits) to not get banned!
+* But if you exceed the rate limits, don't worry. Onegram uses the awesome [tenacity](https://github.com/jd/tenacity) lib to retry until the ban is over.   
+Just grab a cup of coffee and wait a few minutes.
 
 ## Installation
 ```sh
