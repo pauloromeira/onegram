@@ -13,6 +13,8 @@ python-decouple = "*"
 requests = "*"
 sessionlib = "*"
 tenacity = "*"
+betamax = "*"
+betamax-serializers = "*"
 
 
 [dev-packages]
@@ -21,7 +23,6 @@ ipdb = "*"
 ipython = "*"
 pytest = "*"
 pytest-env = "*"
-requests-mock = "*"
 
 
 [requires]

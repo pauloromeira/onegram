@@ -1,23 +1,45 @@
+import os
 import pytest
-import requests_mock
+import betamax
+import onegram
 
-from onegram import login, logout
-from helpers.responses import login_responses
+from betamax_serializers import pretty_json
+from pathlib import Path
+
+
+@pytest.fixture(scope='session')
+def username():
+    return os.environ.get('INSTA_USERNAME')
+
+@pytest.fixture(scope='session')
+def password():
+    return os.environ.get('INSTA_PASSWORD')
+
+
+@pytest.fixture(scope="session", autouse=True)
+def init_betamax(username, password):
+    betamax.Betamax.register_serializer(pretty_json.PrettyJSONSerializer)
+    with betamax.Betamax.configure() as config:
+        cassete_dir = Path('tests/cassettes/')
+        cassete_dir.mkdir(parents=True, exist_ok=True)
+        config.cassette_library_dir = cassete_dir
+
+        record_mode = os.environ.get('BETAMAX_RECORD_MODE')
+        config.default_cassette_options['record_mode'] = record_mode
+        config.default_cassette_options['serialize_with'] = 'prettyjson'
+
+        config.define_cassette_placeholder('<INSTA_USERNAME>', username)
+        config.define_cassette_placeholder('<INSTA_PASSWORD>', password)
 
 
 @pytest.fixture
-def responses():
-    with requests_mock.mock() as mocker:
-        yield mocker
-
-@pytest.fixture
-def session(responses):
+def session(betamax_session, monkeypatch, username, password):
+    monkeypatch.setattr(onegram.session.requests,
+                        'Session', lambda: betamax_session)
     settings = {
-        'USER_AGENT': 'user-agent',
         'RATE_LIMITS': None,
+        'USERNAME': username,
+        'PASSWORD': password,
     }
-    resps = login_responses(responses)
-    sess = login(custom_settings=settings)
-    assert all(r.called_once for r in resps)
-    yield sess
-    logout()
+    with onegram.Login(custom_settings=settings) as session:
+        yield session
