@@ -47,5 +47,5 @@ def user(session, username):
 
 
 @pytest.fixture
-def post(user):
+def post(session, user):
     return next(onegram.posts(user))
