@@ -49,3 +49,7 @@ def session(betamax_session, monkeypatch, username, password):
 def user(session):
     username = os.environ.get('ONEGRAM_TEST_USERNAME')
     return onegram.user_info(username)
+
+@pytest.fixture
+def post(user):
+    return next(onegram.posts(user))
