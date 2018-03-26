@@ -7,24 +7,18 @@ from betamax_serializers import pretty_json
 from pathlib import Path
 
 
-@pytest.fixture(scope='session')
-def username():
-    return os.environ.get('INSTA_USERNAME')
-
-@pytest.fixture(scope='session')
-def password():
-    return os.environ.get('INSTA_PASSWORD')
-
-
 @pytest.fixture(scope="session", autouse=True)
-def init_betamax(username, password):
+def init_betamax():
     betamax.Betamax.register_serializer(pretty_json.PrettyJSONSerializer)
     with betamax.Betamax.configure() as config:
         cassete_dir = Path('tests/cassettes/')
         cassete_dir.mkdir(parents=True, exist_ok=True)
         config.cassette_library_dir = cassete_dir
 
+        username = os.environ.get('INSTA_USERNAME')
+        password = os.environ.get('INSTA_PASSWORD')
         record_mode = os.environ.get('ONEGRAM_TEST_RECORD_MODE')
+
         config.default_cassette_options['record_mode'] = record_mode
         config.default_cassette_options['serialize_with'] = 'prettyjson'
 
@@ -33,22 +27,24 @@ def init_betamax(username, password):
 
 
 @pytest.fixture
-def session(betamax_session, monkeypatch, username, password):
+def session(betamax_session, monkeypatch):
     monkeypatch.setattr(onegram.session.requests,
                         'Session', lambda: betamax_session)
-    settings = {
-        'RATE_LIMITS': None,
-        'USERNAME': username,
-        'PASSWORD': password,
-    }
+
+    settings = {'RATE_LIMITS': None}
     with onegram.Login(custom_settings=settings) as session:
         yield session
 
 
 @pytest.fixture
-def user(session):
-    username = os.environ.get('ONEGRAM_TEST_USERNAME')
+def username():
+    return os.environ.get('ONEGRAM_TEST_USERNAME')
+
+
+@pytest.fixture
+def user(session, username):
     return onegram.user_info(username)
+
 
 @pytest.fixture
 def post(user):
