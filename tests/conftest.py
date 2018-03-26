@@ -24,7 +24,7 @@ def init_betamax(username, password):
         cassete_dir.mkdir(parents=True, exist_ok=True)
         config.cassette_library_dir = cassete_dir
 
-        record_mode = os.environ.get('BETAMAX_RECORD_MODE')
+        record_mode = os.environ.get('ONEGRAM_TEST_RECORD_MODE')
         config.default_cassette_options['record_mode'] = record_mode
         config.default_cassette_options['serialize_with'] = 'prettyjson'
 
@@ -43,3 +43,9 @@ def session(betamax_session, monkeypatch, username, password):
     }
     with onegram.Login(custom_settings=settings) as session:
         yield session
+
+
+@pytest.fixture
+def user(session):
+    username = os.environ.get('ONEGRAM_TEST_USERNAME')
+    return onegram.user_info(username)
