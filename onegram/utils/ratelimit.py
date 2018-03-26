@@ -27,12 +27,14 @@ class RateLimiter:
 
 
     def __enter__(self):
-        self._current_keys = ('*', self.session.current_module_name,
-                              self.session.current_function_name)
-        self.wait(self._current_keys)
+        if self.rates:
+            self._current_keys = ('*', self.session.current_module_name,
+                                  self.session.current_function_name)
+            self.wait(self._current_keys)
 
     def __exit__(self, *exc_info):
-        self.done(self._current_keys)
+        if self.rates:
+            self.done(self._current_keys)
 
 
     def wait(self, keys):

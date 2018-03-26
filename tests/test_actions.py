@@ -26,7 +26,6 @@ def test_comment(session, post):
     text = 'awesome!'
     commentary = comment(text, post)
     assert commentary['id']
-    assert commentary['from']['username'] == session.username
     assert commentary['text'] == text
     assert commentary['status'] == 'ok'
     assert commentary['post_id'] == post['id']
