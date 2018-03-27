@@ -95,12 +95,12 @@ class Login(Session):
 
 
     def request(self, method, url, *a, **kw):
-        def _after_request_attempt(func, trial_number, *a, **kw):
+        def _after_attempt(func, trial_number, *a, **kw):
             self.logger.warning(f'RETRY {trial_number} attempt(s) ...')
 
         @retry(wait=wait_chain(wait_fixed(60), wait_fixed(15)),
                retry=retry_if_exception_type(HTTPError),
-               after=_after_request_attempt)
+               after=_after_attempt)
         def _request():
             with self.rate_limiter:
                 self.logger.info(f'{method} "{url}"')
