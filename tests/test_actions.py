@@ -4,7 +4,7 @@ from onegram.actions import comment, uncomment
 from onegram.actions import save, unsave
 
 
-def test_follow(session, user):
+def test_follow(user):
     response = follow(user)
     assert response == {'result': 'following',
                         'status': 'ok',
@@ -14,7 +14,7 @@ def test_follow(session, user):
     assert response == {'status': 'ok', 'user_id': user['id']}
 
 
-def test_like(session, post):
+def test_like(post):
     response = like(post)
     assert response == {'status': 'ok', 'post_id': post['id']}
 
@@ -22,7 +22,7 @@ def test_like(session, post):
     assert response == {'status': 'ok', 'post_id': post['id']}
 
 
-def test_comment(session, post):
+def test_comment(post):
     text = 'awesome!'
     commentary = comment(text, post)
     assert commentary['id']
@@ -34,7 +34,7 @@ def test_comment(session, post):
     assert response == {'status': 'ok', 'post_id': post['id']}
 
 
-def test_save(session, post):
+def test_save(post):
     response = save(post)
     assert response == {'status': 'ok', 'post_id': post['id']}
 
