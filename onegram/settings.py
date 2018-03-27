@@ -30,7 +30,7 @@ RATE_PERSIST_ENABLED = True
 RATE_PERSIST_DIR = CURRENT_DIR / '.onegram/rates'
 
 LOG_SETTINGS = {
-    'format': '%(levelname)s:%(name)s:%(message)s',
+    'format': '%(levelname)s:%(name)s: %(message)s',
     'level': logging.DEBUG if DEBUG else logging.INFO,
 }
 

@@ -8,7 +8,7 @@ from getpass import getpass
 from requests import HTTPError
 from sessionlib import Session
 from sessionlib import sessionaware as _sessionaware
-from tenacity import retry, retry_if_exception_type, after_log
+from tenacity import retry, retry_if_exception_type
 from tenacity import wait_chain, wait_fixed
 from urllib3.exceptions import InsecureRequestWarning
 from urllib3.util import parse_url
@@ -18,8 +18,6 @@ from .constants import DEFAULT_HEADERS, QUERY_HEADERS, ACTION_HEADERS
 from .constants import URLS, DEFAULT_COOKIES
 from .utils.ratelimit import RateLimiter
 from .utils.validation import check_auth
-
-logger = logging.getLogger(__name__)
 
 
 class Login(Session):
@@ -96,20 +94,26 @@ class Login(Session):
         return self.request('GET', url, *a, **kw)
 
 
-    @retry(wait=wait_chain(wait_fixed(60), wait_fixed(15)),
-           retry=retry_if_exception_type(HTTPError),
-           after=after_log(logger, logging.INFO))
     def request(self, method, url, *a, **kw):
+        def _after_request_attempt(func, trial_number, *a, **kw):
+            self.logger.warning(f'RETRY {trial_number} attempt(s) ...')
 
-        with self.rate_limiter:
-            self.log_info(f'{method} "{url}"')
-            try:
-                response = self._requests.request(method, url, *a, **kw)
-                response.raise_for_status()
-                return json.loads(response.text)
-            except Exception:
-                logger.error(response.text)
-                raise
+        @retry(wait=wait_chain(wait_fixed(60), wait_fixed(15)),
+               retry=retry_if_exception_type(HTTPError),
+               after=_after_request_attempt)
+        def _request():
+            with self.rate_limiter:
+                self.logger.info(f'{method} "{url}"')
+                response = None
+                try:
+                    response = self._requests.request(method, url, *a, **kw)
+                    response.raise_for_status()
+                    return json.loads(response.text)
+                except Exception:
+                    if response:
+                        self.logger.error(response.text)
+                    raise
+        return _request()
 
 
     def _login(self):
@@ -140,12 +144,12 @@ class Login(Session):
         self.user_id = self.cookies.get('ds_user_id')
 
 
-    def log_info(self, msg):
-        prefix = f'{self} '
+    @property
+    def logger(self):
+        name = f'{__name__}:{self}'
         if self.current_function:
-            prefix += (f'{self.current_module_name}.'
-                       f'{self.current_function_name} ')
-        logger.info(prefix + msg)
+            name += f' {self.current_module_name}.{self.current_function_name}'
+        return logging.getLogger(name)
 
 
     def __str__(self):
@@ -156,16 +160,12 @@ sessionaware = _sessionaware(cls=Login)
 
 
 def login(*args, **kwargs):
-    insta = Login(*args, **kwargs)
-    return insta.open()
+    return Login(*args, **kwargs).open()
 
 
 @_sessionaware
 def logout(session):
-    try:
-        session.close()
-    except:
-        pass
+    session.close()
 
 
 def _load_settings(custom_settings={}):

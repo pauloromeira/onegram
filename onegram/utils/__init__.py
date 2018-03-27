@@ -9,8 +9,6 @@ from functools import partial
 from random import choice
 from requests import Response
 
-logger = logging.getLogger(__name__)
-
 
 def jsearch(jspath, content):
     if isinstance(content, dict):
