@@ -1,0 +1,33 @@
+# Default: get from INSTA_USERNAME and INSTA_PASSWORD env variables
+username:
+password:
+
+# Leave it commented to fetch a random User-Agent
+# user-agent:
+
+debug: false
+verify-ssl: true
+
+rate-limits:
+  all:
+    - [1, 1]
+  actions:
+    - [1, 2]
+
+rate-persist:
+  enabled: true
+  directory: './onegram/rates'
+
+log-settings:
+  format: '%(levelname)s:%(name)s: %(message)s'
+  level: INFO # default: change to DEBUG if 'debug' equals true
+
+query-chunks:
+  following: [20, 10]
+  followers: [20, 10]
+  posts: 12
+  feed: 12
+  likes: [20, 10]
+  comments:
+    choices: [range: [20, 40]]
+  explore: 24
