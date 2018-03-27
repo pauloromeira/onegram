@@ -20,12 +20,14 @@ VERIFY_SSL = config('VERIFY_SSL', default=True, cast=bool)
 
 # Limits requests per second
 RATE_LIMITS = {
-    '*': [(1, 1)],
+    'all': [(1, 1)],
     'actions': [(1, 2)],
 }
 
-RATE_PERSIST_ENABLED = True
-RATE_PERSIST_DIR = CURRENT_DIR / '.onegram/rates'
+RATE_PERSIST = {
+    'enabled': True,
+    'directory': CURRENT_DIR / '.onegram/rates'
+}
 
 LOG_SETTINGS = {
     'format': '%(levelname)s:%(name)s: %(message)s',
@@ -33,11 +35,11 @@ LOG_SETTINGS = {
 }
 
 QUERY_CHUNKS = {
-    'following': head_tail(20, 10),
-    'followers': head_tail(20, 10),
-    'posts': repeat(12),
-    'feed': repeat(12),
-    'likes': head_tail(20, 10),
+    'following': (20, 10),
+    'followers': (20, 10),
+    'posts': 12,
+    'feed': 12,
+    'likes': (20, 10),
     'comments': choices(range(20, 40)),
-    'explore': repeat(24),
+    'explore': 24,
 }
