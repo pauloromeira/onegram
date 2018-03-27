@@ -76,7 +76,7 @@ def post(betamax, user):
     return post
 
 
-@pytest.fixture(autouse=True)
+@pytest.fixture
 def cassette(betamax, request):
     cassette_name = _cassette_name(request, True)
     betamax.use_cassette(cassette_name)
