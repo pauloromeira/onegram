@@ -50,7 +50,7 @@ clean-test: ## remove test and coverage artifacts
 
 init: ## install pipenv and dependencies
 	@pip install pipenv
-	@pipenv install --dev --skip-lock
+	@pipenv install --dev
 
 test: ## run tests with pytest
 	@pipenv run python -m pytest
