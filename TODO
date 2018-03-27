@@ -41,12 +41,12 @@
   - Actions
     [X] Follow
     [X] Unfollow
-    [ ] Like
-    [ ] Unlike
-    [ ] Comment
-    [ ] Uncomment
-    [ ] Save
-    [ ] Unsave
+    [X] Like
+    [X] Unlike
+    [X] Comment
+    [X] Uncomment
+    [X] Save
+    [X] Unsave
   - Queries:
     [ ] User Info
   [ ] Coverage
@@ -56,6 +56,7 @@
   [X] Create session if not exists
   [X] Rate limits
   [X] Get logged user_id from cookies: `ds_user_id` at login
+  [ ] Read settings from YAML
   [ ] Infer rate limis
   [ ] Auto rate limis
   [ ] Retry login until success
