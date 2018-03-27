@@ -69,18 +69,19 @@ class Login(Session):
 
         # Init headers
         self._requests.headers.update(DEFAULT_HEADERS)
-        user_agent = self.settings.get('USER_AGENT')
-        if user_agent is None:
+
+        if 'USER_AGENT' in self.settings:
+            user_agent = self.settings['USER_AGENT']
+        else:
             try:
                 user_agent = UserAgent(verify_ssl=verify_ssl).random
             except UserAgentError:
-                self._requests.headers.pop('User-Agent', None)
+                user_agent = None
 
-        if user_agent is not None:
-            self._requests.headers['User-Agent'] = user_agent
+        if user_agent is None:
+            self._requests.headers.pop('User-Agent', None)
 
         self._login()
-
         self.rate_limiter = RateLimiter(self)
 
 
@@ -114,10 +115,8 @@ class Login(Session):
     def _login(self):
         start_url, login_url = URLS['start'], URLS['login']
 
-        response = self._requests.get(start_url)
-        # TODO [romeira]: needed only for tests - requests-mock issue {16/03/18 00:40}
+        self._requests.get(start_url).raise_for_status()
         self.cookies.update(DEFAULT_COOKIES)
-        self.cookies.update(response.cookies)
 
         kw = {}
         self.username = self.username or input('Username: ')
@@ -138,8 +137,6 @@ class Login(Session):
         response = self._requests.post(login_url, **kw)
         response.raise_for_status()
         check_auth(json.loads(response.text))
-        # TODO [romeira]: needed only for tests - requests-mock issue {16/03/18 00:40}
-        self.cookies.update(response.cookies)
         self.user_id = self.cookies.get('ds_user_id')
 
 
