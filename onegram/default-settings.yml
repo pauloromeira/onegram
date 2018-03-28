@@ -10,22 +10,22 @@ verify_ssl: true
 
 rate_limits:
   all:
-    - [1, 1]
+    - [1, 1] # One request per second
   actions:
-    - [1, 2]
+    - [1, 2] # One action per 2 seconds
 
 rate_persist:
   enabled: true
   directory: './onegram/rates'
 
 query_chunks:
-  following: [20, 10]
+  following: [20, 10] # First 20, then repeat 10
   followers: [20, 10]
-  posts: 12
+  posts: 12 # repeat 12
   feed: 12
   likes: [20, 10]
   comments:
-    choices: [range: [20, 40]]
+    choices: [range: [20, 40]] # Random choices from 20 to 39
   explore: 24
 
 log:
