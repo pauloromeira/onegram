@@ -1,11 +1,10 @@
 import json
-import logging
 import jmespath
 
 from functools import partial
 from itertools import chain
 from itertools import repeat
-from random import choice
+from random import randint
 
 from requests import Response
 
@@ -25,14 +24,15 @@ def jsearch(jspath, content):
     return jmespath.search(jspath, dct)
 
 
-def choices(values):
-    def _choices():
-        while True:
-            yield choice(values)
-    return _choices
-
-
+# TODO [romeira]: move to chunks module {28/03/18 02:00}
 def repeat_last(values):
     if not isinstance(values, (list, tuple)):
         values = [values]
     return partial(chain, values, repeat(values[-1]))
+
+
+def random_int(values):
+    def _randint():
+        while True:
+            yield randint(*values)
+    return _randint

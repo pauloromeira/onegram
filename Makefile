@@ -53,7 +53,7 @@ init: ## install pipenv and dependencies
 	@pipenv install --dev
 
 test: ## run tests with pytest
-	@pipenv run python -m pytest
+	@pipenv run python -m pytest -v
 
 ci: ## travis ci
 	pipenv run python -m pytest --cov=onegram

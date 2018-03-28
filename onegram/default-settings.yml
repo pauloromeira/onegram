@@ -25,7 +25,7 @@ query_chunks:
   feed: 12
   likes: [20, 10]
   comments:
-    choices: [range: [20, 40]] # Random choices from 20 to 39
+    random: [20, 40] # Random integers from 20 to 40
   explore: 24
 
 log:
