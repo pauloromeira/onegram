@@ -3,42 +3,44 @@ import yaml
 from pathlib import Path
 from decouple import config
 
-BASE_DIR = Path(__file__)
+BASE_DIR = Path(__file__).parent
 
 
 def load_settings(file=None, custom={}):
-    settings = _load_yaml(BASE_DIR / 'default-settings.yaml')
+    import ipdb; ipdb.set_trace()
+    settings = _load_yaml(BASE_DIR / 'default-settings.yml')
+    _merge(settings, _load_env())
     if file:
-        settings.update(_load_yaml(Path(file)))
-    settings.update(custom)
+        _merge(settings, _load_yaml(Path(file)))
+    if custom:
+        _merge(settings, custom)
     return settings
 
 
 def _load_yaml(path):
-    return yaml.load(path.open()) if path.exists() else {}
+    for p in (path, path.with_suffix('.yml'), path.with_suffix('.yaml')):
+        if p.exists():
+            return yaml.load(p.open())
+    return {}
 
 
-## DEPRECATED
+def _load_env():
+    settings = {
+        'username': config('INSTA_USERNAME', default=None),
+        'password': config('INSTA_PASSWORD', default=None),
+        'debug': config('ONEGRAM_DEBUG', default=False, cast=bool),
+        'verify_ssl': config('VERIFY_SSL', default=True, cast=bool),
+    }
+    return settings
 
-# USERNAME = config('INSTA_USERNAME', default=None)
-# PASSWORD = config('INSTA_PASSWORD', default=None)
 
-# # Leave it commented to fetch a random User-Agent
-# # USER_AGENT = None
+def _merge(settings, other):
+    if other:
+        settings.update({k:v for k, v in other.items() if v is not None})
 
-# DEBUG = config('INSTA_DEBUG', default=False, cast=bool)
-# VERIFY_SSL = config('VERIFY_SSL', default=True, cast=bool)
 
-# # Limits requests per second
-# RATE_LIMITS = {
-#     'all': [(1, 1)],
-#     'actions': [(1, 2)],
-# }
 
-# RATE_PERSIST = {
-#     'enabled': True,
-#     'directory': CURRENT_DIR / '.onegram/rates'
-# }
+
 
 # LOG_SETTINGS = {
 #     'format': '%(levelname)s:%(name)s: %(message)s',

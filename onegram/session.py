@@ -12,7 +12,7 @@ from tenacity import wait_chain, wait_fixed
 from urllib3.exceptions import InsecureRequestWarning
 from urllib3.util import parse_url
 
-from settings import load_settings
+from .settings import load_settings
 from .constants import DEFAULT_HEADERS, QUERY_HEADERS, ACTION_HEADERS
 from .constants import URLS
 from .exceptions import AuthException
@@ -42,7 +42,7 @@ class Login(Session):
 
 
     def __init__(self, username=None, password=None,
-                 settings_file='onegram-settings.yaml',
+                 settings_file='onegram-settings.yml',
                  custom_settings={}):
         if username:
             custom_settings['username'] = username
