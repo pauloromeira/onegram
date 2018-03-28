@@ -7,28 +7,34 @@ from pathlib import Path
 
 
 class RateLimiter:
+
     def __init__(self, session):
         self.session = session
+        self._load_settings()
 
-        rate_limits = session.settings.get('RATE_LIMITS')
-        self.persist_enabled = session.settings.get('RATE_PERSIST_ENABLED',
-                                                    False)
+        if self.rates and self.persist_enabled:
+            self.load()
+
+
+    def _load_settings(self):
+        rate_limits = session.settings.get('rate_limits')
+        rate_persist = session.settings.get('rate_persist')
+        self.persist_enabled = rate_persist.get('enabled', False)
+
         self.rates = {}
         if rate_limits:
             for key, limits in rate_limits.items():
                 self.rates[key] = _RateController(limits, session, key)
 
             if self.persist_enabled:
-                persist_dir = session.settings.get('RATE_PERSIST_DIR',
-                                                   Path('.onegram/rates'))
+                persist_dir = rate_persist['directory']
                 self.persist_path = (Path(persist_dir) /
                                      f'{self.session.username}.json')
-                self.load()
 
 
     def __enter__(self):
         if self.rates:
-            self._current_keys = ('*', self.session.current_module_name,
+            self._current_keys = ('all', self.session.current_module_name,
                                   self.session.current_function_name)
             self.wait(self._current_keys)
 
