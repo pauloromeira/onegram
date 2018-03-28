@@ -9,6 +9,7 @@ python-decouple = "*"
 requests = "*"
 sessionlib = "*"
 tenacity = "*"
+pyyaml = "*"
 
 [dev-packages]
 ipython = "*"
