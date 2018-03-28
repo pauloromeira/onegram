@@ -11,11 +11,11 @@ BASE_DIR = Path(__file__).parent
 
 def load_settings(file=None, custom={}):
     settings = _load_yaml(BASE_DIR / 'default-settings.yml')
-    _merge(settings, _load_env())
+    settings.update(_load_env())
     if file:
-        _merge(settings, _load_yaml(Path(file)))
+        settings.update(_load_yaml(Path(file)))
     if custom:
-        _merge(settings, custom)
+        settings.update(custom)
     _parse(settings)
     return settings
 
@@ -35,11 +35,6 @@ def _load_env():
         'verify_ssl': config('VERIFY_SSL', default=True, cast=bool),
     }
     return settings
-
-
-def _merge(settings, other):
-    if other:
-        settings.update({k:v for k, v in other.items() if v is not None})
 
 
 def _parse(settings):

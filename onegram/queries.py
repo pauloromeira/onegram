@@ -95,7 +95,7 @@ def _iter_query(session, variables={}, chunk_key='first', cursor_key='after'):
     query = session.current_function_name
     progress = {'count': 0}
 
-    chunks = session.settings['QUERY_CHUNKS'][query]()
+    chunks = session.settings['query_chunks'][query]()
     jspath = JSPATHS[query]
     params = {'query_hash': QUERY_HASHES[query]}
 

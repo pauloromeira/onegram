@@ -1,6 +1,6 @@
 # Default: get from INSTA_USERNAME and INSTA_PASSWORD env variables
-username:
-password:
+# username:
+# password:
 
 # Leave it commented to fetch a random User-Agent
 # user_agent:

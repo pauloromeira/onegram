@@ -26,7 +26,7 @@ def test_username():
 
 @pytest.fixture
 def settings():
-    return {'RATE_LIMITS': None}
+    return {'rate_limits': None}
 
 
 @pytest.fixture

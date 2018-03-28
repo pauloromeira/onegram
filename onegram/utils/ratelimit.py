@@ -17,14 +17,14 @@ class RateLimiter:
 
 
     def _load_settings(self):
-        rate_limits = session.settings.get('rate_limits')
-        rate_persist = session.settings.get('rate_persist')
+        rate_limits = self.session.settings.get('rate_limits')
+        rate_persist = self.session.settings.get('rate_persist')
         self.persist_enabled = rate_persist.get('enabled', False)
 
         self.rates = {}
         if rate_limits:
             for key, limits in rate_limits.items():
-                self.rates[key] = _RateController(limits, session, key)
+                self.rates[key] = _RateController(limits, self.session, key)
 
             if self.persist_enabled:
                 persist_dir = rate_persist['directory']
