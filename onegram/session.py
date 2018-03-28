@@ -42,8 +42,7 @@ class Login(Session):
 
 
     def __init__(self, username=None, password=None,
-                 settings_file='onegram-settings.yml',
-                 custom_settings={}):
+                 settings_file='onegram.yml', custom_settings={}):
         if username:
             custom_settings['username'] = username
         if password:
