@@ -3,26 +3,26 @@ username:
 password:
 
 # Leave it commented to fetch a random User-Agent
-# user-agent:
+# user_agent:
 
 debug: false
-verify-ssl: true
+verify_ssl: true
 
-rate-limits:
+rate_limits:
   all:
     - [1, 1]
   actions:
     - [1, 2]
 
-rate-persist:
+rate_persist:
   enabled: true
   directory: './onegram/rates'
 
-log-settings:
+log_settings:
   format: '%(levelname)s:%(name)s: %(message)s'
-  level: INFO # default: change to DEBUG if 'debug' equals true
+  # level: INFO # default: change to DEBUG if 'debug' equals true
 
-query-chunks:
+query_chunks:
   following: [20, 10]
   followers: [20, 10]
   posts: 12
