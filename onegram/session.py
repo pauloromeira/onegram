@@ -12,7 +12,7 @@ from tenacity import wait_chain, wait_fixed
 from urllib3.exceptions import InsecureRequestWarning
 from urllib3.util import parse_url
 
-from . import settings as settings_module
+from settings import load_settings
 from .constants import DEFAULT_HEADERS, QUERY_HEADERS, ACTION_HEADERS
 from .constants import URLS
 from .exceptions import AuthException
@@ -41,26 +41,28 @@ class Login(Session):
         return self._requests.cookies
 
 
-    def __init__(self, username=None, password=None, custom_settings={}):
+    def __init__(self, username=None, password=None,
+                 settings_file='onegram-settings.yaml',
+                 custom_settings={}):
         if username:
-            custom_settings['USERNAME'] = username
+            custom_settings['username'] = username
         if password:
-            custom_settings['PASSWORD'] = password
+            custom_settings['password'] = password
 
-        self.settings = _load_settings(custom_settings)
+        self.settings = load_settings(settings_file, custom_settings)
 
-        log_settings = self.settings.get('LOG_SETTINGS')
+        log_settings = self.settings.get('log_settings')
         if log_settings:
             logging.basicConfig(**log_settings)
 
-        self.username = self.settings.get('USERNAME')
+        self.username = self.settings.get('username')
 
 
     def enter_contexts(self):
         self._requests = yield requests.Session()
 
         # Security config
-        verify_ssl = self.settings.get('VERIFY_SSL', True)
+        verify_ssl = self.settings.get('verify_ssl', True)
         self._requests.verify = verify_ssl
         if not verify_ssl:
             urllib3.disable_warnings(InsecureRequestWarning)
@@ -124,7 +126,7 @@ class Login(Session):
         self.username = self.username or input('Username: ')
         kw['data'] = {
             'username': self.username,
-            'password': self.settings.get('PASSWORD') or getpass(),
+            'password': self.settings.get('password') or getpass(),
             'next': '/'
         }
 
@@ -160,10 +162,3 @@ def login(*args, **kwargs):
 @_sessionaware
 def logout(session):
     session.close()
-
-
-def _load_settings(custom_settings={}):
-    settings = {k:getattr(settings_module, k)
-                for k in dir(settings_module) if k.isupper()}
-    settings.update(custom_settings)
-    return settings
