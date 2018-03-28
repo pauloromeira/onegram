@@ -24,14 +24,15 @@ def jsearch(jspath, content):
 
     return jmespath.search(jspath, dct)
 
-def repeat(*a, **kw):
-    return partial(iter_repeat, *a, **kw)
-    
-def choices(seq):
+
+def choices(values):
     def _choices():
         while True:
-            yield choice(seq)
+            yield choice(values)
     return _choices
 
-def head_tail(head, tail):
-    return partial(chain, [head], iter_repeat(tail))
+
+def repeat_last(values):
+    if not isinstance(values, (list, tuple)):
+        values = [values]
+    return partial(chain, values, iter_repeat(values[-1]))
