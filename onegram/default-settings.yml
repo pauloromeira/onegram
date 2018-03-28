@@ -16,7 +16,7 @@ rate_limits:
 
 rate_persist:
   enabled: true
-  directory: './onegram/rates'
+  directory: '.onegram/rates'
 
 query_chunks:
   following: [20, 10] # First 20, then repeat 10
