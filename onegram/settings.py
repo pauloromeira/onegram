@@ -1,19 +1,22 @@
+import logging
 import yaml
 
 from pathlib import Path
 from decouple import config
 
+from .utils import repeat_last, choices
+
 BASE_DIR = Path(__file__).parent
 
 
 def load_settings(file=None, custom={}):
-    import ipdb; ipdb.set_trace()
     settings = _load_yaml(BASE_DIR / 'default-settings.yml')
     _merge(settings, _load_env())
     if file:
         _merge(settings, _load_yaml(Path(file)))
     if custom:
         _merge(settings, custom)
+    _parse(settings)
     return settings
 
 
@@ -39,20 +42,44 @@ def _merge(settings, other):
         settings.update({k:v for k, v in other.items() if v is not None})
 
 
+def _parse(settings):
+    _parse_log(settings)
+    _parse_query_chunks(settings)
 
 
+def _parse_log(settings):
+    log_settings = settings.get('log')
+    if log_settings and 'level' not in log_settings:
+        debug = settings.get('debug')
+        log_settings['level'] = logging.DEBUG if debug else logging.INFO
 
-# LOG_SETTINGS = {
-#     'format': '%(levelname)s:%(name)s: %(message)s',
-#     'level': logging.DEBUG if DEBUG else logging.INFO,
-# }
 
-# QUERY_CHUNKS = {
-#     'following': (20, 10),
-#     'followers': (20, 10),
-#     'posts': 12,
-#     'feed': 12,
-#     'likes': (20, 10),
-#     'comments': choices(range(20, 40)),
-#     'explore': 24,
-# }
+_chunk_functions = {
+    'choices': choices,
+    'range': lambda values: range(*values),
+    'repeat_last': repeat_last,
+    'repeat': repeat_last,
+}
+
+
+def _parse_query_chunks(settings):
+    query_chunks = settings.get('query_chunks', {})
+    for key, value in query_chunks.items():
+        if isinstance(value, dict):
+            try:
+                query_chunks[key] = _complex_chunk(value)
+            except:
+                raise ValueError(f'Invalid "{key}" query chunk value')
+        else:
+            query_chunks[key] = repeat_last(value)
+
+
+def _complex_chunk(value):
+    if not isinstance(value, dict):
+        return value
+
+    if len(value) == 1:
+        fn, args = value.popitem()
+        return _chunk_functions[fn](_complex_chunk(args))
+    else:
+        raise ValueError

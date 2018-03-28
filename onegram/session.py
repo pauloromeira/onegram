@@ -51,7 +51,7 @@ class Login(Session):
 
         self.settings = load_settings(settings_file, custom_settings)
 
-        log_settings = self.settings.get('log_settings')
+        log_settings = self.settings.get('log')
         if log_settings:
             logging.basicConfig(**log_settings)
 

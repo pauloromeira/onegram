@@ -2,8 +2,9 @@ import json
 import logging
 import jmespath
 
+from numbers import Number
 from itertools import chain
-from itertools import repeat as iter_repeat
+from itertools import repeat
 from functools import partial
 
 from random import choice
@@ -33,6 +34,6 @@ def choices(values):
 
 
 def repeat_last(values):
-    if not isinstance(values, (list, tuple)):
+    if isinstance(values, Number):
         values = [values]
-    return partial(chain, values, iter_repeat(values[-1]))
+    return partial(chain, values, repeat(values[-1]))
