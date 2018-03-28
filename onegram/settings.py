@@ -1,6 +1,7 @@
 import logging
 import yaml
 
+from numbers import Number
 from pathlib import Path
 from decouple import config
 
@@ -65,8 +66,10 @@ def _parse_query_chunks(settings):
                 query_chunks[key] = _complex_chunk(value)
             except:
                 raise ValueError(f'Invalid "{key}" query chunk value')
-        else:
+        elif isinstance(value, (Number, list, tuple)):
             query_chunks[key] = repeat_last(value)
+        else:
+            raise ValueError(f'Invalid "{key}" query chunk value')
 
 
 def _complex_chunk(value):
