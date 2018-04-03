@@ -27,8 +27,8 @@ def betamax(monkeypatch_session):
     record_mode = os.environ.get('ONEGRAM_TEST_RECORD_MODE')
 
     placeholders = [
-        {'placeholder': '<INSTA_USERNAME>', 'replace': username},
-        {'placeholder': '<INSTA_PASSWORD>', 'replace': password},
+        {'placeholder': 'INSTA_USERNAME', 'replace': username},
+        {'placeholder': 'INSTA_PASSWORD', 'replace': password},
     ]
 
     options = {
