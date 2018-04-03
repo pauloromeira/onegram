@@ -213,6 +213,220 @@
         },
         "url": "https://www.instagram.com/web/save/1743973518704283279/unsave/"
       }
+    },
+    {
+      "recorded_at": "2018-04-03T02:37:51",
+      "request": {
+        "body": {
+          "encoding": "utf-8",
+          "string": ""
+        },
+        "headers": {
+          "Accept": [
+            "*/*"
+          ],
+          "Accept-Encoding": [
+            "gzip, deflate, br"
+          ],
+          "Accept-Language": [
+            "en-US"
+          ],
+          "Connection": [
+            "keep-alive"
+          ],
+          "Content-Length": [
+            "0"
+          ],
+          "Content-Type": [
+            "application/x-www-form-urlencoded"
+          ],
+          "Cookie": [
+            "ig_pr=2; ig_vh=800; ig_vw=1440; csrftoken=U0iSajK79ZKulqs3NWzjEt6zTf8yLRQt; ds_user_id=7326637304; mid=WsLo9gAEAAF2aREYf9z5I4l3Gu4A; rur=FTW; sessionid=IGSCaa1d37bc1c48cba748250e708e60c496d2616ce356d7a7785232a6c08d720d06%3Ayuxs1oJhTIJ25Na5iKT719tNSDbdvuCK%3A%7B%22_auth_user_id%22%3A7326637304%2C%22_auth_user_backend%22%3A%22accounts.backends.CaseInsensitiveModelBackend%22%2C%22_auth_user_hash%22%3A%22%22%2C%22_platform%22%3A4%2C%22_token_ver%22%3A2%2C%22_token%22%3A%227326637304%3AbDf5STzZehgze4Rm8V7aATjVmprBMFxI%3Ab6404b8857b34eab602516cc5c50f6b7b93ce342a6128bbefaf71c13ed3299e8%22%2C%22last_refreshed%22%3A1522723063.1562151909%7D; urlgen=\"{time: 1522723070}:1f3BpW:KpKMed_kZyq6ncepnMgEjUXN0Aw\""
+          ],
+          "Host": [
+            "www.instagram.com"
+          ],
+          "Origin": [
+            "https://www.instagram.com"
+          ],
+          "Referer": [
+            "https://www.instagram.com/"
+          ],
+          "X-CSRFToken": [
+            "U0iSajK79ZKulqs3NWzjEt6zTf8yLRQt"
+          ],
+          "X-Instagram-AJAX": [
+            "1"
+          ],
+          "X-Requested-With": [
+            "XMLHttpRequest"
+          ]
+        },
+        "method": "POST",
+        "uri": "https://www.instagram.com/web/save/1749027539269933912/save/"
+      },
+      "response": {
+        "body": {
+          "encoding": null,
+          "string": "{\"status\": \"ok\"}"
+        },
+        "headers": {
+          "Access-Control-Allow-Credentials": [
+            "true"
+          ],
+          "Access-Control-Allow-Origin": [
+            "https://www.instagram.com"
+          ],
+          "Cache-Control": [
+            "private, no-cache, no-store, must-revalidate"
+          ],
+          "Connection": [
+            "keep-alive"
+          ],
+          "Content-Language": [
+            "en"
+          ],
+          "Content-Length": [
+            "16"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Date": [
+            "Tue, 03 Apr 2018 02:37:51 GMT"
+          ],
+          "Expires": [
+            "Sat, 01 Jan 2000 00:00:00 GMT"
+          ],
+          "Pragma": [
+            "no-cache"
+          ],
+          "Set-Cookie": [
+            "csrftoken=U0iSajK79ZKulqs3NWzjEt6zTf8yLRQt; expires=Tue, 02-Apr-2019 02:37:51 GMT; Max-Age=31449600; Path=/; Secure",
+            "rur=FTW; Path=/",
+            "ds_user_id=7326637304; expires=Mon, 02-Jul-2018 02:37:51 GMT; Max-Age=7776000; Path=/",
+            "urlgen=\"{\\\"time\\\": 1522723070}:1f3BpX:WVOOoH15HtBEZ6wXm9VQ_Dof7b8\"; Path=/"
+          ],
+          "Strict-Transport-Security": [
+            "max-age=86400"
+          ],
+          "Vary": [
+            "Cookie, Accept-Language"
+          ]
+        },
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "url": "https://www.instagram.com/web/save/1749027539269933912/save/"
+      }
+    },
+    {
+      "recorded_at": "2018-04-03T02:37:51",
+      "request": {
+        "body": {
+          "encoding": "utf-8",
+          "string": ""
+        },
+        "headers": {
+          "Accept": [
+            "*/*"
+          ],
+          "Accept-Encoding": [
+            "gzip, deflate, br"
+          ],
+          "Accept-Language": [
+            "en-US"
+          ],
+          "Connection": [
+            "keep-alive"
+          ],
+          "Content-Length": [
+            "0"
+          ],
+          "Content-Type": [
+            "application/x-www-form-urlencoded"
+          ],
+          "Cookie": [
+            "ig_pr=2; ig_vh=800; ig_vw=1440; csrftoken=U0iSajK79ZKulqs3NWzjEt6zTf8yLRQt; ds_user_id=7326637304; mid=WsLo9gAEAAF2aREYf9z5I4l3Gu4A; rur=FTW; sessionid=IGSCaa1d37bc1c48cba748250e708e60c496d2616ce356d7a7785232a6c08d720d06%3Ayuxs1oJhTIJ25Na5iKT719tNSDbdvuCK%3A%7B%22_auth_user_id%22%3A7326637304%2C%22_auth_user_backend%22%3A%22accounts.backends.CaseInsensitiveModelBackend%22%2C%22_auth_user_hash%22%3A%22%22%2C%22_platform%22%3A4%2C%22_token_ver%22%3A2%2C%22_token%22%3A%227326637304%3AbDf5STzZehgze4Rm8V7aATjVmprBMFxI%3Ab6404b8857b34eab602516cc5c50f6b7b93ce342a6128bbefaf71c13ed3299e8%22%2C%22last_refreshed%22%3A1522723063.1562151909%7D; urlgen=\"{time: 1522723070}:1f3BpX:WVOOoH15HtBEZ6wXm9VQ_Dof7b8\""
+          ],
+          "Host": [
+            "www.instagram.com"
+          ],
+          "Origin": [
+            "https://www.instagram.com"
+          ],
+          "Referer": [
+            "https://www.instagram.com/"
+          ],
+          "X-CSRFToken": [
+            "U0iSajK79ZKulqs3NWzjEt6zTf8yLRQt"
+          ],
+          "X-Instagram-AJAX": [
+            "1"
+          ],
+          "X-Requested-With": [
+            "XMLHttpRequest"
+          ]
+        },
+        "method": "POST",
+        "uri": "https://www.instagram.com/web/save/1749027539269933912/unsave/"
+      },
+      "response": {
+        "body": {
+          "encoding": null,
+          "string": "{\"status\": \"ok\"}"
+        },
+        "headers": {
+          "Access-Control-Allow-Credentials": [
+            "true"
+          ],
+          "Access-Control-Allow-Origin": [
+            "https://www.instagram.com"
+          ],
+          "Cache-Control": [
+            "private, no-cache, no-store, must-revalidate"
+          ],
+          "Connection": [
+            "keep-alive"
+          ],
+          "Content-Language": [
+            "en"
+          ],
+          "Content-Length": [
+            "16"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Date": [
+            "Tue, 03 Apr 2018 02:37:51 GMT"
+          ],
+          "Expires": [
+            "Sat, 01 Jan 2000 00:00:00 GMT"
+          ],
+          "Pragma": [
+            "no-cache"
+          ],
+          "Set-Cookie": [
+            "csrftoken=U0iSajK79ZKulqs3NWzjEt6zTf8yLRQt; expires=Tue, 02-Apr-2019 02:37:51 GMT; Max-Age=31449600; Path=/; Secure",
+            "rur=FTW; Path=/",
+            "ds_user_id=7326637304; expires=Mon, 02-Jul-2018 02:37:51 GMT; Max-Age=7776000; Path=/",
+            "urlgen=\"{\\\"time\\\": 1522723071}:1f3BpX:4tY4zyNE0LG9OhYEDoIOksN8Af8\"; Path=/"
+          ],
+          "Strict-Transport-Security": [
+            "max-age=86400"
+          ],
+          "Vary": [
+            "Cookie, Accept-Language"
+          ]
+        },
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "url": "https://www.instagram.com/web/save/1749027539269933912/unsave/"
+      }
     }
   ],
   "recorded_with": "betamax/0.8.1"

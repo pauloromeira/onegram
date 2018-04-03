@@ -11,7 +11,7 @@ def user_info(session, username=None):
     return _info(session, username=username or session.username)
 
 @sessionaware
-def post_info(session, post=None):
+def post_info(session, post):
     return _info(session, shortcode=_shortcode(post))
 
 @sessionaware
