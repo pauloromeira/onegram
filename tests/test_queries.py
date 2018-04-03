@@ -5,8 +5,7 @@ from onegram.queries import followers, following
 from onegram.queries import posts, likes, comments, feed
 from onegram.queries import explore
 
-# TODO [romeira]: post_info
-#                 followers
+# TODO [romeira]: followers
 #                 following
 #                 posts
 #                 likes
@@ -18,17 +17,29 @@ from onegram.queries import explore
 
 @pytest.mark.usefixtures('cassette')
 def test_user_info(username):
-    user = user_info(username)
-    assert user['id']
-    assert user['username'] == username
-    assert user['edge_followed_by']['count'] is not None
-    assert user['edge_follow']['count'] is not None
+    u_info = user_info(username)
+    assert u_info['id']
+    assert u_info['username'] == username
+    assert u_info['edge_followed_by']['count'] is not None
+    assert u_info['edge_follow']['count'] is not None
 
 
 @pytest.mark.usefixtures('cassette')
 def test_user_info_self(session):
-    user = user_info()
-    assert user['id'] == session.user_id
-    assert user['username'] == session.username
-    assert user['edge_followed_by']['count'] is not None
-    assert user['edge_follow']['count'] is not None
+    u_info = user_info()
+    assert u_info['id'] == session.user_id
+    assert u_info['username'] == session.username
+    assert u_info['edge_followed_by']['count'] is not None
+    assert u_info['edge_follow']['count'] is not None
+
+
+@pytest.mark.usefixtures('cassette')
+def test_post_info(post, user):
+    p_info = post_info(post)
+    assert p_info['id'] == post['id']
+    assert p_info['shortcode'] == post['shortcode']
+    assert p_info['display_url']
+
+    owner = p_info['owner']
+    assert owner['id'] == user['id']
+    assert owner['username'] == user['username']

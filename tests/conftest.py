@@ -57,22 +57,33 @@ def session(request, betamax):
 
 @pytest.fixture(scope='session')
 def username():
-    return os.environ.get('ONEGRAM_TEST_USERNAME')
+    username = os.environ.get('ONEGRAM_TEST_USERNAME')
+    assert username
+    return username
 
 
 @pytest.fixture(scope='session')
 def user(betamax, username):
     betamax.use_cassette('fixture_user')
-    user = onegram.user_info(username)
-    betamax.current_cassette.eject()
+    try:
+        user = onegram.user_info(username)
+    finally:
+        betamax.current_cassette.eject()
+    assert user['id']
+    assert user['username'] == username
     return user
 
 
 @pytest.fixture(scope='session')
 def post(betamax, user):
     betamax.use_cassette('fixture_post')
-    post = next(onegram.posts(user))
-    betamax.current_cassette.eject()
+    try:
+        post = next(onegram.posts(user))
+    finally:
+        betamax.current_cassette.eject()
+    assert post['id']
+    assert post['shortcode']
+    assert post['owner']['id'] == user['id']
     return post
 
 
