@@ -8,7 +8,7 @@ from .constants import QUERY_HASHES, JSPATHS
 
 @sessionaware
 def user_info(session, username=None):
-    return _info(session, username=username)
+    return _info(session, username=username or session.username)
 
 @sessionaware
 def post_info(session, post=None):
