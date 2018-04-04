@@ -213,6 +213,220 @@
         },
         "url": "https://www.instagram.com/web/friendships/183569723/unfollow/"
       }
+    },
+    {
+      "recorded_at": "2018-04-04T03:23:02",
+      "request": {
+        "body": {
+          "encoding": "utf-8",
+          "string": ""
+        },
+        "headers": {
+          "Accept": [
+            "*/*"
+          ],
+          "Accept-Encoding": [
+            "gzip, deflate, br"
+          ],
+          "Accept-Language": [
+            "en-US"
+          ],
+          "Connection": [
+            "keep-alive"
+          ],
+          "Content-Length": [
+            "0"
+          ],
+          "Content-Type": [
+            "application/x-www-form-urlencoded"
+          ],
+          "Cookie": [
+            "ig_pr=2; ig_vh=800; ig_vw=1440; csrftoken=8zFay6gEInqULZw9EaE2ApFjIoJNs8hI; ds_user_id=7326637304; mid=WsRFEwAEAAEW3m95Vzgs-hg6yVp_; rur=FTW; sessionid=IGSCb29f59a2044627ef3273078c10707c717b0887e6f4fcc0145a60a8fa48c92baf%3AZwqYVbjCu8H5ihwdcLO1tHGGnC5zIcLJ%3A%7B%22_auth_user_id%22%3A7326637304%2C%22_auth_user_backend%22%3A%22accounts.backends.CaseInsensitiveModelBackend%22%2C%22_auth_user_hash%22%3A%22%22%2C%22_platform%22%3A4%2C%22_token_ver%22%3A2%2C%22_token%22%3A%227326637304%3A1ZmBUbQ0KoicvJ5PZJrqDU0FcR8Fq645%3Ab5efb13ef385a7d618f99de5b271c9d51784cf9596fb9b19ae9030a9a21a6151%22%2C%22last_refreshed%22%3A1522812180.9975759983%7D; urlgen=\"{time: 1522812181}:1f3Z0o:hCuMGr3kI9CEk50qYyK9gpFPbxE\""
+          ],
+          "Host": [
+            "www.instagram.com"
+          ],
+          "Origin": [
+            "https://www.instagram.com"
+          ],
+          "Referer": [
+            "https://www.instagram.com/"
+          ],
+          "X-CSRFToken": [
+            "8zFay6gEInqULZw9EaE2ApFjIoJNs8hI"
+          ],
+          "X-Instagram-AJAX": [
+            "1"
+          ],
+          "X-Requested-With": [
+            "XMLHttpRequest"
+          ]
+        },
+        "method": "POST",
+        "uri": "https://www.instagram.com/web/friendships/25025320/follow/"
+      },
+      "response": {
+        "body": {
+          "encoding": null,
+          "string": "{\"result\": \"following\", \"status\": \"ok\"}"
+        },
+        "headers": {
+          "Access-Control-Allow-Credentials": [
+            "true"
+          ],
+          "Access-Control-Allow-Origin": [
+            "https://www.instagram.com"
+          ],
+          "Cache-Control": [
+            "private, no-cache, no-store, must-revalidate"
+          ],
+          "Connection": [
+            "keep-alive"
+          ],
+          "Content-Language": [
+            "en"
+          ],
+          "Content-Length": [
+            "39"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Date": [
+            "Wed, 04 Apr 2018 03:23:02 GMT"
+          ],
+          "Expires": [
+            "Sat, 01 Jan 2000 00:00:00 GMT"
+          ],
+          "Pragma": [
+            "no-cache"
+          ],
+          "Set-Cookie": [
+            "csrftoken=8zFay6gEInqULZw9EaE2ApFjIoJNs8hI; expires=Wed, 03-Apr-2019 03:23:02 GMT; Max-Age=31449600; Path=/; Secure",
+            "rur=FTW; Path=/",
+            "ds_user_id=7326637304; expires=Tue, 03-Jul-2018 03:23:02 GMT; Max-Age=7776000; Path=/",
+            "urlgen=\"{\\\"time\\\": 1522812182}:1f3Z0o:IsBxFyZQd4NHzmMifn7WnUBmYd8\"; Path=/"
+          ],
+          "Strict-Transport-Security": [
+            "max-age=86400"
+          ],
+          "Vary": [
+            "Cookie, Accept-Language"
+          ]
+        },
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "url": "https://www.instagram.com/web/friendships/25025320/follow/"
+      }
+    },
+    {
+      "recorded_at": "2018-04-04T03:23:03",
+      "request": {
+        "body": {
+          "encoding": "utf-8",
+          "string": ""
+        },
+        "headers": {
+          "Accept": [
+            "*/*"
+          ],
+          "Accept-Encoding": [
+            "gzip, deflate, br"
+          ],
+          "Accept-Language": [
+            "en-US"
+          ],
+          "Connection": [
+            "keep-alive"
+          ],
+          "Content-Length": [
+            "0"
+          ],
+          "Content-Type": [
+            "application/x-www-form-urlencoded"
+          ],
+          "Cookie": [
+            "ig_pr=2; ig_vh=800; ig_vw=1440; csrftoken=8zFay6gEInqULZw9EaE2ApFjIoJNs8hI; ds_user_id=7326637304; mid=WsRFEwAEAAEW3m95Vzgs-hg6yVp_; rur=FTW; sessionid=IGSCb29f59a2044627ef3273078c10707c717b0887e6f4fcc0145a60a8fa48c92baf%3AZwqYVbjCu8H5ihwdcLO1tHGGnC5zIcLJ%3A%7B%22_auth_user_id%22%3A7326637304%2C%22_auth_user_backend%22%3A%22accounts.backends.CaseInsensitiveModelBackend%22%2C%22_auth_user_hash%22%3A%22%22%2C%22_platform%22%3A4%2C%22_token_ver%22%3A2%2C%22_token%22%3A%227326637304%3A1ZmBUbQ0KoicvJ5PZJrqDU0FcR8Fq645%3Ab5efb13ef385a7d618f99de5b271c9d51784cf9596fb9b19ae9030a9a21a6151%22%2C%22last_refreshed%22%3A1522812180.9975759983%7D; urlgen=\"{time: 1522812182}:1f3Z0o:IsBxFyZQd4NHzmMifn7WnUBmYd8\""
+          ],
+          "Host": [
+            "www.instagram.com"
+          ],
+          "Origin": [
+            "https://www.instagram.com"
+          ],
+          "Referer": [
+            "https://www.instagram.com/"
+          ],
+          "X-CSRFToken": [
+            "8zFay6gEInqULZw9EaE2ApFjIoJNs8hI"
+          ],
+          "X-Instagram-AJAX": [
+            "1"
+          ],
+          "X-Requested-With": [
+            "XMLHttpRequest"
+          ]
+        },
+        "method": "POST",
+        "uri": "https://www.instagram.com/web/friendships/25025320/unfollow/"
+      },
+      "response": {
+        "body": {
+          "encoding": null,
+          "string": "{\"status\": \"ok\"}"
+        },
+        "headers": {
+          "Access-Control-Allow-Credentials": [
+            "true"
+          ],
+          "Access-Control-Allow-Origin": [
+            "https://www.instagram.com"
+          ],
+          "Cache-Control": [
+            "private, no-cache, no-store, must-revalidate"
+          ],
+          "Connection": [
+            "keep-alive"
+          ],
+          "Content-Language": [
+            "en"
+          ],
+          "Content-Length": [
+            "16"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Date": [
+            "Wed, 04 Apr 2018 03:23:03 GMT"
+          ],
+          "Expires": [
+            "Sat, 01 Jan 2000 00:00:00 GMT"
+          ],
+          "Pragma": [
+            "no-cache"
+          ],
+          "Set-Cookie": [
+            "csrftoken=8zFay6gEInqULZw9EaE2ApFjIoJNs8hI; expires=Wed, 03-Apr-2019 03:23:03 GMT; Max-Age=31449600; Path=/; Secure",
+            "rur=FTW; Path=/",
+            "ds_user_id=7326637304; expires=Tue, 03-Jul-2018 03:23:03 GMT; Max-Age=7776000; Path=/",
+            "urlgen=\"{\\\"time\\\": 1522812183}:1f3Z0p:468FSaEVsps_sbAXd8AM7r_aASU\"; Path=/"
+          ],
+          "Strict-Transport-Security": [
+            "max-age=86400"
+          ],
+          "Vary": [
+            "Cookie, Accept-Language"
+          ]
+        },
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "url": "https://www.instagram.com/web/friendships/25025320/unfollow/"
+      }
     }
   ],
   "recorded_with": "betamax/0.8.1"

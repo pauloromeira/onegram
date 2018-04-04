@@ -1,11 +1,14 @@
 import pytest
 
+from itertools import islice
+from random import choice
+
 from onegram.queries import user_info, post_info
 from onegram.queries import followers, following
 from onegram.queries import posts, likes, comments, feed
 from onegram.queries import explore
 
-# TODO [romeira]: followers
+# TODO [romeira]:
 #                 following
 #                 posts
 #                 likes
@@ -45,3 +48,19 @@ def test_post_info(post, user):
     owner = p_info['owner']
     assert owner['id'] == user['id']
     assert owner['username'] == user['username']
+
+
+@pytest.mark.usefixtures('cassette')
+def test_followers(session, user):
+    query_calls = 2
+    chunks = session.settings['QUERY_CHUNKS']['followers']()
+    result_count = sum(islice(chunks, query_calls))
+    followers_count = user['edge_followed_by']['count']
+    count = min(result_count, followers_count)
+
+    user_followers = list(islice(followers(user), count))
+    assert len(user_followers) == count
+
+    for follower in user_followers:
+        assert follower['id']
+        assert follower['username']
