@@ -9,8 +9,11 @@ from onegram.queries import posts, likes, comments, feed
 from onegram.queries import explore
 
 # TODO [romeira]:
+#                 followers_self
 #                 following
+#                 following_self
 #                 posts
+#                 posts_self
 #                 likes
 #                 comments
 #                 feed

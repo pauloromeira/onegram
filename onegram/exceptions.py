@@ -1,5 +1,8 @@
+class OnegramException(Exception):
+    pass
+
 # TODO [romeira]: Login exceptions {06/03/18 23:07}
-class AuthException(Exception):
+class AuthException(OnegramException):
     pass
 
 class AuthFailed(AuthException):

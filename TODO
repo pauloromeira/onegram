@@ -1,28 +1,12 @@
 * Actions:
-  [X] Follow
-  [X] Unfollow
-  [X] Like
-  [X] Unlike
-  [X] Comment
-  [X] Uncomment
-  [X] Save
-  [X] Unsave
-  Other:
-    [ ] Make post actions accept shortcode and url
-    [ ] Make user actions accept url
+  [ ] Make post actions accept shortcode and url
+  [ ] Make user actions accept url
   - ...
 * Queries:
-  [X] User Info (followers/ing count, etc)
-  [X] Followers
-  [X] Following
-  [X] User Posts
-  [X] Post Info
   [X] Likes
     - [ ] Add optional (filter by) users argument
   [X] Comments
     - [ ] Add optional (filter by) users argument
-  [X] Feed Posts (https://www.instagram.com/?__a=1)
-  [X] Explore Posts
   [ ] Activity (https://www.instagram.com/accounts/activity/?__a=1)
   [ ] Suggested Users (https://www.instagram.com/explore/people/ | e3c04bbb35d86a16cf0e7881c5057737)
   [ ] Saved Posts (https://www.instagram.com/<me>/saved/?__a=1)
@@ -36,30 +20,17 @@
     [ ] Make post queries accept id and url
     [ ] Make user queries accept url
   - ...
-* Tests:
-  [X] Login
-  - Actions
-    [X] Follow
-    [X] Unfollow
-    [X] Like
-    [X] Unlike
-    [X] Comment
-    [X] Uncomment
-    [X] Save
-    [X] Unsave
-  - Queries:
-    [ ] User Info
-  [ ] Coverage
+* Tests
+  - [ ] Session
+  - [X] Actions
+  - [ ] Queries
+  - [ ] Coverage
   - ...
 * Other:
-  [X] Ask user/password if not defined
-  [X] Create session if not exists
-  [X] Rate limits
-  [X] Get logged user_id from cookies: `ds_user_id` at login
   [ ] Read settings from YAML
   [ ] Infer rate limis
   [ ] Auto rate limis
-  [ ] Retry login until success
+  [ ] Close session if unauthorized
   [ ] Clear cookies + login again if session expired
   [ ] Exceptions
   [ ] Logs
