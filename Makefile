@@ -56,9 +56,7 @@ test: ## run tests with pytest
 	@pipenv run python -m pytest
 
 coverage: ## check code coverage quickly with the default Python
-	@coverage run --source onegram -m pytest
-	@coverage report -m
-	@coverage html
+	@pipenv run python -m pytest --cov=onegram --cov-report=html
 	@$(BROWSER) htmlcov/index.html
 
 release: clean ## package and upload a release

@@ -1,12 +1,9 @@
 [[source]]
-
 url = "https://pypi.python.org/simple"
 verify_ssl = true
 name = "pypi"
 
-
 [packages]
-
 fake-useragent = "*"
 jmespath = "*"
 python-decouple = "*"
@@ -14,17 +11,14 @@ requests = "*"
 sessionlib = "*"
 tenacity = "*"
 
-
 [dev-packages]
-
 ipython = "*"
 ipdb = "*"
 pytest = "*"
 pytest-env = "*"
+pytest-cov = "*"
 betamax = "*"
 betamax-serializers = "*"
 
-
 [requires]
-
 python_version = "3.6"
