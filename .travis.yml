@@ -2,5 +2,8 @@ sudo: false
 language: python
 python:
   - 3.6
-install: make init
-script: make test
+install:
+  - make init
+  - pipenv install codecov
+script: make ci
+after_success: codecov

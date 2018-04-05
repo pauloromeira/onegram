@@ -55,6 +55,9 @@ init: ## install pipenv and dependencies
 test: ## run tests with pytest
 	@pipenv run python -m pytest
 
+ci: ## travis ci
+	pipenv run python -m pytest --cov=onegram
+
 coverage: ## check code coverage quickly with the default Python
 	@pipenv run python -m pytest --cov=onegram --cov-report=html
 	@$(BROWSER) htmlcov/index.html

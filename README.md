@@ -1,6 +1,7 @@
 # onegram
-[![Travis](https://travis-ci.org/pauloromeira/onegram.svg?branch=master)](https://travis-ci.org/pauloromeira/onegram)
-[![Pypi](https://img.shields.io/pypi/v/onegram.svg)](https://pypi.python.org/pypi/onegram)
+[![pypi](https://img.shields.io/pypi/v/onegram.svg)](https://pypi.python.org/pypi/onegram)
+[![travis](https://travis-ci.org/pauloromeira/onegram.svg?branch=master)](https://travis-ci.org/pauloromeira/onegram)
+[![codecov](https://codecov.io/gh/pauloromeira/onegram/branch/master/graph/badge.svg)](https://codecov.io/gh/pauloromeira/onegram)
 
 A simplistic api-like instagram **bot** powered by [requests](https://github.com/requests/requests).
 
