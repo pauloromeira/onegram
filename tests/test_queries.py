@@ -3,13 +3,11 @@ import pytest
 from itertools import islice
 from random import choice
 
-from onegram.queries import user_info, post_info
 from onegram.queries import followers, following
 from onegram.queries import posts, likes, comments, feed
 from onegram.queries import explore
 
 # TODO [romeira]:
-#                 followers_self
 #                 following
 #                 following_self
 #                 posts
@@ -21,49 +19,54 @@ from onegram.queries import explore
 # {02/04/18 23:09}
 
 
-@pytest.mark.usefixtures('cassette')
-def test_user_info(username):
-    u_info = user_info(username)
-    assert u_info['id']
-    assert u_info['username'] == username
-    assert u_info['edge_followed_by']['count'] is not None
-    assert u_info['edge_follow']['count'] is not None
+def test_user_info(user, username):
+    assert user['id']
+    assert user['username'] == username
+    assert user['edge_followed_by']['count'] is not None
+    assert user['edge_follow']['count'] is not None
 
 
-@pytest.mark.usefixtures('cassette')
-def test_user_info_self(session):
-    u_info = user_info()
-    assert u_info['id'] == session.user_id
-    # TODO [romeira]: fix betamax placeholder issue: 
-    #                 replace encoded body {03/04/18 02:10}
-    # assert u_info['username'] == session.username
-    assert u_info['edge_followed_by']['count'] is not None
-    assert u_info['edge_follow']['count'] is not None
+def test_self_info(session, self):
+    assert self['id'] == session.user_id
+    # TODO [romeira]: betamax issue {05/04/18 02:48}
+    # assert self['username'] == session.username
+    assert self['username']
+    assert self['edge_followed_by']['count'] is not None
+    assert self['edge_follow']['count'] is not None
 
 
-@pytest.mark.usefixtures('cassette')
 def test_post_info(post, user):
-    p_info = post_info(post)
-    assert p_info['id'] == post['id']
-    assert p_info['shortcode'] == post['shortcode']
-    assert p_info['display_url']
+    assert post['id']
+    assert post['shortcode']
+    assert post['display_url']
 
-    owner = p_info['owner']
+    owner = post['owner']
     assert owner['id'] == user['id']
     assert owner['username'] == user['username']
 
 
 @pytest.mark.usefixtures('cassette')
 def test_followers(session, user):
-    query_calls = 2
-    chunks = session.settings['QUERY_CHUNKS']['followers']()
-    result_count = sum(islice(chunks, query_calls))
-    followers_count = user['edge_followed_by']['count']
-    count = min(result_count, followers_count)
+    assert_followers(session, user, followers(user))
 
-    user_followers = list(islice(followers(user), count))
-    assert len(user_followers) == count
 
-    for follower in user_followers:
+@pytest.mark.usefixtures('cassette')
+def test_followers_self(session, self):
+    assert_followers(session, self, followers())
+
+
+def assert_followers(session, user, followers):
+    count = followers_count(session.settings, user)
+    followers = list(islice(followers, count))
+    assert len(followers) == count
+
+    for follower in followers:
         assert follower['id']
         assert follower['username']
+
+
+def followers_count(settings, user, pages=3):
+    chunks = settings['QUERY_CHUNKS']['followers']()
+    result_count = sum(islice(chunks, pages))
+    followers_count = user['edge_followed_by']['count']
+    return min(result_count, followers_count)
