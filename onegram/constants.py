@@ -18,12 +18,6 @@ ACTION_HEADERS = {
     'X-Requested-With': 'XMLHttpRequest'
 }
 
-DEFAULT_COOKIES = {
-    'ig_vw': '1440',
-    'ig_pr': '2',
-    'ig_vh': '800',
-}
-
 GRAPHQL_URL = 'https://www.instagram.com/graphql/query/'
 
 URLS = {

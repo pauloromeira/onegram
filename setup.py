@@ -3,7 +3,6 @@ from setuptools import setup, find_packages
 
 
 requires = [
-    'fake-useragent>=0.1.10',
     'jmespath>=0.9.3',
     'python-decouple>=3.1',
     'requests>=2.18.4',

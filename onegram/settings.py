@@ -13,8 +13,8 @@ PASSWORD = config('INSTA_PASSWORD', default=None)
 
 DEBUG = config('INSTA_DEBUG', default=False, cast=bool)
 
-# Leave it commented to get a random User-Agent
-# USER_AGENT = ''
+# Uncomment to set a custom User-Agent
+# USER_AGENT = None
 
 VERIFY_SSL = config('VERIFY_SSL', default=True, cast=bool)
 

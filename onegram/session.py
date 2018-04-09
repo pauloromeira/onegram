@@ -3,7 +3,6 @@ import logging
 import requests
 import urllib3
 
-from fake_useragent import UserAgent, UserAgentError
 from getpass import getpass
 from requests import HTTPError
 from sessionlib import Session
@@ -15,10 +14,10 @@ from urllib3.util import parse_url
 
 from . import settings as settings_module
 from .constants import DEFAULT_HEADERS, QUERY_HEADERS, ACTION_HEADERS
-from .constants import URLS, DEFAULT_COOKIES
+from .constants import URLS
+from .exceptions import AuthException
 from .utils.ratelimit import RateLimiter
 from .utils.validation import check_auth
-from .exceptions import AuthException
 
 
 class Login(Session):
@@ -68,16 +67,10 @@ class Login(Session):
 
         # Init headers
         self._requests.headers.update(DEFAULT_HEADERS)
-
-        if 'USER_AGENT' in self.settings:
-            user_agent = self.settings['USER_AGENT']
+        user_agent = self.settings.get('USER_AGENT')
+        if user_agent is not None:
+            self._requests.headers['User-Agent'] = user_agent
         else:
-            try:
-                user_agent = UserAgent(verify_ssl=verify_ssl).random
-            except UserAgentError:
-                user_agent = None
-
-        if user_agent is None:
             self._requests.headers.pop('User-Agent', None)
 
         try:
@@ -125,9 +118,7 @@ class Login(Session):
 
     def _login(self):
         start_url, login_url = URLS['start'], URLS['login']
-
         self._requests.get(start_url).raise_for_status()
-        self.cookies.update(DEFAULT_COOKIES)
 
         kw = {}
         self.username = self.username or input('Username: ')
