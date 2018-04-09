@@ -93,6 +93,7 @@ def _iter_post(session, post, *a, **kw):
 
 def _iter_query(session, variables={}, chunk_key='first', cursor_key='after'):
     query = session.current_function_name
+    progress = {'count': 0}
 
     chunks = session.settings['QUERY_CHUNKS'][query]()
     jspath = JSPATHS[query]
@@ -103,6 +104,7 @@ def _iter_query(session, variables={}, chunk_key='first', cursor_key='after'):
 
     response = session.query(GRAPHQL_URL, params=params)
     data = jsearch(jspath, response)
+    _iter_progress(session, data, progress)
     yield from jsearch(JSPATHS['_nodes'], data)
 
     page_info = data['page_info']
@@ -114,7 +116,23 @@ def _iter_query(session, variables={}, chunk_key='first', cursor_key='after'):
 
         response = session.query(GRAPHQL_URL, params=params)
         data = jsearch(jspath, response)
+        _iter_progress(session, data, progress)
         yield from jsearch(JSPATHS['_nodes'], data)
 
         page_info = data['page_info']
 
+def _iter_progress(session, data, progress):
+    total = progress.setdefault('total', data.get('count', 0))
+    fetched = len(data.get('edges', []))
+    count = progress['count'] + fetched
+
+    if count < total and not fetched:
+        query = session.current_function_name
+        session.logger.warning(f'STOP :: No {query} available')
+        raise StopIteration
+
+    progress['fetched'] = fetched
+    progress['count'] = count
+
+    msg = f'FETCH {fetched} :: [{count}/{total}] - {count/(total or 1):.0%}'
+    session.logger.info(msg)
