@@ -1,11 +1,8 @@
-import pytest
-
 from itertools import islice
-from random import choice
 
-from onegram.queries import followers, following
-from onegram.queries import posts, likes, comments, feed
-from onegram.queries import explore
+from onegram import followers, following
+from onegram import posts, likes, comments, feed
+from onegram import explore
 
 # TODO [romeira]:
 #                 following
@@ -19,9 +16,9 @@ from onegram.queries import explore
 # {02/04/18 23:09}
 
 
-def test_user_info(user, username):
+def test_user_info(user, test_username):
     assert user['id']
-    assert user['username'] == username
+    assert user['username'] == test_username
     assert user['edge_followed_by']['count'] is not None
     assert user['edge_follow']['count'] is not None
 

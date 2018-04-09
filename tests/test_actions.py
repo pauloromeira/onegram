@@ -1,9 +1,7 @@
-import pytest
-
-from onegram.actions import follow, unfollow
-from onegram.actions import like, unlike
-from onegram.actions import comment, uncomment
-from onegram.actions import save, unsave
+from onegram import follow, unfollow
+from onegram import like, unlike
+from onegram import comment, uncomment
+from onegram import save, unsave
 
 
 def test_follow(user, cassette):
