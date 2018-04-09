@@ -130,10 +130,6 @@ class Login(Session):
             'next': '/'
         }
 
-        no_proxy = self.settings.get('DISABLE_LOGIN_PROXY', False)
-        if no_proxy:
-            kw['proxies'] = {'no_proxy': parse_url(login_url).host}
-
         headers = ACTION_HEADERS
         headers['X-CSRFToken'] = self.cookies['csrftoken']
         kw['headers'] = headers

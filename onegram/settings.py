@@ -18,8 +18,6 @@ DEBUG = config('INSTA_DEBUG', default=False, cast=bool)
 
 VERIFY_SSL = config('VERIFY_SSL', default=True, cast=bool)
 
-DISABLE_LOGIN_PROXY = False
-
 # Limits requests per second
 RATE_LIMITS = {
     '*': [(1, 1)],
