@@ -18,6 +18,7 @@ from .constants import DEFAULT_HEADERS, QUERY_HEADERS, ACTION_HEADERS
 from .constants import URLS, DEFAULT_COOKIES
 from .utils.ratelimit import RateLimiter
 from .utils.validation import check_auth
+from .exceptions import AuthException
 
 
 class Login(Session):
@@ -79,7 +80,13 @@ class Login(Session):
         if user_agent is None:
             self._requests.headers.pop('User-Agent', None)
 
-        self._login()
+        try:
+            self._login()
+        except AuthException as e:
+            self.logger.error(e)
+            self.close()
+            raise e
+
         self.rate_limiter = RateLimiter(self)
 
 

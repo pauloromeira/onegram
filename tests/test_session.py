@@ -1,5 +1,7 @@
 import pytest
 
+from sessionlib import Session
+
 from onegram import login
 from onegram.exceptions import AuthUserError, AuthFailed
 
@@ -9,8 +11,12 @@ def test_invalid_user(settings, cassette):
     with pytest.raises(AuthUserError):
         login(username=invalid_user, custom_settings=settings)
 
+    assert Session.current() is None
+
 
 def test_invalid_password(settings, password, cassette):
     wrong_password = 'wrong' + password
     with pytest.raises(AuthFailed):
         login(password=wrong_password, custom_settings=settings)
+
+    assert Session.current() is None
