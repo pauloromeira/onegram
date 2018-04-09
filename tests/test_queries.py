@@ -28,7 +28,7 @@ def test_user_info(user, username):
 
 def test_self_info(session, self):
     assert self['id'] == session.user_id
-    # TODO [romeira]: betamax issue {05/04/18 02:48}
+    # TODO [romeira]: betamax placeholders issue {05/04/18 02:48}
     # assert self['username'] == session.username
     assert self['username']
     assert self['edge_followed_by']['count'] is not None
@@ -45,13 +45,11 @@ def test_post_info(post, user):
     assert owner['username'] == user['username']
 
 
-@pytest.mark.usefixtures('cassette')
-def test_followers(session, user):
+def test_followers(session, user, cassette):
     assert_followers(session, user, followers(user))
 
 
-@pytest.mark.usefixtures('cassette')
-def test_followers_self(session, self):
+def test_followers_self(session, self, cassette):
     assert_followers(session, self, followers())
 
 

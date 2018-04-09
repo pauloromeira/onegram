@@ -5,10 +5,8 @@ from onegram.actions import like, unlike
 from onegram.actions import comment, uncomment
 from onegram.actions import save, unsave
 
-pytestmark = pytest.mark.usefixtures('cassette')
 
-
-def test_follow(user):
+def test_follow(user, cassette):
     response = follow(user)
     assert response == {'result': 'following',
                         'status': 'ok',
@@ -18,7 +16,7 @@ def test_follow(user):
     assert response == {'status': 'ok', 'user_id': user['id']}
 
 
-def test_like(post):
+def test_like(post, cassette):
     response = like(post)
     assert response == {'status': 'ok', 'post_id': post['id']}
 
@@ -26,7 +24,7 @@ def test_like(post):
     assert response == {'status': 'ok', 'post_id': post['id']}
 
 
-def test_comment(post):
+def test_comment(post, cassette):
     text = 'awesome!'
     commentary = comment(text, post)
     assert commentary['id']
@@ -38,7 +36,7 @@ def test_comment(post):
     assert response == {'status': 'ok', 'post_id': post['id']}
 
 
-def test_save(post):
+def test_save(post, cassette):
     response = save(post)
     assert response == {'status': 'ok', 'post_id': post['id']}
 

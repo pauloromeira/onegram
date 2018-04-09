@@ -13,15 +13,8 @@ from onegram import post_info, user_info
 from onegram import posts
 
 
-@pytest.fixture(scope='session')
-def monkeypatch_session():
-    mpatch = MonkeyPatch()
-    yield mpatch
-    mpatch.undo()
-
-
-@pytest.fixture(scope='session')
-def betamax(monkeypatch_session):
+@pytest.fixture
+def betamax(monkeypatch):
     Betamax.register_serializer(pretty_json.PrettyJSONSerializer)
     cassete_dir = Path('tests/cassettes/')
     cassete_dir.mkdir(parents=True, exist_ok=True)
@@ -43,15 +36,17 @@ def betamax(monkeypatch_session):
     with Betamax(requests.Session(),
                  cassette_library_dir=cassete_dir,
                  default_cassette_options=options) as recorder:
-        monkeypatch_session.setattr(requests,
-                                    'Session',
-                                    lambda: recorder.session)
+        monkeypatch.setattr(requests, 'Session', lambda: recorder.session)
         yield recorder
 
 
-@pytest.fixture(scope='session', autouse=True)
-def session(request, betamax):
-    settings = {'RATE_LIMITS': None, 'USER_AGENT': None}
+@pytest.fixture(scope='session')
+def settings():
+    return {'RATE_LIMITS': None, 'USER_AGENT': None}
+
+
+@pytest.fixture
+def session(betamax, settings):
     betamax.use_cassette('fixture_session')
     with Login(custom_settings=settings) as session:
         betamax.current_cassette.eject()
@@ -63,8 +58,8 @@ def username():
     return os.environ['ONEGRAM_TEST_USERNAME']
 
 
-@pytest.fixture(scope='session')
-def user(betamax, username):
+@pytest.fixture
+def user(session, betamax, username):
     betamax.use_cassette('fixture_user')
     try:
         return user_info(username)
@@ -72,8 +67,8 @@ def user(betamax, username):
         betamax.current_cassette.eject()
 
 
-@pytest.fixture(scope='session')
-def self(betamax):
+@pytest.fixture
+def self(session, betamax):
     betamax.use_cassette('fixture_self')
     try:
         return user_info()
@@ -81,7 +76,7 @@ def self(betamax):
         betamax.current_cassette.eject()
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture
 def post(betamax, user):
     betamax.use_cassette('fixture_post')
     try:
