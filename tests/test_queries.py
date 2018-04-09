@@ -5,8 +5,6 @@ from onegram import posts, likes, comments, feed
 from onegram import explore
 
 # TODO [romeira]:
-#                 following
-#                 following_self
 #                 posts
 #                 posts_self
 #                 likes
@@ -43,25 +41,44 @@ def test_post_info(post, user):
 
 
 def test_followers(session, user, cassette):
-    assert_followers(session, user, followers(user))
+    count = follows_count(session, user, 'followers')
+    assert_follows(session, followers(user), count)
 
 
 def test_followers_self(session, self, cassette):
-    assert_followers(session, self, followers())
+    count = follows_count(session, self, 'followers')
+    assert_follows(session, followers(), count)
 
 
-def assert_followers(session, user, followers):
-    count = followers_count(session.settings, user)
-    followers = list(islice(followers, count))
-    assert len(followers) == count
-
-    for follower in followers:
-        assert follower['id']
-        assert follower['username']
+def test_following(session, user, cassette):
+    count = follows_count(session, user, 'following')
+    assert_follows(session, following(user), count)
 
 
-def followers_count(settings, user, pages=3):
-    chunks = settings['QUERY_CHUNKS']['followers']()
+def test_following_self(session, self, cassette):
+    count = follows_count(session, self, 'following')
+    flwgs = assert_follows(session, following(), count)
+    assert all(f['followed_by_viewer'] for f in flwgs)
+
+
+#######################################################################
+#                               HELPERS                               #
+#######################################################################
+
+def assert_follows(session, follows, count):
+    follows = list(islice(follows, count))
+    assert len(follows) == count
+
+    for f in follows:
+        assert f['id']
+        assert f['username']
+
+    return follows
+
+
+def follows_count(session, user, query, pages=3):
+    chunks = session.settings['QUERY_CHUNKS'][query]()
     result_count = sum(islice(chunks, pages))
-    followers_count = user['edge_followed_by']['count']
-    return min(result_count, followers_count)
+    edge = 'edge_follow' if query == 'following' else 'edge_followed_by'
+    follows_count = user[edge]['count']
+    return min(result_count, follows_count)
