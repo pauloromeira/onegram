@@ -22,23 +22,23 @@ pip install onegram
 Python 3.6
 
 ## Examples
-#### Follow me :wink:
+#### Follow someone
 ```py
 from onegram import follow
 
-follow('<me>')
+follow('<someone>')
 ```
 
-#### Like all my posts :joy:
+#### Like all someone posts
 
 ```py
 from onegram import like, posts
 
-for post in posts('<me>'):
+for post in posts('<someone>'):
   like(post)
 ```
 
-#### Who likes you most? :open_mouth:
+#### Who likes you most?
 ```py
 from collections import defaultdict
 from operator import itemgetter
