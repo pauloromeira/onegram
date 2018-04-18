@@ -125,7 +125,7 @@ class Login(Session):
         kw['data'] = {
             'username': self.username,
             'password': self.settings.get('PASSWORD') or getpass(),
-            'next': '/'
+            'queryParams': '{}',
         }
 
         headers = ACTION_HEADERS
