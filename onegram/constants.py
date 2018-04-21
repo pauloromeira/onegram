@@ -61,3 +61,7 @@ JSPATHS = {
     'explore': 'data.user.edge_web_discover_media',
     'feed': 'data.user.edge_web_feed_timeline',
 }
+
+REGEXES = {
+    'rhx_gis': '(?i)"rhx_gis"\s*:\s*"([a-f0-9]+)"',
+}

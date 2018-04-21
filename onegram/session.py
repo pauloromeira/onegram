@@ -1,5 +1,7 @@
+import hashlib
 import json
 import logging
+import re
 import requests
 import urllib3
 
@@ -15,6 +17,7 @@ from urllib3.util import parse_url
 from . import settings as settings_module
 from .constants import DEFAULT_HEADERS, QUERY_HEADERS, ACTION_HEADERS
 from .constants import URLS
+from .constants import REGEXES
 from .exceptions import AuthException
 from .utils.ratelimit import RateLimiter
 from .utils.validation import check_auth
@@ -90,7 +93,9 @@ class Login(Session):
 
 
     def query(self, url, *a, **kw):
-        kw.setdefault('headers', QUERY_HEADERS)
+        headers = kw.setdefault('headers', QUERY_HEADERS)
+        signature = self._build_signature(url, kw.get('params'))
+        headers['X-Instagram-GIS'] = signature
         return self.request('GET', url, *a, **kw)
 
 
@@ -118,7 +123,9 @@ class Login(Session):
 
     def _login(self):
         start_url, login_url = URLS['start'], URLS['login']
-        self._requests.get(start_url).raise_for_status()
+        response = self._requests.get(start_url)
+        response.raise_for_status()
+        self.rhx_gis = self._get_rhx_gis(response)
 
         kw = {}
         self.username = self.username or input('Username: ')
@@ -136,6 +143,21 @@ class Login(Session):
         response.raise_for_status()
         check_auth(json.loads(response.text))
         self.user_id = self.cookies.get('ds_user_id')
+
+
+    def _get_rhx_gis(self, response):
+        match = re.search(REGEXES['rhx_gis'], response.text)
+        return match.group(1) if match else None
+
+
+    def _build_signature(self, url, params):
+        if self.current_function_name in ('post_info', 'user_info'):
+            var = parse_url(url).path
+        else:
+            var = params.get('variables')
+
+        payload = f'{self.rhx_gis}:{var}'
+        return hashlib.md5(payload.encode('utf-8')).hexdigest()
 
 
     @property
