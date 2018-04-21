@@ -24,17 +24,20 @@ def password():
 def test_username():
     return os.environ['ONEGRAM_TEST_USERNAME']
 
+@pytest.fixture(scope='session')
+def record_mode():
+    return os.environ.get('ONEGRAM_TEST_RECORD_MODE', 'none')
+
 @pytest.fixture
-def settings():
-    return {'RATE_LIMITS': None}
+def settings(record_mode):
+    return {'RATE_LIMITS': None} if record_mode == 'none' else {}
 
 
 @pytest.fixture
-def recorder(monkeypatch, username, password):
+def recorder(monkeypatch, username, password, record_mode):
     Betamax.register_serializer(pretty_json.PrettyJSONSerializer)
     cassete_dir = Path('tests/cassettes/')
     cassete_dir.mkdir(parents=True, exist_ok=True)
-    record_mode = os.environ.get('ONEGRAM_TEST_RECORD_MODE', 'none')
 
     placeholders = [
         {'placeholder': 'INSTA_USERNAME', 'replace': username},
