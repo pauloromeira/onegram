@@ -1,9 +1,10 @@
 # onegram
-[![pypi](https://img.shields.io/pypi/v/onegram.svg?style=flat-square&colorB=333333)](https://pypi.python.org/pypi/onegram)
+[![pypi](https://img.shields.io/pypi/v/onegram.svg?style=flat-square)](https://pypi.python.org/pypi/onegram)
 [![pyversions](https://img.shields.io/pypi/pyversions/onegram.svg?style=flat-square)](https://pypi.python.org/pypi/onegram)
 [![travis](https://img.shields.io/travis/pauloromeira/onegram/master.svg?style=flat-square&logo=travis)](https://travis-ci.org/pauloromeira/onegram)
 [![codecov](https://img.shields.io/codecov/c/github/pauloromeira/onegram/master.svg?style=flat-square)](https://codecov.io/gh/pauloromeira/onegram)
 [![gitter](https://img.shields.io/gitter/room/pauloromeira/onegram.svg?style=flat-square&logo=gitter-white&colorB=ed1965&logoWidth=10)](https://gitter.im/pauloromeira/onegram)
+[![license](https://img.shields.io/github/license/pauloromeira/onegram.svg?style=flat-square)](https://github.com/pauloromeira/onegram/blob/master/LICENSE)
 
 A simplistic api-like instagram **bot** powered by [requests](https://github.com/requests/requests).
 
