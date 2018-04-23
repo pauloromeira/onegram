@@ -65,6 +65,10 @@ def test_self_posts(session, self, cassette):
     assert_posts(session, posts(), self)
 
 
+def test_explore(session, self, cassette):
+    assert_posts(session, explore(), self)
+
+
 #######################################################################
 #                               HELPERS                               #
 #######################################################################
@@ -99,5 +103,5 @@ def iter_count(session, iter_query, target, pages):
     chunks = session.settings['QUERY_CHUNKS'][query]()
     result_count = sum(islice(chunks, pages))
     edge = JSPATHS[query].split('.')[-1]
-    count = target[edge]['count']
+    count = target.get(edge, {}).get('count', result_count)
     return min(result_count, count)
