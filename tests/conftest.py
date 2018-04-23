@@ -26,7 +26,7 @@ def test_username():
 
 @pytest.fixture(scope='session')
 def record_mode():
-    return os.environ.get('ONEGRAM_TEST_RECORD_MODE', 'none')
+    return os.environ['ONEGRAM_TEST_RECORD_MODE']
 
 @pytest.fixture
 def settings(record_mode):
