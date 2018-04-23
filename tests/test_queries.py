@@ -1,12 +1,12 @@
 from itertools import islice
 
+from onegram.constants import JSPATHS
+
 from onegram import followers, following
 from onegram import posts, likes, comments, feed
 from onegram import explore
 
 # TODO [romeira]:
-#                 posts
-#                 posts_self
 #                 likes
 #                 comments
 #                 feed
@@ -41,44 +41,63 @@ def test_post_info(post, user):
 
 
 def test_followers(session, user, cassette):
-    count = follows_count(session, user, 'followers')
-    assert_follows(session, followers(user), count)
-
-
-def test_followers_self(session, self, cassette):
-    count = follows_count(session, self, 'followers')
-    assert_follows(session, followers(), count)
+    assert_follows(session, followers(user), user)
 
 
 def test_following(session, user, cassette):
-    count = follows_count(session, user, 'following')
-    assert_follows(session, following(user), count)
+    assert_follows(session, following(user), user)
 
 
-def test_following_self(session, self, cassette):
-    count = follows_count(session, self, 'following')
-    flwgs = assert_follows(session, following(), count)
+def test_self_followers(session, self, cassette):
+    assert_follows(session, followers(), self)
+
+
+def test_self_following(session, self, cassette):
+    flwgs = assert_follows(session, following(), self)
     assert all(f['followed_by_viewer'] for f in flwgs)
+
+
+def test_posts(session, user, cassette):
+    assert_posts(session, posts(user), user)
+
+
+def test_self_posts(session, self, cassette):
+    assert_posts(session, posts(), self)
 
 
 #######################################################################
 #                               HELPERS                               #
 #######################################################################
 
-def assert_follows(session, follows, count):
-    follows = list(islice(follows, count))
-    assert len(follows) == count
-
+def assert_follows(session, follows, user):
+    follows = assert_iter(session, follows, user)
     for f in follows:
         assert f['id']
         assert f['username']
-
     return follows
 
 
-def follows_count(session, user, query, pages=3):
+def assert_posts(session, posts, user):
+    posts = assert_iter(session, posts, user)
+    for p in posts:
+        assert p['id']
+        assert p['shortcode']
+        assert p['display_url']
+        assert p['owner']['id']
+    return posts
+
+
+def assert_iter(session, iter_query, target, pages=3):
+    count = iter_count(session, iter_query, target, pages)
+    items = list(islice(iter_query, count))
+    assert len(items) == count
+    return items
+
+
+def iter_count(session, iter_query, target, pages):
+    query = iter_query.__name__
     chunks = session.settings['QUERY_CHUNKS'][query]()
     result_count = sum(islice(chunks, pages))
-    edge = 'edge_follow' if query == 'following' else 'edge_followed_by'
-    follows_count = user[edge]['count']
-    return min(result_count, follows_count)
+    edge = JSPATHS[query].split('.')[-1]
+    count = target[edge]['count']
+    return min(result_count, count)

@@ -62,11 +62,11 @@
         },
         "sessionlib": {
             "hashes": [
-                "sha256:57beec583a13ceb96fc19188459cce17ef1ac84d0dfb6cdeb29db97f937d1912",
-                "sha256:afa6b6bf86948a39817974810eeafb15f219c39e2830db9ef5f9e81f17ab25ec"
+                "sha256:98d2ed000c40049708fe1e8bb69981509dff85b24b7096838bb5e576272b5d01",
+                "sha256:d89e5d986dd92c0f3a41da9766449301aa3f4da91269db5a145ba7a7cc557f28"
             ],
             "index": "pypi",
-            "version": "==0.2.0"
+            "version": "==0.2.1"
         },
         "six": {
             "hashes": [
