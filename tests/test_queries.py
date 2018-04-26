@@ -1,3 +1,5 @@
+import random
+
 from itertools import islice
 
 from onegram.utils import jsearch
@@ -6,11 +8,7 @@ from onegram import followers, following
 from onegram import posts, likes, comments, feed
 from onegram import explore
 
-
-# TODO [romeira]:
-#                 comments
-#                 feed
-# {02/04/18 23:09}
+# TODO [romeira]: feed {02/04/18 23:09}
 
 
 def test_user_info(user, test_username):
@@ -72,6 +70,10 @@ def test_likes(session, post, cassette):
     assert_likes(session, likes(post), post)
 
 
+def test_comments(session, post, cassette):
+    assert_comments(session, comments(post), post)
+
+
 #######################################################################
 #                               HELPERS                               #
 #######################################################################
@@ -114,8 +116,22 @@ def assert_likes(session, likes, post):
     return likes
 
 
+def assert_comments(session, comments, post):
+    total = jsearch('edge_media_to_comment.count', post)
+    comments = assert_iter(session, comments, total)
+    for c in comments:
+        assert c['id']
+        assert c['text']
+        assert c['created_at']
+        assert c['owner']['id']
+        assert c['owner']['username']
+    return comments
+
+
 def assert_iter(session, iter_query, total=None, pages=3):
+    random.seed(0)
     count = iter_count(session, iter_query, pages, total)
+    random.seed(0)
     items = list(islice(iter_query, count))
     assert len(items) == count
     return items
