@@ -10,7 +10,6 @@ from onegram import explore
 #                 likes
 #                 comments
 #                 feed
-#                 explore
 # {02/04/18 23:09}
 
 
