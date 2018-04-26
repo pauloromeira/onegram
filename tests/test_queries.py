@@ -1,13 +1,13 @@
 from itertools import islice
 
-from onegram.constants import JSPATHS
+from onegram.utils import jsearch
 
 from onegram import followers, following
 from onegram import posts, likes, comments, feed
 from onegram import explore
 
+
 # TODO [romeira]:
-#                 likes
 #                 comments
 #                 feed
 # {02/04/18 23:09}
@@ -40,19 +40,19 @@ def test_post_info(post, user):
 
 
 def test_followers(session, user, cassette):
-    assert_follows(session, followers(user), user)
+    assert_followers(session, followers(user), user)
 
 
 def test_following(session, user, cassette):
-    assert_follows(session, following(user), user)
+    assert_following(session, following(user), user)
 
 
 def test_self_followers(session, self, cassette):
-    assert_follows(session, followers(), self)
+    assert_followers(session, followers(), self)
 
 
 def test_self_following(session, self, cassette):
-    flwgs = assert_follows(session, following(), self)
+    flwgs = assert_following(session, following(), self)
     assert all(f['followed_by_viewer'] for f in flwgs)
 
 
@@ -68,20 +68,35 @@ def test_explore(session, self, cassette):
     assert_posts(session, explore(), self)
 
 
+def test_likes(session, post, cassette):
+    assert_likes(session, likes(post), post)
+
+
 #######################################################################
 #                               HELPERS                               #
 #######################################################################
 
-def assert_follows(session, follows, user):
-    follows = assert_iter(session, follows, user)
-    for f in follows:
+def assert_following(session, following, user):
+    total = jsearch('edge_follow.count', user)
+    following = assert_iter(session, following, total)
+    for f in following:
         assert f['id']
         assert f['username']
-    return follows
+    return following
+
+
+def assert_followers(session, followers, user):
+    total = jsearch('edge_followed_by.count', user)
+    followers = assert_iter(session, followers, total)
+    for f in followers:
+        assert f['id']
+        assert f['username']
+    return followers
 
 
 def assert_posts(session, posts, user):
-    posts = assert_iter(session, posts, user)
+    total = jsearch('edge_owner_to_timeline_media.count', user)
+    posts = assert_iter(session, posts, total)
     for p in posts:
         assert p['id']
         assert p['shortcode']
@@ -90,17 +105,28 @@ def assert_posts(session, posts, user):
     return posts
 
 
-def assert_iter(session, iter_query, target, pages=3):
-    count = iter_count(session, iter_query, target, pages)
+def assert_likes(session, likes, post):
+    total = jsearch('edge_media_preview_like.count', post)
+    likes = assert_iter(session, likes, total)
+    for l in likes:
+        assert l['id']
+        assert l['username']
+    return likes
+
+
+def assert_iter(session, iter_query, total=None, pages=3):
+    count = iter_count(session, iter_query, pages, total)
     items = list(islice(iter_query, count))
     assert len(items) == count
     return items
 
 
-def iter_count(session, iter_query, target, pages):
+def iter_count(session, iter_query, pages, total=None):
     query = iter_query.__name__
     chunks = session.settings['QUERY_CHUNKS'][query]()
     result_count = sum(islice(chunks, pages))
-    edge = JSPATHS[query].split('.')[-1]
-    count = target.get(edge, {}).get('count', result_count)
-    return min(result_count, count)
+
+    if total is not None:
+        return min(result_count, total)
+    else:
+        return result_count
