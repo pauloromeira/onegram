@@ -91,7 +91,7 @@ the user is optional, with default set to the logged user.
 |`likes`|`post`||`uncomment`|`comment[, post]`|
 |`comments`|`post`||`save`|`post`|
 |`feed`|||`unsave`|`post`|
-|`explore`|||||
+|`explore`|`[tag]`||||
 
 ## Rate Limits
 Settings can be overridden if you use one of the [explicit login](#explicit-login-optional) forms (defaults: `onegram/settings.py`). It's possible to define a fixed `User-Agent`, for example.
