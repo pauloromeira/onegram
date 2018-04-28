@@ -40,4 +40,5 @@ QUERY_CHUNKS = {
     'likes': head_tail(20, 10),
     'comments': choices(range(20, 40)),
     'explore': repeat(24),
+    'explore_tag': choices(range(1, 13)),
 }
