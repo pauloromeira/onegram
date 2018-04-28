@@ -46,6 +46,7 @@ QUERY_HASHES = {
     'likes': '1cb6ec562846122743b61e492c85999f',
     'comments': '33ba35852cb50da46f5b5e889df7d159',
     'explore': 'df0dcc250c2b18d9fd27c5581ef33c7c',
+    'explore_tag': 'ded47faa9a1aaded10161a2ff32abb6b',
     'feed': 'd6f4427fbe92d846298cf93df0b937d3',
 }
 
@@ -59,6 +60,7 @@ JSPATHS = {
     'likes': 'data.shortcode_media.edge_liked_by',
     'comments': 'data.shortcode_media.edge_media_to_comment',
     'explore': 'data.user.edge_web_discover_media',
+    'explore_tag': 'data.hashtag.edge_hashtag_to_media',
     'feed': 'data.user.edge_web_feed_timeline',
 }
 

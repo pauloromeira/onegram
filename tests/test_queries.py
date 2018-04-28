@@ -7,6 +7,7 @@ from onegram.utils import jsearch
 from onegram import followers, following
 from onegram import posts, likes, comments, feed
 from onegram import explore
+from onegram.queries import explore_tag
 
 # TODO [romeira]: feed {02/04/18 23:09}
 
@@ -62,8 +63,12 @@ def test_self_posts(session, self, cassette):
     assert_posts(session, posts(), self)
 
 
-def test_explore(session, self, cassette):
-    assert_posts(session, explore(), self)
+def test_explore(session, cassette):
+    assert_posts(session, explore())
+
+
+def test_explore_tag(session, cassette):
+    assert_posts(session, explore_tag('python'))
 
 
 def test_likes(session, post, cassette):
@@ -96,8 +101,11 @@ def assert_followers(session, followers, user):
     return followers
 
 
-def assert_posts(session, posts, user):
-    total = jsearch('edge_owner_to_timeline_media.count', user)
+def assert_posts(session, posts, user=None):
+    if user:
+        total = jsearch('edge_owner_to_timeline_media.count', user)
+    else:
+        total = None
     posts = assert_iter(session, posts, total)
     for p in posts:
         assert p['id']

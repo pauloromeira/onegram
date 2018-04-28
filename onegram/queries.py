@@ -40,8 +40,16 @@ def feed(session):
                                     cursor_key='fetch_media_item_cursor')
 
 @sessionaware
-def explore(session):
-    yield from _iter_query(session)
+def explore(session, tag=None):
+    if tag:
+        yield from explore_tag(session, tag)
+    else:
+        yield from _iter_query(session)
+
+@sessionaware
+def explore_tag(session, tag):
+    variables = {'tag_name': tag}
+    yield from _iter_query(session, variables)
 
 
 #######################################################################
