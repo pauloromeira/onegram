@@ -222,8 +222,15 @@ def login(*args, **kwargs):
 
 
 @_sessionaware
-def logout(session):
+def close(session):
     session.close()
+
+
+logout = close
+
+
+def unlogged(*args, **kwargs):
+    return Unlogged(*args, **kwargs).open()
 
 
 def _load_settings(custom_settings={}):
