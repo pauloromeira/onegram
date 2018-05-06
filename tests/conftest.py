@@ -32,16 +32,19 @@ def record_mode():
 def settings(record_mode):
     return {'RATE_LIMITS': None} if record_mode == 'none' else {}
 
-@pytest.fixture(params=[True, False])
+def _logged_id(param):
+    return 'logged' if param else 'unlogged'
+
+@pytest.fixture(params=[True, False], ids=_logged_id)
 def logged(request):
     return request.param
+
 
 
 @pytest.fixture
 def recorder(logged, monkeypatch, username, password, record_mode):
     Betamax.register_serializer(pretty_json.PrettyJSONSerializer)
-    type = 'logged' if logged else 'unlogged'
-    cassete_dir = Path(f'tests/cassettes/{type}')
+    cassete_dir = Path(f'tests/cassettes/')
     cassete_dir.mkdir(parents=True, exist_ok=True)
 
     placeholders = [
@@ -63,7 +66,7 @@ def recorder(logged, monkeypatch, username, password, record_mode):
 
 @pytest.fixture
 def session(logged, recorder, settings):
-    recorder.use_cassette(f'fixture_session')
+    recorder.use_cassette(f'fixture_session[{_logged_id(logged)}]')
     if logged:
         session = Login(custom_settings=settings)
     else:
@@ -75,8 +78,8 @@ def session(logged, recorder, settings):
 
 
 @pytest.fixture
-def user(session, recorder, test_username):
-    recorder.use_cassette('fixture_user')
+def user(session, logged, recorder, test_username):
+    recorder.use_cassette(f'fixture_user[{_logged_id(logged)}]')
     try:
         return user_info(test_username)
     finally:
@@ -84,11 +87,11 @@ def user(session, recorder, test_username):
 
 
 @pytest.fixture
-def self(logged, session, recorder):
+def self(session, logged, recorder):
     if not logged:
         return None
 
-    recorder.use_cassette('fixture_self')
+    recorder.use_cassette(f'fixture_self[{_logged_id(logged)}]')
     try:
         return user_info()
     finally:
@@ -96,8 +99,8 @@ def self(logged, session, recorder):
 
 
 @pytest.fixture
-def post(recorder, user):
-    recorder.use_cassette('fixture_post')
+def post(recorder, logged, user):
+    recorder.use_cassette(f'fixture_post[{_logged_id(logged)}]')
     try:
         return post_info(next(posts(user)))
     finally:

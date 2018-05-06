@@ -1,7 +1,7 @@
 {
   "http_interactions": [
     {
-      "recorded_at": "2018-05-06T06:14:27",
+      "recorded_at": "2018-05-06T22:08:08",
       "request": {
         "body": {
           "encoding": "utf-8",
@@ -27,7 +27,7 @@
             "application/x-www-form-urlencoded"
           ],
           "Cookie": [
-            "csrftoken=AgwVuxQf7T9i5DzaVSkKBE4hVFEMRQ5C; ds_user_id=7326637304; mcd=3; mid=Wu6dNwAEAAHnMRBIIfQMqRI2uJW2; rur=FTW; sessionid=IGSCc3e5275da46b6b7a591b05149f5a81a29be7aff9f87f43770c71ff5b246985ef%3AWSO6O8ZDUG4nlwAKTqmZGK6Ug1lgyKIw%3A%7B%22_auth_user_id%22%3A7326637304%2C%22_auth_user_backend%22%3A%22accounts.backends.CaseInsensitiveModelBackend%22%2C%22_auth_user_hash%22%3A%22%22%2C%22_platform%22%3A4%2C%22_token_ver%22%3A2%2C%22_token%22%3A%227326637304%3Ai1xq8KAiXqfAnZxVWNXXDQQKzTnT3OHD%3A7f0e00a843114ef46383a9da48e2813103324a6fc6981cbad2906a736901e8e3%22%2C%22last_refreshed%22%3A1525587256.6171076298%7D; shbid=15780; shbts=1525587266.0450208; urlgen=\"{time: 1525587265}:1fFCwE:E0_KUk2wwAosgF4AjEO3KB_Lkhc\""
+            "csrftoken=od3e1e4LMKpRQbVtzsi3T4w5J5TC7IHt; ds_user_id=7326637304; mcd=3; mid=Wu98wwAEAAELIqXkfawA_yaRr9l6; rur=FTW; sessionid=IGSCd30aa2425346ded0c0d9e4bf0af3c975c100a7813a6ac74dba265c684cfc9702%3AsJfxd53DgC4m4IrDnUMkyph9sEJaMO0e%3A%7B%22_auth_user_id%22%3A7326637304%2C%22_auth_user_backend%22%3A%22accounts.backends.CaseInsensitiveModelBackend%22%2C%22_auth_user_hash%22%3A%22%22%2C%22_platform%22%3A4%2C%22_token_ver%22%3A2%2C%22_token%22%3A%227326637304%3AIDsEJXMpITiPcOkSOxJpHxIwLwwm8zFn%3Adffbca79f304f0261e7b245e7dbad259972f19fab3d7c349aa15b706d21c6c6c%22%2C%22last_refreshed%22%3A1525644484.7942640781%7D; shbid=15780; shbts=1525644485.7659392; urlgen=\"{time: 1525644485}:1fFRp7:cLIwB8dVZDTwa_8jdhQJ7EVLhUA\""
           ],
           "Host": [
             "www.instagram.com"
@@ -39,7 +39,7 @@
             "https://www.instagram.com/"
           ],
           "X-CSRFToken": [
-            "AgwVuxQf7T9i5DzaVSkKBE4hVFEMRQ5C"
+            "od3e1e4LMKpRQbVtzsi3T4w5J5TC7IHt"
           ],
           "X-Instagram-AJAX": [
             "1"
@@ -49,12 +49,12 @@
           ]
         },
         "method": "POST",
-        "uri": "https://www.instagram.com/web/likes/1772919601832992804/like/"
+        "uri": "https://www.instagram.com/web/friendships/2301003648/follow/"
       },
       "response": {
         "body": {
           "encoding": null,
-          "string": "{\"status\": \"ok\"}"
+          "string": "{\"result\": \"following\", \"status\": \"ok\"}"
         },
         "headers": {
           "Access-Control-Allow-Credentials": [
@@ -73,13 +73,13 @@
             "en"
           ],
           "Content-Length": [
-            "16"
+            "39"
           ],
           "Content-Type": [
             "application/json"
           ],
           "Date": [
-            "Sun, 06 May 2018 06:14:27 GMT"
+            "Sun, 06 May 2018 22:08:07 GMT"
           ],
           "Expires": [
             "Sat, 01 Jan 2000 00:00:00 GMT"
@@ -88,12 +88,12 @@
             "no-cache"
           ],
           "Set-Cookie": [
-            "csrftoken=AgwVuxQf7T9i5DzaVSkKBE4hVFEMRQ5C; Domain=.instagram.com; expires=Sun, 05-May-2019 06:14:27 GMT; Max-Age=31449600; Path=/; Secure",
-            "shbid=15780; Domain=.instagram.com; expires=Sun, 13-May-2018 06:14:27 GMT; Max-Age=604800; Path=/",
-            "shbts=1525587267.5384758; Domain=.instagram.com; expires=Sun, 13-May-2018 06:14:27 GMT; Max-Age=604800; Path=/",
+            "csrftoken=od3e1e4LMKpRQbVtzsi3T4w5J5TC7IHt; Domain=.instagram.com; expires=Sun, 05-May-2019 22:08:07 GMT; Max-Age=31449600; Path=/; Secure",
+            "shbid=15780; Domain=.instagram.com; expires=Sun, 13-May-2018 22:08:07 GMT; Max-Age=604800; Path=/",
+            "shbts=1525644487.9870849; Domain=.instagram.com; expires=Sun, 13-May-2018 22:08:07 GMT; Max-Age=604800; Path=/",
             "rur=FTW; Domain=.instagram.com; Path=/",
-            "ds_user_id=7326637304; Domain=.instagram.com; expires=Sat, 04-Aug-2018 06:14:27 GMT; Max-Age=7776000; Path=/",
-            "urlgen=\"{\\\"time\\\": 1525587267}:1fFCwF:jedasHyCp7iBrV6gMdusvaS8_e0\"; Domain=.instagram.com; Path=/"
+            "ds_user_id=7326637304; Domain=.instagram.com; expires=Sat, 04-Aug-2018 22:08:07 GMT; Max-Age=7776000; Path=/",
+            "urlgen=\"{\\\"time\\\": 1525644487}:1fFRp9:iMk76RT-VsumrD-YSmTlJVf9dIw\"; Domain=.instagram.com; Path=/"
           ],
           "Strict-Transport-Security": [
             "max-age=86400"
@@ -106,11 +106,11 @@
           "code": 200,
           "message": "OK"
         },
-        "url": "https://www.instagram.com/web/likes/1772919601832992804/like/"
+        "url": "https://www.instagram.com/web/friendships/2301003648/follow/"
       }
     },
     {
-      "recorded_at": "2018-05-06T06:14:30",
+      "recorded_at": "2018-05-06T22:08:11",
       "request": {
         "body": {
           "encoding": "utf-8",
@@ -136,7 +136,7 @@
             "application/x-www-form-urlencoded"
           ],
           "Cookie": [
-            "csrftoken=AgwVuxQf7T9i5DzaVSkKBE4hVFEMRQ5C; ds_user_id=7326637304; mcd=3; mid=Wu6dNwAEAAHnMRBIIfQMqRI2uJW2; rur=FTW; sessionid=IGSCc3e5275da46b6b7a591b05149f5a81a29be7aff9f87f43770c71ff5b246985ef%3AWSO6O8ZDUG4nlwAKTqmZGK6Ug1lgyKIw%3A%7B%22_auth_user_id%22%3A7326637304%2C%22_auth_user_backend%22%3A%22accounts.backends.CaseInsensitiveModelBackend%22%2C%22_auth_user_hash%22%3A%22%22%2C%22_platform%22%3A4%2C%22_token_ver%22%3A2%2C%22_token%22%3A%227326637304%3Ai1xq8KAiXqfAnZxVWNXXDQQKzTnT3OHD%3A7f0e00a843114ef46383a9da48e2813103324a6fc6981cbad2906a736901e8e3%22%2C%22last_refreshed%22%3A1525587256.6171076298%7D; shbid=15780; shbts=1525587267.5384758; urlgen=\"{time: 1525587267}:1fFCwF:jedasHyCp7iBrV6gMdusvaS8_e0\""
+            "csrftoken=od3e1e4LMKpRQbVtzsi3T4w5J5TC7IHt; ds_user_id=7326637304; mcd=3; mid=Wu98wwAEAAELIqXkfawA_yaRr9l6; rur=FTW; sessionid=IGSCd30aa2425346ded0c0d9e4bf0af3c975c100a7813a6ac74dba265c684cfc9702%3AsJfxd53DgC4m4IrDnUMkyph9sEJaMO0e%3A%7B%22_auth_user_id%22%3A7326637304%2C%22_auth_user_backend%22%3A%22accounts.backends.CaseInsensitiveModelBackend%22%2C%22_auth_user_hash%22%3A%22%22%2C%22_platform%22%3A4%2C%22_token_ver%22%3A2%2C%22_token%22%3A%227326637304%3AIDsEJXMpITiPcOkSOxJpHxIwLwwm8zFn%3Adffbca79f304f0261e7b245e7dbad259972f19fab3d7c349aa15b706d21c6c6c%22%2C%22last_refreshed%22%3A1525644484.7942640781%7D; shbid=15780; shbts=1525644487.9870849; urlgen=\"{time: 1525644487}:1fFRp9:iMk76RT-VsumrD-YSmTlJVf9dIw\""
           ],
           "Host": [
             "www.instagram.com"
@@ -148,7 +148,7 @@
             "https://www.instagram.com/"
           ],
           "X-CSRFToken": [
-            "AgwVuxQf7T9i5DzaVSkKBE4hVFEMRQ5C"
+            "od3e1e4LMKpRQbVtzsi3T4w5J5TC7IHt"
           ],
           "X-Instagram-AJAX": [
             "1"
@@ -158,7 +158,7 @@
           ]
         },
         "method": "POST",
-        "uri": "https://www.instagram.com/web/likes/1772919601832992804/unlike/"
+        "uri": "https://www.instagram.com/web/friendships/2301003648/unfollow/"
       },
       "response": {
         "body": {
@@ -188,7 +188,7 @@
             "application/json"
           ],
           "Date": [
-            "Sun, 06 May 2018 06:14:30 GMT"
+            "Sun, 06 May 2018 22:08:10 GMT"
           ],
           "Expires": [
             "Sat, 01 Jan 2000 00:00:00 GMT"
@@ -197,12 +197,12 @@
             "no-cache"
           ],
           "Set-Cookie": [
-            "csrftoken=AgwVuxQf7T9i5DzaVSkKBE4hVFEMRQ5C; Domain=.instagram.com; expires=Sun, 05-May-2019 06:14:30 GMT; Max-Age=31449600; Path=/; Secure",
-            "shbid=15780; Domain=.instagram.com; expires=Sun, 13-May-2018 06:14:30 GMT; Max-Age=604800; Path=/",
-            "shbts=1525587270.0137227; Domain=.instagram.com; expires=Sun, 13-May-2018 06:14:30 GMT; Max-Age=604800; Path=/",
+            "csrftoken=od3e1e4LMKpRQbVtzsi3T4w5J5TC7IHt; Domain=.instagram.com; expires=Sun, 05-May-2019 22:08:10 GMT; Max-Age=31449600; Path=/; Secure",
+            "shbid=15780; Domain=.instagram.com; expires=Sun, 13-May-2018 22:08:10 GMT; Max-Age=604800; Path=/",
+            "shbts=1525644490.891258; Domain=.instagram.com; expires=Sun, 13-May-2018 22:08:10 GMT; Max-Age=604800; Path=/",
             "rur=FTW; Domain=.instagram.com; Path=/",
-            "ds_user_id=7326637304; Domain=.instagram.com; expires=Sat, 04-Aug-2018 06:14:30 GMT; Max-Age=7776000; Path=/",
-            "urlgen=\"{\\\"time\\\": 1525587269}:1fFCwI:-i7hVPedqC7dg3vjSK50FyU2O44\"; Domain=.instagram.com; Path=/"
+            "ds_user_id=7326637304; Domain=.instagram.com; expires=Sat, 04-Aug-2018 22:08:10 GMT; Max-Age=7776000; Path=/",
+            "urlgen=\"{\\\"time\\\": 1525644490}:1fFRpC:cnLniv978JpG2uWpFBy9kqNZMsY\"; Domain=.instagram.com; Path=/"
           ],
           "Strict-Transport-Security": [
             "max-age=86400"
@@ -215,7 +215,7 @@
           "code": 200,
           "message": "OK"
         },
-        "url": "https://www.instagram.com/web/likes/1772919601832992804/unlike/"
+        "url": "https://www.instagram.com/web/friendships/2301003648/unfollow/"
       }
     }
   ],
