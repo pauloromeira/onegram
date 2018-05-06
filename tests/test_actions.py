@@ -1,11 +1,11 @@
 import pytest
 
+from onegram.exceptions import NotSupportedError
+
 from onegram import follow, unfollow
 from onegram import like, unlike
 from onegram import comment, uncomment
 from onegram import save, unsave
-
-from onegram.exceptions import NotSupportedError
 
 
 def test_follow(logged, user, cassette):
