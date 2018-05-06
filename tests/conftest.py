@@ -7,7 +7,7 @@ from betamax.fixtures.pytest import _casette_name as _cassette_name
 from betamax_serializers import pretty_json
 from pathlib import Path
 
-from onegram import Login
+from onegram import Login, Unlogged
 from onegram import post_info, user_info
 from onegram import posts
 
@@ -32,11 +32,16 @@ def record_mode():
 def settings(record_mode):
     return {'RATE_LIMITS': None} if record_mode == 'none' else {}
 
+@pytest.fixture(params=[True, False])
+def logged(request):
+    return request.param
+
 
 @pytest.fixture
-def recorder(monkeypatch, username, password, record_mode):
+def recorder(logged, monkeypatch, username, password, record_mode):
     Betamax.register_serializer(pretty_json.PrettyJSONSerializer)
-    cassete_dir = Path('tests/cassettes/')
+    type = 'logged' if logged else 'unlogged'
+    cassete_dir = Path(f'tests/cassettes/{type}')
     cassete_dir.mkdir(parents=True, exist_ok=True)
 
     placeholders = [
@@ -57,9 +62,14 @@ def recorder(monkeypatch, username, password, record_mode):
 
 
 @pytest.fixture
-def session(recorder, settings):
-    recorder.use_cassette('fixture_session')
-    with Login(custom_settings=settings) as session:
+def session(logged, recorder, settings):
+    recorder.use_cassette(f'fixture_session')
+    if logged:
+        session = Login(custom_settings=settings)
+    else:
+        session = Unlogged(custom_settings=settings)
+
+    with session:
         recorder.current_cassette.eject()
         yield session
 
@@ -74,7 +84,10 @@ def user(session, recorder, test_username):
 
 
 @pytest.fixture
-def self(session, recorder):
+def self(logged, session, recorder):
+    if not logged:
+        return None
+
     recorder.use_cassette('fixture_self')
     try:
         return user_info()
