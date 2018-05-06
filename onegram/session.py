@@ -45,6 +45,12 @@ class _BaseSession(Session):
     def cookies(self):
         return self._requests.cookies
 
+
+    @property
+    def unlogged(self):
+        return isinstance(self, Unlogged)
+
+
     def __init__(self, custom_settings={}):
         self.settings = _load_settings(custom_settings)
 
@@ -149,17 +155,7 @@ class Login(_BaseSession):
         super(Login, self).__init__(custom_settings)
 
         self.username = self.settings.get('USERNAME')
-
-
-    def enter_contexts(self):
-        yield from super(Login, self).enter_contexts()
-        try:
-            self._login()
-        except AuthException as e:
-            self.logger.error(e)
-            self.close()
-            raise e
-
+        self.on_open.subscribe(self._login)
 
     def _login(self):
         kw = {}
@@ -176,7 +172,12 @@ class Login(_BaseSession):
 
         response = self._requests.post(URLS['login'], **kw)
         response.raise_for_status()
-        check_auth(json.loads(response.text))
+        try:
+            check_auth(json.loads(response.text))
+        except AuthException as e:
+            self.logger.error(e)
+            self.close()
+            raise e
         self.user_id = self.cookies.get('ds_user_id')
 
 
@@ -194,7 +195,7 @@ class Unlogged(_BaseSession):
 
     def request(self, *a, **kw):
         fn = self.current_function_name 
-        if fn not in supported:
+        if fn not in Unlogged.supported:
             msg = f'"{fn}" is not supported at Unlogged state'
             raise NotSupportedError(msg)
 
