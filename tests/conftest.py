@@ -7,6 +7,7 @@ from betamax.fixtures.pytest import _casette_name as _cassette_name
 from betamax_serializers import pretty_json
 from pathlib import Path
 
+from onegram.exceptions import NotSupportedError
 from onegram import Login, Unlogged
 from onegram import post_info, user_info
 from onegram import posts
@@ -89,6 +90,8 @@ def user(session, logged, recorder, test_username):
 @pytest.fixture
 def self(session, logged, recorder):
     if not logged:
+        with pytest.raises(NotSupportedError):
+            user_info()
         return None
 
     recorder.use_cassette(f'fixture_self[{_logged_id(logged)}]')
