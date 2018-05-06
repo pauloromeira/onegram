@@ -1,0 +1,106 @@
+{
+  "http_interactions": [
+    {
+      "recorded_at": "2018-05-06T22:28:09",
+      "request": {
+        "body": {
+          "encoding": "utf-8",
+          "string": ""
+        },
+        "headers": {
+          "Accept": [
+            "*/*"
+          ],
+          "Accept-Encoding": [
+            "gzip, deflate, br"
+          ],
+          "Accept-Language": [
+            "en-US"
+          ],
+          "Connection": [
+            "keep-alive"
+          ],
+          "Cookie": [
+            "csrftoken=3j31djspVr3pJRJp0VEc1PUlB54sU6v4; ds_user_id=7326637304; mcd=3; mid=Wu-BTgAEAAGoZvRjzaMZjeNuYs_A; rur=FTW; sessionid=IGSCfdc37ff627aef62094d81a0a14fda4d6e7f521787c3849308bf6d7efc4082b7f%3AP0WPopuCFnQReuyJnUqDRXeVxnGWmt7a%3A%7B%22_auth_user_id%22%3A7326637304%2C%22_auth_user_backend%22%3A%22accounts.backends.CaseInsensitiveModelBackend%22%2C%22_auth_user_hash%22%3A%22%22%2C%22_platform%22%3A4%2C%22_token_ver%22%3A2%2C%22_token%22%3A%227326637304%3A3v8zwEnNzO0aL0kKv1HTt4ZNFOsNcRs9%3A41c9331dcda39dfc0ffe1b74f4cc69c2ad77b58cbd2d36592840e233912b5c6b%22%2C%22last_refreshed%22%3A1525645647.624119997%7D; shbid=15780; shbts=1525645647.6234024"
+          ],
+          "Host": [
+            "www.instagram.com"
+          ],
+          "Referer": [
+            "https://www.instagram.com/"
+          ],
+          "X-Instagram-GIS": [
+            "6e21735c50b3ef3ec0e6d85fbb4e53a2"
+          ],
+          "X-Requested-With": [
+            "XMLHttpRequest"
+          ]
+        },
+        "method": "GET",
+        "uri": "https://www.instagram.com/INSTA_USERNAME/?__a=1"
+      },
+      "response": {
+        "body": {
+          "base64_string": "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",
+          "encoding": null,
+          "string": ""
+        },
+        "headers": {
+          "Cache-Control": [
+            "private, no-cache, no-store, must-revalidate"
+          ],
+          "Connection": [
+            "keep-alive"
+          ],
+          "Content-Encoding": [
+            "gzip"
+          ],
+          "Content-Language": [
+            "en"
+          ],
+          "Content-Length": [
+            "2165"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Date": [
+            "Sun, 06 May 2018 22:28:08 GMT"
+          ],
+          "Expires": [
+            "Sat, 01 Jan 2000 00:00:00 GMT"
+          ],
+          "Pragma": [
+            "no-cache"
+          ],
+          "Set-Cookie": [
+            "shbid=15780; Domain=.instagram.com; expires=Sun, 13-May-2018 22:28:08 GMT; Max-Age=604800; Path=/",
+            "shbts=1525645688.8972704; Domain=.instagram.com; expires=Sun, 13-May-2018 22:28:08 GMT; Max-Age=604800; Path=/",
+            "rur=FTW; Domain=.instagram.com; Path=/",
+            "csrftoken=3j31djspVr3pJRJp0VEc1PUlB54sU6v4; Domain=.instagram.com; expires=Sun, 05-May-2019 22:28:08 GMT; Max-Age=31449600; Path=/; Secure",
+            "ds_user_id=7326637304; Domain=.instagram.com; expires=Sat, 04-Aug-2018 22:28:08 GMT; Max-Age=7776000; Path=/",
+            "urlgen=\"{\\\"time\\\": 1525645688}:1fFS8W:BPMlgbIwmhJs7xdL-gl74K43qNY\"; Domain=.instagram.com; Path=/"
+          ],
+          "Strict-Transport-Security": [
+            "max-age=86400"
+          ],
+          "Vary": [
+            "Cookie, Accept-Language, Accept-Encoding"
+          ],
+          "X-Frame-Options": [
+            "SAMEORIGIN"
+          ],
+          "x-robots-tag": [
+            "noindex"
+          ]
+        },
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "url": "https://www.instagram.com/INSTA_USERNAME/?__a=1"
+      }
+    }
+  ],
+  "recorded_with": "betamax/0.8.1"
+}
