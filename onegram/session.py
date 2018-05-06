@@ -155,7 +155,19 @@ class Login(_BaseSession):
         super(Login, self).__init__(custom_settings)
 
         self.username = self.settings.get('USERNAME')
-        self.on_open.subscribe(self._login)
+        # TODO [romeira]: fix sessionlib {06/05/18 04:41}
+        # self.on_open.subscribe(self._login)
+
+
+    def enter_contexts(self):
+        yield from super(Login, self).enter_contexts()
+        try:
+            self._login()
+        except AuthException as e:
+            self.logger.error(e)
+            self.close()
+            raise e
+
 
     def _login(self):
         kw = {}
@@ -172,12 +184,7 @@ class Login(_BaseSession):
 
         response = self._requests.post(URLS['login'], **kw)
         response.raise_for_status()
-        try:
-            check_auth(json.loads(response.text))
-        except AuthException as e:
-            self.logger.error(e)
-            self.close()
-            raise e
+        check_auth(json.loads(response.text))
         self.user_id = self.cookies.get('ds_user_id')
 
 
