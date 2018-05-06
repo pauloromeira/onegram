@@ -3,6 +3,7 @@ import pytest
 from sessionlib import Session
 
 from onegram import login, logout
+from onegram import unlogged, close
 from onegram.exceptions import AuthUserError, AuthFailed
 
 
@@ -22,9 +23,19 @@ def test_invalid_password(settings, password, cassette):
     assert Session.current() is None
 
 
-def test_session_functions(settings, cassette):
+def test_logged_functions(settings, cassette):
     assert Session.current() is None
     login(custom_settings=settings)
-    assert Session.current()
+    current = Session.current()
+    assert not current.unlogged
     logout()
+    assert Session.current() is None
+
+
+def test_unlogged_functions(settings, cassette):
+    assert Session.current() is None
+    unlogged(custom_settings=settings)
+    current = Session.current()
+    assert current.unlogged
+    close()
     assert Session.current() is None
