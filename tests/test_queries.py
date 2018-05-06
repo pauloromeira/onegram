@@ -1,13 +1,16 @@
+import pytest
 import random
 
 from itertools import islice
 
 from onegram.utils import jsearch
+from onegram.exceptions import NotSupportedError
 
 from onegram import followers, following
 from onegram import posts, likes, comments, feed
 from onegram import explore
 from onegram.queries import explore_tag
+
 
 # TODO [romeira]: feed {02/04/18 23:09}
 
@@ -19,13 +22,14 @@ def test_user_info(user, test_username):
     assert user['edge_follow']['count'] is not None
 
 
-def test_self_info(session, self):
-    assert self['id'] == session.user_id
-    # TODO [romeira]: betamax placeholders issue {05/04/18 02:48}
-    # assert self['username'] == session.username
-    assert self['username']
-    assert self['edge_followed_by']['count'] is not None
-    assert self['edge_follow']['count'] is not None
+def test_self_info(logged, session, self):
+    if logged:
+        assert self['id'] == session.user_id
+        # TODO [romeira]: betamax placeholders issue {05/04/18 02:48}
+        # assert self['username'] == session.username
+        assert self['username']
+        assert self['edge_followed_by']['count'] is not None
+        assert self['edge_follow']['count'] is not None
 
 
 def test_post_info(post, user):
@@ -38,41 +42,69 @@ def test_post_info(post, user):
     assert owner['username'] == user['username']
 
 
-def test_followers(session, user, cassette):
-    assert_followers(session, followers(user), user)
+def test_followers(logged, session, user, cassette):
+    if logged:
+        assert_followers(session, followers(user), user)
+    else:
+        with pytest.raises(NotSupportedError):
+            next(followers(user))
 
 
-def test_following(session, user, cassette):
-    assert_following(session, following(user), user)
+def test_following(logged, session, user, cassette):
+    if logged:
+        assert_following(session, following(user), user)
+    else:
+        with pytest.raises(NotSupportedError):
+            next(following(user))
 
 
-def test_self_followers(session, self, cassette):
-    assert_followers(session, followers(), self)
+def test_self_followers(logged, session, self, cassette):
+    if logged:
+        assert_followers(session, followers(), self)
+    else:
+        with pytest.raises(NotSupportedError):
+            next(followers())
 
 
-def test_self_following(session, self, cassette):
-    flwgs = assert_following(session, following(), self)
-    assert all(f['followed_by_viewer'] for f in flwgs)
+def test_self_following(logged, session, self, cassette):
+    if logged:
+        flwgs = assert_following(session, following(), self)
+        assert all(f['followed_by_viewer'] for f in flwgs)
+    else:
+        with pytest.raises(NotSupportedError):
+            next(following())
 
 
 def test_posts(session, user, cassette):
     assert_posts(session, posts(user), user)
 
 
-def test_self_posts(session, self, cassette):
-    assert_posts(session, posts(), self)
+def test_self_posts(logged, session, self, cassette):
+    if logged:
+        assert_posts(session, posts(), self)
+    else:
+        with pytest.raises(NotSupportedError):
+            next(posts())
 
 
-def test_explore(session, cassette):
-    assert_posts(session, explore())
+def test_explore(logged, session, cassette):
+    if logged:
+        assert_posts(session, explore())
+    else:
+        with pytest.raises(NotSupportedError):
+            next(explore())
 
 
 def test_explore_tag(session, cassette):
     assert_posts(session, explore_tag('python'))
 
 
-def test_likes(session, post, cassette):
-    assert_likes(session, likes(post), post)
+def test_likes(logged, session, post, cassette):
+    if logged:
+        assert_likes(session, likes(post), post)
+    else:
+        with pytest.raises(NotSupportedError):
+            next(likes(post))
 
 
 def test_comments(session, post, cassette):

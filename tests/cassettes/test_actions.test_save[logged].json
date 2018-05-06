@@ -1,7 +1,7 @@
 {
   "http_interactions": [
     {
-      "recorded_at": "2018-05-03T22:20:44",
+      "recorded_at": "2018-05-06T22:47:29",
       "request": {
         "body": {
           "encoding": "utf-8",
@@ -27,7 +27,7 @@
             "application/x-www-form-urlencoded"
           ],
           "Cookie": [
-            "csrftoken=5TutniReYmfpnISYpFCPSmcyodSXkGlb; ds_user_id=7326637304; mcd=3; mid=WuuLLQAEAAF6qkfniJibDfdwqoye; rur=FTW; sessionid=IGSCda80bdfd21a9f0166c49b40fa21ae9ee47f318e6b420ae357d814f34baeda439%3AZ4QFtCYDchM8E0JIVGNaxUnCCds5Ez51%3A%7B%22_auth_user_id%22%3A7326637304%2C%22_auth_user_backend%22%3A%22accounts.backends.CaseInsensitiveModelBackend%22%2C%22_auth_user_hash%22%3A%22%22%2C%22_platform%22%3A4%2C%22_token_ver%22%3A2%2C%22_token%22%3A%227326637304%3AkFoGwyl87fz0j4O114WRash4LqVXxmt2%3Af6a1f4afe3a4c378531afe4e2190de29e06daf1140d95493dc376ea9efa7abb1%22%2C%22last_refreshed%22%3A1525386031.3720934391%7D; shbid=15780; shbts=1525386043.1490514; urlgen=\"{time: 1525386043}:1fEMah:1zfxwilAwEJrzLsIFNiId50wzgk\""
+            "csrftoken=WLt9YkUeE5ZDLTLd8q5YXytJ6x5IOqMT; ds_user_id=7326637304; mcd=3; mid=Wu-F3gAEAAF-7E1mmSHgS7rBVnpm; rur=FTW; sessionid=IGSCb0b7d10ef65ee57821eff653678d983ee61fa98e0faa1d5749b239c2292d5aed%3Al9KAWUxH5TL1UB4qpKYSWZe2vXlSqwT7%3A%7B%22_auth_user_id%22%3A7326637304%2C%22_auth_user_backend%22%3A%22accounts.backends.CaseInsensitiveModelBackend%22%2C%22_auth_user_hash%22%3A%22%22%2C%22_platform%22%3A4%2C%22_token_ver%22%3A2%2C%22_token%22%3A%227326637304%3Ar3CshW55YdIzFCfcZ9DJVEijArIgW9D5%3Af9c409a704b7ab9562f893a8e4c3aa46c309b490a4744cca714d8bc32528d66b%22%2C%22last_refreshed%22%3A1525646815.1211240292%7D; shbid=15780; shbts=1525646825.6963904; urlgen=\"{time: 1525646825}:1fFSQr:GyO4jZ34G732WnG5AUn2ALKn_CY\""
           ],
           "Host": [
             "www.instagram.com"
@@ -39,7 +39,7 @@
             "https://www.instagram.com/"
           ],
           "X-CSRFToken": [
-            "5TutniReYmfpnISYpFCPSmcyodSXkGlb"
+            "WLt9YkUeE5ZDLTLd8q5YXytJ6x5IOqMT"
           ],
           "X-Instagram-AJAX": [
             "1"
@@ -49,7 +49,7 @@
           ]
         },
         "method": "POST",
-        "uri": "https://www.instagram.com/web/likes/1771381974825607158/like/"
+        "uri": "https://www.instagram.com/web/save/1773420940941993567/save/"
       },
       "response": {
         "body": {
@@ -79,7 +79,7 @@
             "application/json"
           ],
           "Date": [
-            "Thu, 03 May 2018 22:20:45 GMT"
+            "Sun, 06 May 2018 22:47:29 GMT"
           ],
           "Expires": [
             "Sat, 01 Jan 2000 00:00:00 GMT"
@@ -88,12 +88,12 @@
             "no-cache"
           ],
           "Set-Cookie": [
-            "csrftoken=5TutniReYmfpnISYpFCPSmcyodSXkGlb; Domain=.instagram.com; expires=Thu, 02-May-2019 22:20:45 GMT; Max-Age=31449600; Path=/; Secure",
-            "shbid=15780; Domain=.instagram.com; expires=Thu, 10-May-2018 22:20:45 GMT; Max-Age=604800; Path=/",
-            "shbts=1525386045.008051; Domain=.instagram.com; expires=Thu, 10-May-2018 22:20:45 GMT; Max-Age=604800; Path=/",
+            "csrftoken=WLt9YkUeE5ZDLTLd8q5YXytJ6x5IOqMT; Domain=.instagram.com; expires=Sun, 05-May-2019 22:47:29 GMT; Max-Age=31449600; Path=/; Secure",
+            "shbid=15780; Domain=.instagram.com; expires=Sun, 13-May-2018 22:47:29 GMT; Max-Age=604800; Path=/",
+            "shbts=1525646849.0305138; Domain=.instagram.com; expires=Sun, 13-May-2018 22:47:29 GMT; Max-Age=604800; Path=/",
             "rur=FTW; Domain=.instagram.com; Path=/",
-            "ds_user_id=7326637304; Domain=.instagram.com; expires=Wed, 01-Aug-2018 22:20:45 GMT; Max-Age=7776000; Path=/",
-            "urlgen=\"{\\\"time\\\": 1525386044}:1fEMaj:gPJD2xeZIPo20OoIJ61Q3tJRZCI\"; Domain=.instagram.com; Path=/"
+            "ds_user_id=7326637304; Domain=.instagram.com; expires=Sat, 04-Aug-2018 22:47:29 GMT; Max-Age=7776000; Path=/",
+            "urlgen=\"{\\\"time\\\": 1525646848}:1fFSRF:u1-OILwsviv_arJGdY5_cOlRVSc\"; Domain=.instagram.com; Path=/"
           ],
           "Strict-Transport-Security": [
             "max-age=86400"
@@ -106,11 +106,11 @@
           "code": 200,
           "message": "OK"
         },
-        "url": "https://www.instagram.com/web/likes/1771381974825607158/like/"
+        "url": "https://www.instagram.com/web/save/1773420940941993567/save/"
       }
     },
     {
-      "recorded_at": "2018-05-03T22:20:47",
+      "recorded_at": "2018-05-06T22:47:31",
       "request": {
         "body": {
           "encoding": "utf-8",
@@ -136,7 +136,7 @@
             "application/x-www-form-urlencoded"
           ],
           "Cookie": [
-            "csrftoken=5TutniReYmfpnISYpFCPSmcyodSXkGlb; ds_user_id=7326637304; mcd=3; mid=WuuLLQAEAAF6qkfniJibDfdwqoye; rur=FTW; sessionid=IGSCda80bdfd21a9f0166c49b40fa21ae9ee47f318e6b420ae357d814f34baeda439%3AZ4QFtCYDchM8E0JIVGNaxUnCCds5Ez51%3A%7B%22_auth_user_id%22%3A7326637304%2C%22_auth_user_backend%22%3A%22accounts.backends.CaseInsensitiveModelBackend%22%2C%22_auth_user_hash%22%3A%22%22%2C%22_platform%22%3A4%2C%22_token_ver%22%3A2%2C%22_token%22%3A%227326637304%3AkFoGwyl87fz0j4O114WRash4LqVXxmt2%3Af6a1f4afe3a4c378531afe4e2190de29e06daf1140d95493dc376ea9efa7abb1%22%2C%22last_refreshed%22%3A1525386031.3720934391%7D; shbid=15780; shbts=1525386045.008051; urlgen=\"{time: 1525386044}:1fEMaj:gPJD2xeZIPo20OoIJ61Q3tJRZCI\""
+            "csrftoken=WLt9YkUeE5ZDLTLd8q5YXytJ6x5IOqMT; ds_user_id=7326637304; mcd=3; mid=Wu-F3gAEAAF-7E1mmSHgS7rBVnpm; rur=FTW; sessionid=IGSCb0b7d10ef65ee57821eff653678d983ee61fa98e0faa1d5749b239c2292d5aed%3Al9KAWUxH5TL1UB4qpKYSWZe2vXlSqwT7%3A%7B%22_auth_user_id%22%3A7326637304%2C%22_auth_user_backend%22%3A%22accounts.backends.CaseInsensitiveModelBackend%22%2C%22_auth_user_hash%22%3A%22%22%2C%22_platform%22%3A4%2C%22_token_ver%22%3A2%2C%22_token%22%3A%227326637304%3Ar3CshW55YdIzFCfcZ9DJVEijArIgW9D5%3Af9c409a704b7ab9562f893a8e4c3aa46c309b490a4744cca714d8bc32528d66b%22%2C%22last_refreshed%22%3A1525646815.1211240292%7D; shbid=15780; shbts=1525646849.0305138; urlgen=\"{time: 1525646848}:1fFSRF:u1-OILwsviv_arJGdY5_cOlRVSc\""
           ],
           "Host": [
             "www.instagram.com"
@@ -148,7 +148,7 @@
             "https://www.instagram.com/"
           ],
           "X-CSRFToken": [
-            "5TutniReYmfpnISYpFCPSmcyodSXkGlb"
+            "WLt9YkUeE5ZDLTLd8q5YXytJ6x5IOqMT"
           ],
           "X-Instagram-AJAX": [
             "1"
@@ -158,7 +158,7 @@
           ]
         },
         "method": "POST",
-        "uri": "https://www.instagram.com/web/likes/1771381974825607158/unlike/"
+        "uri": "https://www.instagram.com/web/save/1773420940941993567/unsave/"
       },
       "response": {
         "body": {
@@ -188,7 +188,7 @@
             "application/json"
           ],
           "Date": [
-            "Thu, 03 May 2018 22:20:47 GMT"
+            "Sun, 06 May 2018 22:47:31 GMT"
           ],
           "Expires": [
             "Sat, 01 Jan 2000 00:00:00 GMT"
@@ -197,12 +197,12 @@
             "no-cache"
           ],
           "Set-Cookie": [
-            "csrftoken=5TutniReYmfpnISYpFCPSmcyodSXkGlb; Domain=.instagram.com; expires=Thu, 02-May-2019 22:20:47 GMT; Max-Age=31449600; Path=/; Secure",
-            "shbid=15780; Domain=.instagram.com; expires=Thu, 10-May-2018 22:20:47 GMT; Max-Age=604800; Path=/",
-            "shbts=1525386047.715271; Domain=.instagram.com; expires=Thu, 10-May-2018 22:20:47 GMT; Max-Age=604800; Path=/",
+            "csrftoken=WLt9YkUeE5ZDLTLd8q5YXytJ6x5IOqMT; Domain=.instagram.com; expires=Sun, 05-May-2019 22:47:31 GMT; Max-Age=31449600; Path=/; Secure",
+            "shbid=15780; Domain=.instagram.com; expires=Sun, 13-May-2018 22:47:31 GMT; Max-Age=604800; Path=/",
+            "shbts=1525646851.5830948; Domain=.instagram.com; expires=Sun, 13-May-2018 22:47:31 GMT; Max-Age=604800; Path=/",
             "rur=FTW; Domain=.instagram.com; Path=/",
-            "ds_user_id=7326637304; Domain=.instagram.com; expires=Wed, 01-Aug-2018 22:20:47 GMT; Max-Age=7776000; Path=/",
-            "urlgen=\"{\\\"time\\\": 1525386047}:1fEMal:SLjANkhWkCvOsWI6Lt0_-Nh7nKY\"; Domain=.instagram.com; Path=/"
+            "ds_user_id=7326637304; Domain=.instagram.com; expires=Sat, 04-Aug-2018 22:47:31 GMT; Max-Age=7776000; Path=/",
+            "urlgen=\"{\\\"time\\\": 1525646851}:1fFSRH:GnrzXaYed-UnAiKebsIaDGp1rgc\"; Domain=.instagram.com; Path=/"
           ],
           "Strict-Transport-Security": [
             "max-age=86400"
@@ -215,7 +215,7 @@
           "code": 200,
           "message": "OK"
         },
-        "url": "https://www.instagram.com/web/likes/1771381974825607158/unlike/"
+        "url": "https://www.instagram.com/web/save/1773420940941993567/unsave/"
       }
     }
   ],

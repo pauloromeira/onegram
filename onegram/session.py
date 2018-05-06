@@ -18,21 +18,18 @@ from . import settings as settings_module
 from .constants import DEFAULT_HEADERS, QUERY_HEADERS, ACTION_HEADERS
 from .constants import URLS
 from .constants import REGEXES
-from .exceptions import AuthException
+from .exceptions import AuthException, NotSupportedError
 from .utils.ratelimit import RateLimiter
 from .utils.validation import check_auth
 
 
-class Login(Session):
+class _BaseSession(Session):
+
 
     @classmethod
     def current(cls):
         return Session.current() or login()
 
-    @property
-    def current_module_name(self):
-        return (self.current_function.__module__.split('.', 1)[-1]
-                if self.current_function else None)
 
     @property
     def current_function_name(self):
@@ -40,35 +37,40 @@ class Login(Session):
                 if self.current_function else None)
 
     @property
+    def current_module_name(self):
+        return (self.current_function.__module__.split('.', 1)[-1]
+                if self.current_function else None)
+
+    @property
     def cookies(self):
         return self._requests.cookies
 
 
-    def __init__(self, username=None, password=None, custom_settings={}):
-        if username:
-            custom_settings['USERNAME'] = username
-        if password:
-            custom_settings['PASSWORD'] = password
+    @property
+    def unlogged(self):
+        return isinstance(self, Unlogged)
 
+
+    def __init__(self, custom_settings={}):
         self.settings = _load_settings(custom_settings)
 
         log_settings = self.settings.get('LOG_SETTINGS')
         if log_settings:
             logging.basicConfig(**log_settings)
 
-        self.username = self.settings.get('USERNAME')
-
 
     def enter_contexts(self):
         self._requests = yield requests.Session()
 
-        # Security config
+        proxies = self.settings.get('PROXIES')
+        if proxies:
+            self._requests.proxies = proxies
+
         verify_ssl = self.settings.get('VERIFY_SSL', True)
         self._requests.verify = verify_ssl
         if not verify_ssl:
             urllib3.disable_warnings(InsecureRequestWarning)
 
-        # Init headers
         self._requests.headers.update(DEFAULT_HEADERS)
         user_agent = self.settings.get('USER_AGENT')
         if user_agent is not None:
@@ -76,12 +78,9 @@ class Login(Session):
         else:
             self._requests.headers.pop('User-Agent', None)
 
-        try:
-            self._login()
-        except AuthException as e:
-            self.logger.error(e)
-            self.close()
-            raise e
+        response = self._requests.get(URLS['start'])
+        response.raise_for_status()
+        self.rhx_gis = self._get_rhx_gis(response)
 
         self.rate_limiter = RateLimiter(self)
 
@@ -121,30 +120,6 @@ class Login(Session):
         return _request()
 
 
-    def _login(self):
-        start_url, login_url = URLS['start'], URLS['login']
-        response = self._requests.get(start_url)
-        response.raise_for_status()
-        self.rhx_gis = self._get_rhx_gis(response)
-
-        kw = {}
-        self.username = self.username or input('Username: ')
-        kw['data'] = {
-            'username': self.username,
-            'password': self.settings.get('PASSWORD') or getpass(),
-            'queryParams': '{}',
-        }
-
-        headers = ACTION_HEADERS
-        headers['X-CSRFToken'] = self.cookies['csrftoken']
-        kw['headers'] = headers
-
-        response = self._requests.post(login_url, **kw)
-        response.raise_for_status()
-        check_auth(json.loads(response.text))
-        self.user_id = self.cookies.get('ds_user_id')
-
-
     def _get_rhx_gis(self, response):
         match = re.search(REGEXES['rhx_gis'], response.text)
         return match.group(1) if match else None
@@ -168,11 +143,78 @@ class Login(Session):
         return logging.getLogger(name)
 
 
+class Login(_BaseSession):
+
+
+    def __init__(self, username=None, password=None, custom_settings={}):
+        if username:
+            custom_settings['USERNAME'] = username
+        if password:
+            custom_settings['PASSWORD'] = password
+
+        super(Login, self).__init__(custom_settings)
+
+        self.username = self.settings.get('USERNAME')
+        # TODO [romeira]: fix sessionlib {06/05/18 04:41}
+        # self.on_open.subscribe(self._login)
+
+
+    def enter_contexts(self):
+        yield from super(Login, self).enter_contexts()
+        try:
+            self._login()
+        except AuthException as e:
+            self.logger.error(e)
+            self.close()
+            raise e
+
+
+    def _login(self):
+        kw = {}
+        self.username = self.username or input('Username: ')
+        kw['data'] = {
+            'username': self.username,
+            'password': self.settings.get('PASSWORD') or getpass(),
+            'queryParams': '{}',
+        }
+
+        headers = ACTION_HEADERS
+        headers['X-CSRFToken'] = self.cookies['csrftoken']
+        kw['headers'] = headers
+
+        response = self._requests.post(URLS['login'], **kw)
+        response.raise_for_status()
+        check_auth(json.loads(response.text))
+        self.user_id = self.cookies.get('ds_user_id')
+
+
     def __str__(self):
         return f'({self.username})'
 
 
-sessionaware = _sessionaware(cls=Login)
+class Unlogged(_BaseSession):
+
+    supported = ['user_info', 'post_info', 'posts', 'comments', 'explore_tag']
+
+    def __init__(self, custom_settings={}):
+        super(Unlogged, self).__init__(custom_settings)
+
+
+    def request(self, *a, **kw):
+        fn = self.current_function_name 
+        if fn not in Unlogged.supported:
+            msg = f'"{fn}" is not supported at Unlogged state'
+            raise NotSupportedError(msg)
+
+        return super(Unlogged, self).request(*a, **kw)
+
+
+    def __str__(self):
+        str = super(Unlogged, self).__str__()
+        return f'(Unlogged: {str})'
+
+
+sessionaware = _sessionaware(cls=_BaseSession)
 
 
 def login(*args, **kwargs):
@@ -180,8 +222,15 @@ def login(*args, **kwargs):
 
 
 @_sessionaware
-def logout(session):
+def close(session):
     session.close()
+
+
+logout = close
+
+
+def unlogged(*args, **kwargs):
+    return Unlogged(*args, **kwargs).open()
 
 
 def _load_settings(custom_settings={}):

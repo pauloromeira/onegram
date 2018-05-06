@@ -10,7 +10,6 @@
   [ ] Activity (https://www.instagram.com/accounts/activity/?__a=1)
   [ ] Suggested Users (https://www.instagram.com/explore/people/ | e3c04bbb35d86a16cf0e7881c5057737)
   [ ] Saved Posts (https://www.instagram.com/<me>/saved/?__a=1)
-  [ ] Tag Posts (https://www.instagram.com/explore/tags/recife/?__a=1)
   [ ] Explore Locations (https://www.instagram.com/explore/locations/?__a=1)
   [ ] Profiles (https://www.instagram.com/directory/profiles/)
   Other:
@@ -19,12 +18,6 @@
         "inspect" utils function
     [ ] Make post queries accept id and url
     [ ] Make user queries accept url
-  - ...
-* Tests
-  - [ ] Session
-  - [X] Actions
-  - [ ] Queries
-  - [ ] Coverage
   - ...
 * Other:
   [ ] Read settings from YAML
@@ -35,8 +28,6 @@
   [ ] Exceptions
   [ ] Logs
   [ ] Algorithms (with session awareness)
-  [ ] Unlogged use (queries: posts, comments, post_info, user_info...)
-  [ ] Try unlogged first
   [ ] Demo gif (README.md)
   [ ] Post actions: translate shortcode -> id (post_ifo)
   - ...

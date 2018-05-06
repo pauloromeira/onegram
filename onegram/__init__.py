@@ -1,5 +1,6 @@
-from .session import Login
+from .session import Login, Unlogged
 from .session import login, logout
+from .session import unlogged, close
 
 from .actions import follow, unfollow
 from .actions import like, unlike

@@ -4,10 +4,13 @@ from .session import sessionaware
 from .utils import jsearch
 from .constants import URLS, GRAPHQL_URL
 from .constants import QUERY_HASHES, JSPATHS
+from .exceptions import NotSupportedError
 
 
 @sessionaware
 def user_info(session, username=None):
+    if session.unlogged and not username:
+        raise NotSupportedError('You must provide an user at Unlogged state')
     return _info(session, username=username or session.username)
 
 @sessionaware
@@ -16,14 +19,20 @@ def post_info(session, post):
 
 @sessionaware
 def followers(session, user=None):
+    if session.unlogged and not user:
+        raise NotSupportedError('You must provide an user at Unlogged state')
     yield from _iter_user(session, user)
 
 @sessionaware
 def following(session, user=None):
+    if session.unlogged and not user:
+        raise NotSupportedError('You must provide an user at Unlogged state')
     yield from _iter_user(session, user)
 
 @sessionaware
 def posts(session, user=None):
+    if session.unlogged and not user:
+        raise NotSupportedError('You must provide an user at Unlogged state')
     yield from _iter_user(session, user)
 
 @sessionaware

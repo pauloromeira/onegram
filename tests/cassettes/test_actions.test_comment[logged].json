@@ -1,11 +1,11 @@
 {
   "http_interactions": [
     {
-      "recorded_at": "2018-05-03T22:20:34",
+      "recorded_at": "2018-05-06T22:47:18",
       "request": {
         "body": {
           "encoding": "utf-8",
-          "string": ""
+          "string": "comment_text=awesome%21"
         },
         "headers": {
           "Accept": [
@@ -21,13 +21,13 @@
             "keep-alive"
           ],
           "Content-Length": [
-            "0"
+            "23"
           ],
           "Content-Type": [
             "application/x-www-form-urlencoded"
           ],
           "Cookie": [
-            "csrftoken=5TutniReYmfpnISYpFCPSmcyodSXkGlb; ds_user_id=7326637304; mcd=3; mid=WuuLLQAEAAF6qkfniJibDfdwqoye; rur=FTW; sessionid=IGSCda80bdfd21a9f0166c49b40fa21ae9ee47f318e6b420ae357d814f34baeda439%3AZ4QFtCYDchM8E0JIVGNaxUnCCds5Ez51%3A%7B%22_auth_user_id%22%3A7326637304%2C%22_auth_user_backend%22%3A%22accounts.backends.CaseInsensitiveModelBackend%22%2C%22_auth_user_hash%22%3A%22%22%2C%22_platform%22%3A4%2C%22_token_ver%22%3A2%2C%22_token%22%3A%227326637304%3AkFoGwyl87fz0j4O114WRash4LqVXxmt2%3Af6a1f4afe3a4c378531afe4e2190de29e06daf1140d95493dc376ea9efa7abb1%22%2C%22last_refreshed%22%3A1525386031.3720934391%7D; shbid=15780; shbts=1525386032.0952604; urlgen=\"{time: 1525386031}:1fEMaW:cD1Q4fWqgrm1lrFIRjM6TVEpn7s\""
+            "csrftoken=WLt9YkUeE5ZDLTLd8q5YXytJ6x5IOqMT; ds_user_id=7326637304; mcd=3; mid=Wu-F3gAEAAF-7E1mmSHgS7rBVnpm; rur=FTW; sessionid=IGSCb0b7d10ef65ee57821eff653678d983ee61fa98e0faa1d5749b239c2292d5aed%3Al9KAWUxH5TL1UB4qpKYSWZe2vXlSqwT7%3A%7B%22_auth_user_id%22%3A7326637304%2C%22_auth_user_backend%22%3A%22accounts.backends.CaseInsensitiveModelBackend%22%2C%22_auth_user_hash%22%3A%22%22%2C%22_platform%22%3A4%2C%22_token_ver%22%3A2%2C%22_token%22%3A%227326637304%3Ar3CshW55YdIzFCfcZ9DJVEijArIgW9D5%3Af9c409a704b7ab9562f893a8e4c3aa46c309b490a4744cca714d8bc32528d66b%22%2C%22last_refreshed%22%3A1525646815.1211240292%7D; shbid=15780; shbts=1525646825.6963904; urlgen=\"{time: 1525646825}:1fFSQr:GyO4jZ34G732WnG5AUn2ALKn_CY\""
           ],
           "Host": [
             "www.instagram.com"
@@ -39,7 +39,7 @@
             "https://www.instagram.com/"
           ],
           "X-CSRFToken": [
-            "5TutniReYmfpnISYpFCPSmcyodSXkGlb"
+            "WLt9YkUeE5ZDLTLd8q5YXytJ6x5IOqMT"
           ],
           "X-Instagram-AJAX": [
             "1"
@@ -49,12 +49,13 @@
           ]
         },
         "method": "POST",
-        "uri": "https://www.instagram.com/web/friendships/2301003648/follow/"
+        "uri": "https://www.instagram.com/web/comments/1773420940941993567/add/"
       },
       "response": {
         "body": {
+          "base64_string": "H4sIAPaF71oC/zWP226DMBBEf4X6OcXXXdt5rPofyMCS0gaD7KWNFOXfK6L2dc4caeYu5lGcG6F9CIBR6+CNQg1GnBoxlXUR5+b+1/HWIFpvlTvgXqnktNBBhjVXLilf5oUyr093v167f34EW1mn+UrdNg+8l2f8wbzVs5RzrpwuJS3tVGiwr6adcmqnfhhzm4nl9yZHUAkQiCxMaAh759F7StBPyY3US3gL8d0pKxl0a0KAVx1l1aBuGpQ0wSNaNJ1R2rmIKoBDiAE67aIG8NF5BAwRQZsut5/bRTxOjWC68bE0/VBdF3o5jgyFEtPY8fw8p8EAOgzWnxpROfFeD2P9Eo9fkgH4lF0BAAA=",
           "encoding": null,
-          "string": "{\"result\": \"following\", \"status\": \"ok\"}"
+          "string": ""
         },
         "headers": {
           "Access-Control-Allow-Credentials": [
@@ -69,17 +70,20 @@
           "Connection": [
             "keep-alive"
           ],
+          "Content-Encoding": [
+            "gzip"
+          ],
           "Content-Language": [
             "en"
           ],
           "Content-Length": [
-            "39"
+            "269"
           ],
           "Content-Type": [
             "application/json"
           ],
           "Date": [
-            "Thu, 03 May 2018 22:20:34 GMT"
+            "Sun, 06 May 2018 22:47:18 GMT"
           ],
           "Expires": [
             "Sat, 01 Jan 2000 00:00:00 GMT"
@@ -88,29 +92,29 @@
             "no-cache"
           ],
           "Set-Cookie": [
-            "csrftoken=5TutniReYmfpnISYpFCPSmcyodSXkGlb; Domain=.instagram.com; expires=Thu, 02-May-2019 22:20:34 GMT; Max-Age=31449600; Path=/; Secure",
-            "shbid=15780; Domain=.instagram.com; expires=Thu, 10-May-2018 22:20:34 GMT; Max-Age=604800; Path=/",
-            "shbts=1525386034.2943833; Domain=.instagram.com; expires=Thu, 10-May-2018 22:20:34 GMT; Max-Age=604800; Path=/",
+            "csrftoken=WLt9YkUeE5ZDLTLd8q5YXytJ6x5IOqMT; Domain=.instagram.com; expires=Sun, 05-May-2019 22:47:18 GMT; Max-Age=31449600; Path=/; Secure",
+            "shbid=15780; Domain=.instagram.com; expires=Sun, 13-May-2018 22:47:18 GMT; Max-Age=604800; Path=/",
+            "shbts=1525646838.1193557; Domain=.instagram.com; expires=Sun, 13-May-2018 22:47:18 GMT; Max-Age=604800; Path=/",
             "rur=FTW; Domain=.instagram.com; Path=/",
-            "ds_user_id=7326637304; Domain=.instagram.com; expires=Wed, 01-Aug-2018 22:20:34 GMT; Max-Age=7776000; Path=/",
-            "urlgen=\"{\\\"time\\\": 1525386034}:1fEMaY:jvU9uNCphy95Z8QvJAnTy3ZhKcg\"; Domain=.instagram.com; Path=/"
+            "ds_user_id=7326637304; Domain=.instagram.com; expires=Sat, 04-Aug-2018 22:47:18 GMT; Max-Age=7776000; Path=/",
+            "urlgen=\"{\\\"time\\\": 1525646837}:1fFSR4:tfVBpbUKqGcvDMBrBS3VqIxMkAo\"; Domain=.instagram.com; Path=/"
           ],
           "Strict-Transport-Security": [
             "max-age=86400"
           ],
           "Vary": [
-            "Cookie, Accept-Language"
+            "Cookie, Accept-Language, Accept-Encoding"
           ]
         },
         "status": {
           "code": 200,
           "message": "OK"
         },
-        "url": "https://www.instagram.com/web/friendships/2301003648/follow/"
+        "url": "https://www.instagram.com/web/comments/1773420940941993567/add/"
       }
     },
     {
-      "recorded_at": "2018-05-03T22:20:37",
+      "recorded_at": "2018-05-06T22:47:23",
       "request": {
         "body": {
           "encoding": "utf-8",
@@ -136,7 +140,7 @@
             "application/x-www-form-urlencoded"
           ],
           "Cookie": [
-            "csrftoken=5TutniReYmfpnISYpFCPSmcyodSXkGlb; ds_user_id=7326637304; mcd=3; mid=WuuLLQAEAAF6qkfniJibDfdwqoye; rur=FTW; sessionid=IGSCda80bdfd21a9f0166c49b40fa21ae9ee47f318e6b420ae357d814f34baeda439%3AZ4QFtCYDchM8E0JIVGNaxUnCCds5Ez51%3A%7B%22_auth_user_id%22%3A7326637304%2C%22_auth_user_backend%22%3A%22accounts.backends.CaseInsensitiveModelBackend%22%2C%22_auth_user_hash%22%3A%22%22%2C%22_platform%22%3A4%2C%22_token_ver%22%3A2%2C%22_token%22%3A%227326637304%3AkFoGwyl87fz0j4O114WRash4LqVXxmt2%3Af6a1f4afe3a4c378531afe4e2190de29e06daf1140d95493dc376ea9efa7abb1%22%2C%22last_refreshed%22%3A1525386031.3720934391%7D; shbid=15780; shbts=1525386034.2943833; urlgen=\"{time: 1525386034}:1fEMaY:jvU9uNCphy95Z8QvJAnTy3ZhKcg\""
+            "csrftoken=WLt9YkUeE5ZDLTLd8q5YXytJ6x5IOqMT; ds_user_id=7326637304; mcd=3; mid=Wu-F3gAEAAF-7E1mmSHgS7rBVnpm; rur=FTW; sessionid=IGSCb0b7d10ef65ee57821eff653678d983ee61fa98e0faa1d5749b239c2292d5aed%3Al9KAWUxH5TL1UB4qpKYSWZe2vXlSqwT7%3A%7B%22_auth_user_id%22%3A7326637304%2C%22_auth_user_backend%22%3A%22accounts.backends.CaseInsensitiveModelBackend%22%2C%22_auth_user_hash%22%3A%22%22%2C%22_platform%22%3A4%2C%22_token_ver%22%3A2%2C%22_token%22%3A%227326637304%3Ar3CshW55YdIzFCfcZ9DJVEijArIgW9D5%3Af9c409a704b7ab9562f893a8e4c3aa46c309b490a4744cca714d8bc32528d66b%22%2C%22last_refreshed%22%3A1525646815.1211240292%7D; shbid=15780; shbts=1525646838.1193557; urlgen=\"{time: 1525646837}:1fFSR4:tfVBpbUKqGcvDMBrBS3VqIxMkAo\""
           ],
           "Host": [
             "www.instagram.com"
@@ -148,7 +152,7 @@
             "https://www.instagram.com/"
           ],
           "X-CSRFToken": [
-            "5TutniReYmfpnISYpFCPSmcyodSXkGlb"
+            "WLt9YkUeE5ZDLTLd8q5YXytJ6x5IOqMT"
           ],
           "X-Instagram-AJAX": [
             "1"
@@ -158,7 +162,7 @@
           ]
         },
         "method": "POST",
-        "uri": "https://www.instagram.com/web/friendships/2301003648/unfollow/"
+        "uri": "https://www.instagram.com/web/comments/1773420940941993567/delete/17885691187206152/"
       },
       "response": {
         "body": {
@@ -188,7 +192,7 @@
             "application/json"
           ],
           "Date": [
-            "Thu, 03 May 2018 22:20:37 GMT"
+            "Sun, 06 May 2018 22:47:23 GMT"
           ],
           "Expires": [
             "Sat, 01 Jan 2000 00:00:00 GMT"
@@ -197,12 +201,12 @@
             "no-cache"
           ],
           "Set-Cookie": [
-            "csrftoken=5TutniReYmfpnISYpFCPSmcyodSXkGlb; Domain=.instagram.com; expires=Thu, 02-May-2019 22:20:37 GMT; Max-Age=31449600; Path=/; Secure",
-            "shbid=15780; Domain=.instagram.com; expires=Thu, 10-May-2018 22:20:37 GMT; Max-Age=604800; Path=/",
-            "shbts=1525386037.437875; Domain=.instagram.com; expires=Thu, 10-May-2018 22:20:37 GMT; Max-Age=604800; Path=/",
+            "csrftoken=WLt9YkUeE5ZDLTLd8q5YXytJ6x5IOqMT; Domain=.instagram.com; expires=Sun, 05-May-2019 22:47:23 GMT; Max-Age=31449600; Path=/; Secure",
+            "shbid=15780; Domain=.instagram.com; expires=Sun, 13-May-2018 22:47:23 GMT; Max-Age=604800; Path=/",
+            "shbts=1525646843.0025523; Domain=.instagram.com; expires=Sun, 13-May-2018 22:47:23 GMT; Max-Age=604800; Path=/",
             "rur=FTW; Domain=.instagram.com; Path=/",
-            "ds_user_id=7326637304; Domain=.instagram.com; expires=Wed, 01-Aug-2018 22:20:37 GMT; Max-Age=7776000; Path=/",
-            "urlgen=\"{\\\"time\\\": 1525386037}:1fEMab:Oo9y7OKzKcTEqtRPv5LhjvGM1eY\"; Domain=.instagram.com; Path=/"
+            "ds_user_id=7326637304; Domain=.instagram.com; expires=Sat, 04-Aug-2018 22:47:23 GMT; Max-Age=7776000; Path=/",
+            "urlgen=\"{\\\"time\\\": 1525646842}:1fFSR9:R8qBWROgU1HzCt21I7TFtTBLdJ4\"; Domain=.instagram.com; Path=/"
           ],
           "Strict-Transport-Security": [
             "max-age=86400"
@@ -215,7 +219,7 @@
           "code": 200,
           "message": "OK"
         },
-        "url": "https://www.instagram.com/web/friendships/2301003648/unfollow/"
+        "url": "https://www.instagram.com/web/comments/1773420940941993567/delete/17885691187206152/"
       }
     }
   ],
