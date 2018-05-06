@@ -42,7 +42,7 @@ def logged(request):
 
 
 @pytest.fixture
-def recorder(logged, monkeypatch, username, password, record_mode):
+def recorder(monkeypatch, username, password, record_mode):
     Betamax.register_serializer(pretty_json.PrettyJSONSerializer)
     cassete_dir = Path(f'tests/cassettes/')
     cassete_dir.mkdir(parents=True, exist_ok=True)

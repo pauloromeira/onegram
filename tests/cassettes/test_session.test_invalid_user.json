@@ -1,0 +1,196 @@
+{
+  "http_interactions": [
+    {
+      "recorded_at": "2018-05-06T22:36:18",
+      "request": {
+        "body": {
+          "encoding": "utf-8",
+          "string": ""
+        },
+        "headers": {
+          "Accept": [
+            "*/*"
+          ],
+          "Accept-Encoding": [
+            "gzip, deflate, br"
+          ],
+          "Accept-Language": [
+            "en-US"
+          ],
+          "Connection": [
+            "keep-alive"
+          ]
+        },
+        "method": "GET",
+        "uri": "https://www.instagram.com/"
+      },
+      "response": {
+        "body": {
+          "base64_string": "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",
+          "encoding": "ISO-8859-1",
+          "string": ""
+        },
+        "headers": {
+          "Cache-Control": [
+            "private, no-cache, no-store, must-revalidate"
+          ],
+          "Connection": [
+            "keep-alive"
+          ],
+          "Content-Encoding": [
+            "gzip"
+          ],
+          "Content-Language": [
+            "en"
+          ],
+          "Content-Length": [
+            "5392"
+          ],
+          "Content-Type": [
+            "text/html"
+          ],
+          "Date": [
+            "Sun, 06 May 2018 22:36:18 GMT"
+          ],
+          "Expires": [
+            "Sat, 01 Jan 2000 00:00:00 GMT"
+          ],
+          "Pragma": [
+            "no-cache"
+          ],
+          "Set-Cookie": [
+            "sessionid=; Domain=instagram.com; expires=Thu, 01-Jan-1970 00:00:00 GMT; Max-Age=0; Path=/",
+            "sessionid=; Domain=.instagram.com; expires=Thu, 01-Jan-1970 00:00:00 GMT; Max-Age=0; Path=/",
+            "sessionid=; Domain=i.instagram.com; expires=Thu, 01-Jan-1970 00:00:00 GMT; Max-Age=0; Path=/",
+            "sessionid=; Domain=.i.instagram.com; expires=Thu, 01-Jan-1970 00:00:00 GMT; Max-Age=0; Path=/",
+            "sessionid=; Domain=www.instagram.com; expires=Thu, 01-Jan-1970 00:00:00 GMT; Max-Age=0; Path=/",
+            "sessionid=; Domain=.www.instagram.com; expires=Thu, 01-Jan-1970 00:00:00 GMT; Max-Age=0; Path=/",
+            "rur=FTW; Path=/",
+            "csrftoken=oFihWgGNLnEYy5MmznroyVYtdNILT3f3; expires=Sun, 05-May-2019 22:36:18 GMT; Max-Age=31449600; Path=/; Secure",
+            "mid=Wu-DYgAEAAEzVoMRkPuq1aYiCV3m; expires=Sat, 01-May-2038 22:36:18 GMT; Max-Age=630720000; Path=/"
+          ],
+          "Strict-Transport-Security": [
+            "max-age=86400"
+          ],
+          "Vary": [
+            "Cookie, Accept-Language, Accept-Encoding"
+          ],
+          "X-Frame-Options": [
+            "SAMEORIGIN"
+          ]
+        },
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "url": "https://www.instagram.com/"
+      }
+    },
+    {
+      "recorded_at": "2018-05-06T22:36:19",
+      "request": {
+        "body": {
+          "encoding": "utf-8",
+          "string": "username=xxx&password=INSTA_PASSWORD&queryParams=%7B%7D"
+        },
+        "headers": {
+          "Accept": [
+            "*/*"
+          ],
+          "Accept-Encoding": [
+            "gzip, deflate, br"
+          ],
+          "Accept-Language": [
+            "en-US"
+          ],
+          "Connection": [
+            "keep-alive"
+          ],
+          "Content-Length": [
+            "51"
+          ],
+          "Content-Type": [
+            "application/x-www-form-urlencoded"
+          ],
+          "Cookie": [
+            "csrftoken=oFihWgGNLnEYy5MmznroyVYtdNILT3f3; mid=Wu-DYgAEAAEzVoMRkPuq1aYiCV3m; rur=FTW"
+          ],
+          "Host": [
+            "www.instagram.com"
+          ],
+          "Origin": [
+            "https://www.instagram.com"
+          ],
+          "Referer": [
+            "https://www.instagram.com/"
+          ],
+          "X-CSRFToken": [
+            "oFihWgGNLnEYy5MmznroyVYtdNILT3f3"
+          ],
+          "X-Instagram-AJAX": [
+            "1"
+          ],
+          "X-Requested-With": [
+            "XMLHttpRequest"
+          ]
+        },
+        "method": "POST",
+        "uri": "https://www.instagram.com/accounts/login/ajax/"
+      },
+      "response": {
+        "body": {
+          "encoding": null,
+          "string": "{\"authenticated\": false, \"user\": false, \"status\": \"ok\"}"
+        },
+        "headers": {
+          "Access-Control-Allow-Credentials": [
+            "true"
+          ],
+          "Access-Control-Allow-Origin": [
+            "https://www.instagram.com"
+          ],
+          "Cache-Control": [
+            "private, no-cache, no-store, must-revalidate"
+          ],
+          "Connection": [
+            "keep-alive"
+          ],
+          "Content-Language": [
+            "en"
+          ],
+          "Content-Length": [
+            "55"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Date": [
+            "Sun, 06 May 2018 22:36:18 GMT"
+          ],
+          "Expires": [
+            "Sat, 01 Jan 2000 00:00:00 GMT"
+          ],
+          "Pragma": [
+            "no-cache"
+          ],
+          "Set-Cookie": [
+            "csrftoken=oFihWgGNLnEYy5MmznroyVYtdNILT3f3; expires=Sun, 05-May-2019 22:36:18 GMT; Max-Age=31449600; Path=/; Secure",
+            "rur=FTW; Path=/"
+          ],
+          "Strict-Transport-Security": [
+            "max-age=86400"
+          ],
+          "Vary": [
+            "Cookie, Accept-Language"
+          ]
+        },
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "url": "https://www.instagram.com/accounts/login/ajax/"
+      }
+    }
+  ],
+  "recorded_with": "betamax/0.8.1"
+}
