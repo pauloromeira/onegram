@@ -210,8 +210,7 @@ class Unlogged(_BaseSession):
 
 
     def __str__(self):
-        str = super(Unlogged, self).__str__()
-        return f'(Unlogged: {str})'
+        return f'(Unlogged[{id(self)}])'
 
 
 sessionaware = _sessionaware(cls=_BaseSession)
