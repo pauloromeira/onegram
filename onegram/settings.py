@@ -3,7 +3,12 @@ import logging
 from pathlib import Path
 from decouple import config
 
+from tenacity import retry_if_exception_type
+from tenacity import wait_chain, wait_fixed, wait_random
+from tenacity import stop_after_delay
+
 from .utils import head_tail, choices, repeat
+from .exceptions import RateLimitedError
 
 
 CURRENT_DIR = Path.cwd()
@@ -15,6 +20,9 @@ DEBUG = config('INSTA_DEBUG', default=False, cast=bool)
 
 # Uncomment to set a custom User-Agent
 # USER_AGENT = None
+
+# Uncomment to set proxies
+# PROXIES = {'http': '<proxy>', 'https': '<proxy>'}
 
 VERIFY_SSL = config('VERIFY_SSL', default=True, cast=bool)
 
@@ -41,4 +49,11 @@ QUERY_CHUNKS = {
     'comments': choices(range(20, 40)),
     'explore': repeat(24),
     'explore_tag': choices(range(1, 13)),
+}
+
+RETRY_ENABLED = True
+RETRY_SETTINGS = {
+    'wait': wait_chain(wait_fixed(60), wait_fixed(15) + wait_random(0, 2)),
+    'retry': retry_if_exception_type(RateLimitedError),
+    'stop': stop_after_delay(60 * 20),
 }

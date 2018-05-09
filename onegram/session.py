@@ -9,8 +9,7 @@ from getpass import getpass
 from requests import HTTPError
 from sessionlib import Session
 from sessionlib import sessionaware as _sessionaware
-from tenacity import retry, retry_if_exception_type
-from tenacity import wait_chain, wait_fixed
+from tenacity import retry, retry_never
 from urllib3.exceptions import InsecureRequestWarning
 from urllib3.util import parse_url
 
@@ -103,14 +102,19 @@ class _BaseSession(Session):
         def _after_request_attempt(func, trial_number, *a, **kw):
             self.logger.warning(f'RETRY {trial_number} attempt(s) ...')
 
-        @retry(wait=wait_chain(wait_fixed(60), wait_fixed(15)),
-               retry=retry_if_exception_type(RateLimitedError),
-               after=_after_request_attempt)
+        if self.settings.get('RETRY_ENABLED'):
+            retry_kw = {'after': _after_request_attempt}
+            retry_kw.update(self.settings.get('RETRY_SETTINGS', {}))
+        else:
+            retry_kw = {'retry': retry_never}
+
+        @retry(**retry_kw)
         def _request():
             with self.rate_limiter:
                 self.logger.info(f'{method} "{url}"')
                 response = self._requests.request(method, url, *a, **kw)
                 return validate_response(self, response)
+
         return _request()
 
 
