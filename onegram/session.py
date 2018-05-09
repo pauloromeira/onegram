@@ -19,8 +19,9 @@ from .constants import DEFAULT_HEADERS, QUERY_HEADERS, ACTION_HEADERS
 from .constants import URLS
 from .constants import REGEXES
 from .exceptions import AuthException, NotSupportedError
+from .exceptions import RateLimitedError
 from .utils.ratelimit import RateLimiter
-from .utils.validation import check_auth
+from .utils.validation import validate_response
 
 
 class _BaseSession(Session):
@@ -103,20 +104,13 @@ class _BaseSession(Session):
             self.logger.warning(f'RETRY {trial_number} attempt(s) ...')
 
         @retry(wait=wait_chain(wait_fixed(60), wait_fixed(15)),
-               retry=retry_if_exception_type(HTTPError),
+               retry=retry_if_exception_type(RateLimitedError),
                after=_after_request_attempt)
         def _request():
             with self.rate_limiter:
                 self.logger.info(f'{method} "{url}"')
-                response = None
-                try:
-                    response = self._requests.request(method, url, *a, **kw)
-                    response.raise_for_status()
-                    return json.loads(response.text)
-                except Exception:
-                    if response:
-                        self.logger.error(response.text)
-                    raise
+                response = self._requests.request(method, url, *a, **kw)
+                return validate_response(self, response)
         return _request()
 
 
@@ -181,11 +175,9 @@ class Login(_BaseSession):
         headers = ACTION_HEADERS
         headers['X-CSRFToken'] = self.cookies['csrftoken']
         kw['headers'] = headers
-
         response = self._requests.post(URLS['login'], **kw)
-        response.raise_for_status()
-        check_auth(json.loads(response.text))
-        self.user_id = self.cookies.get('ds_user_id')
+        self.user_id = self.cookies.get('ds_user_id', None)
+        return validate_response(self, response, auth=True)
 
 
     def __str__(self):

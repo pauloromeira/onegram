@@ -14,6 +14,12 @@ class AuthUserError(AuthException):
 class NotSupportedError(OnegramException):
     pass
 
+class RequestFailed(OnegramException):
+    pass
+
+class RateLimitedError(RequestFailed):
+    pass
+
 
 # TODO [romeira]: Query/action exceptions {06/03/18 23:08}
 # TODO [romeira]: Session expired exception {06/03/18 23:08}
