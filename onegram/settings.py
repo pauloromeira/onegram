@@ -53,7 +53,8 @@ QUERY_CHUNKS = {
 
 RETRY_ENABLED = True
 RETRY_SETTINGS = {
-    'wait': wait_chain(wait_fixed(60), wait_fixed(15) + wait_random(0, 2)),
+    'wait': wait_chain(wait_fixed(50) + wait_random(0, 10),
+                       wait_fixed(15) + wait_random(0, 5)),
     'retry': retry_if_exception_type(RateLimitedError),
-    'stop': stop_after_delay(60 * 20),
+    'stop': stop_after_delay(20 * 60),
 }

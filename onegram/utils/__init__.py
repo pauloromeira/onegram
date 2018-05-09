@@ -35,3 +35,14 @@ def choices(seq):
 
 def head_tail(head, tail):
     return partial(chain, [head], iter_repeat(tail))
+
+def humanize_interval(seconds):
+    min, hour = 60, 3600
+    h, remainder = divmod(seconds, hour)
+    m, s = divmod(remainder, min) 
+    if h:
+        return f'{h:.0f}h {m:.0f}m {s:.0f}s'
+    elif m:
+        return f'{m:.0f}m {s:.0f}s'
+    else:
+        return f'{s:.0f}s'

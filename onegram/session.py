@@ -18,9 +18,9 @@ from .constants import DEFAULT_HEADERS, QUERY_HEADERS, ACTION_HEADERS
 from .constants import URLS
 from .constants import REGEXES
 from .exceptions import AuthException, NotSupportedError
-from .exceptions import RateLimitedError
 from .utils.ratelimit import RateLimiter
 from .utils.validation import validate_response
+from .utils import humanize_interval
 
 
 class _BaseSession(Session):
@@ -99,8 +99,13 @@ class _BaseSession(Session):
 
 
     def request(self, method, url, *a, **kw):
-        def _after_request_attempt(func, trial_number, *a, **kw):
-            self.logger.warning(f'RETRY {trial_number} attempt(s) ...')
+        def _after_request_attempt(func, tries, secs):
+            msg = f'RETRY {tries} attempt(s)'
+            if tries > 1:
+                interval = humanize_interval(secs)
+                msg += f'. Time spent: {interval}'
+            msg += ' ...'
+            self.logger.warning(msg)
 
         if self.settings.get('RETRY_ENABLED'):
             retry_kw = {'after': _after_request_attempt}
