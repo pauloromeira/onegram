@@ -12,7 +12,7 @@ requires = [
 
 setup(
     name='onegram',
-    version='1.3.0',
+    version='1.3.1',
     description='A simplistic api-like instagram bot powered by requests',
     url='https://github.com/pauloromeira/onegram',
     author='Paulo Romeira',
