@@ -9,6 +9,7 @@ from tenacity import stop_after_delay
 
 from .utils import head_tail, choices, repeat
 from .exceptions import RateLimitedError
+from .utils import cast_bool_or_value
 
 
 CURRENT_DIR = Path.cwd()
@@ -23,8 +24,7 @@ DEBUG = config('INSTA_DEBUG', default=False, cast=bool)
 
 # Uncomment to set proxies
 # PROXIES = {'http': '<proxy>', 'https': '<proxy>'}
-
-VERIFY_SSL = config('VERIFY_SSL', default=True, cast=bool)
+VERIFY_SSL = config('VERIFY_SSL', default=True, cast=cast_bool_or_value)
 
 # Limits requests per second
 RATE_LIMITS = {

@@ -24,6 +24,7 @@ def jsearch(jspath, content):
 
     return jmespath.search(jspath, dct)
 
+
 def repeat(*a, **kw):
     return partial(iter_repeat, *a, **kw)
     
@@ -36,6 +37,7 @@ def choices(seq):
 def head_tail(head, tail):
     return partial(chain, [head], iter_repeat(tail))
 
+
 def humanize_interval(seconds):
     min, hour = 60, 3600
     h, remainder = divmod(seconds, hour)
@@ -46,3 +48,13 @@ def humanize_interval(seconds):
         return f'{m:.0f}m {s:.0f}s'
     else:
         return f'{s:.0f}s'
+
+
+def cast_bool_or_value(value):
+    if isinstance(value, str):
+        v = value.lower().strip()
+        if v == 'true':
+            return True
+        if v == 'false':
+            return False
+    return value
