@@ -5,7 +5,8 @@
 [![codecov](https://img.shields.io/codecov/c/github/pauloromeira/onegram/master.svg?style=flat-square)](https://codecov.io/gh/pauloromeira/onegram)
 [![requires](https://img.shields.io/requires/github/pauloromeira/onegram.svg?style=flat-square)](https://requires.io/github/pauloromeira/onegram/requirements)
 [![gitter](https://img.shields.io/gitter/room/pauloromeira/onegram.svg?style=flat-square&logo=gitter-white&colorB=ed1965&logoWidth=10)](https://gitter.im/pauloromeira/onegram)
-[![license](https://img.shields.io/github/license/pauloromeira/onegram.svg?style=flat-square)](https://github.com/pauloromeira/onegram/blob/master/LICENSE)
+[![license](https://img.shields.io/github/license/pauloromeira/onegram.svg?style=flat-square)](https://github.com/pauloromeira/onegram/blob/master/LICENSE)  
+![donate bitcoin](https://img.shields.io/badge/donate_bitcoin-1HBdKmZ3YXZsdA37ZrCPreUkrYBqYuiqX2-orange.svg?style=flat-square)
 
 A simplistic api-like instagram **bot** powered by [requests](https://github.com/requests/requests).
 
