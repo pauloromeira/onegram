@@ -102,6 +102,7 @@ def _info(session, **kw):
     url = URLS[query](**kw)
     params = {'__a': '1'}
     response = session.query(url, params=params)
+    if response is None: return None
     return jsearch(JSPATHS[query], response)
 
 def _iter_user(session, user, *a, **kw):
