@@ -46,16 +46,35 @@ def unsave(session, post):
 #######################################################################
 
 def _user_action(session, user, **kw):
-    user_id = _user_id(session, user)
+    if isinstance(user, int):
+        user_id = user
+    else:
+        try:
+            user_id = _user_id(session, user)
+        except ValueError:
+            return None
+
     data = _action(session, user_id=user_id, **kw)
-    data['user_id'] = user_id
-    return data
+    if data is None:
+        return None
+    else:
+        data['user_id'] = user_id
+        return data
 
 def _post_action(session, post, **kw):
-    post_id = _post_id(post)
+    if isinstance(post, int):
+        post_id = post
+    else:
+        try:
+            post_id = _post_id(post)
+        except ValueError:
+            return None
     data = _action(session, post_id=post_id, **kw)
-    data['post_id'] = post_id
-    return data
+    if data is None:
+        return None
+    else:
+        data['post_id'] = post_id
+        return data
 
 def _action(session, payload={}, **kw):
     action = session.current_function_name

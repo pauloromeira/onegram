@@ -81,7 +81,11 @@ def _user_id(session, user):
     if user is None:
         raise ValueError('Invalid user')
 
-    return user_info(session, user)['id']
+    info = user_info(session, user)
+    if info is None:
+        raise ValueError('Invalid user')
+    else:
+        return info['id']
 
 def _post_id(post):
     if isinstance(post, dict):
@@ -98,6 +102,7 @@ def _info(session, **kw):
     url = URLS[query](**kw)
     params = {'__a': '1'}
     response = session.query(url, params=params)
+    if response is None: return None
     return jsearch(JSPATHS[query], response)
 
 def _iter_user(session, user, *a, **kw):
