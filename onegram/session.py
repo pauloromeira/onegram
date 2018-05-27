@@ -180,9 +180,13 @@ class Login(_BaseSession):
             'password': self.settings.get('PASSWORD') or getpass(),
             'queryParams': '{}',
         }
+        
+        r = self._requests.get(URLS['start'])
 
         headers = ACTION_HEADERS
-        headers['X-CSRFToken'] = self.cookies['csrftoken']
+        headers['X-CSRFToken'] = re.search('(?<=\"csrf_token\":\")\w+', r.text).group(0)
+        self.logger.info("csrf_token: {0}".format(headers['X-CSRFToken']))
+        
         kw['headers'] = headers
         response = self._requests.post(URLS['login'], **kw)
         self.user_id = self.cookies.get('ds_user_id', None)
