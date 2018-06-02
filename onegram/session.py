@@ -25,7 +25,6 @@ from .utils import humanize_interval
 
 class _BaseSession(Session):
 
-
     @classmethod
     def current(cls):
         return Session.current() or login()
@@ -53,10 +52,12 @@ class _BaseSession(Session):
 
     def __init__(self, custom_settings={}):
         self.settings = _load_settings(custom_settings)
-
         log_settings = self.settings.get('LOG_SETTINGS')
         if log_settings:
             logging.basicConfig(**log_settings)
+
+        self._rhx_gis = None
+        self._csrftoken = None
 
 
     def enter_contexts(self):
@@ -80,14 +81,15 @@ class _BaseSession(Session):
 
         response = self._requests.get(URLS['start'])
         response.raise_for_status()
-        self.rhx_gis = self._get_rhx_gis(response)
+        self._update_csrftoken(response)
+        self._update_rhx_gis(response)
 
         self.rate_limiter = RateLimiter(self)
 
 
     def action(self, url, *a, **kw):
         headers = kw.setdefault('headers', ACTION_HEADERS)
-        headers['X-CSRFToken'] = self.cookies['csrftoken']
+        headers['X-CSRFToken'] = self._csrftoken
         return self.request('POST', url, *a, **kw)
 
 
@@ -118,14 +120,10 @@ class _BaseSession(Session):
             with self.rate_limiter:
                 self.logger.info(f'{method} "{url}"')
                 response = self._requests.request(method, url, *a, **kw)
+                self._update_csrftoken(response)
                 return validate_response(self, response)
 
         return _request()
-
-
-    def _get_rhx_gis(self, response):
-        match = re.search(REGEXES['rhx_gis'], response.text)
-        return match.group(1) if match else None
 
 
     def _build_signature(self, url, params):
@@ -134,8 +132,23 @@ class _BaseSession(Session):
         else:
             var = params.get('variables')
 
-        payload = f'{self.rhx_gis}:{var}'
+        payload = f'{self._rhx_gis}:{var}'
         return hashlib.md5(payload.encode('utf-8')).hexdigest()
+
+
+    def _update_rhx_gis(self, response):
+        match = REGEXES['rhx_gis'].search(response.text)
+        if match: self._rhx_gis = match.group('rhx_gis')
+
+
+    def _update_csrftoken(self, response=None):
+        csrftoken = self.cookies.get('csrftoken', None)
+        if not csrftoken and response:
+            match = REGEXES['csrftoken'].search(response.text)
+            if match: csrftoken = match.group('csrftoken')
+
+        if csrftoken:
+            self._csrftoken = csrftoken
 
 
     @property
@@ -182,9 +195,10 @@ class Login(_BaseSession):
         }
 
         headers = ACTION_HEADERS
-        headers['X-CSRFToken'] = self.cookies['csrftoken']
+        headers['X-CSRFToken'] = self._csrftoken
         kw['headers'] = headers
         response = self._requests.post(URLS['login'], **kw)
+        self._update_csrftoken(response)
         self.user_id = self.cookies.get('ds_user_id', None)
         return validate_response(self, response, auth=True)
 
