@@ -1,3 +1,6 @@
+import re
+
+
 DEFAULT_HEADERS = {
     'Accept-Encoding': 'gzip, deflate, br',
     'Accept-Language': 'en-US',
@@ -65,5 +68,6 @@ JSPATHS = {
 }
 
 REGEXES = {
-    'rhx_gis': '(?i)"rhx_gis"\s*:\s*"([a-f0-9]+)"',
+    'rhx_gis': re.compile('(?i)"rhx_gis"\s*:\s*"(?P<rhx_gis>[a-f0-9]+)"'),
+    'csrftoken': re.compile('(?i)"csrf_token"\s*:\s*"(?P<csrftoken>\w+?)"'),
 }
